@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e6d9bd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c2a22" media="(prefers-color-scheme: dark)">
+<title>ภูมิศาสตร์ · สมุดบทเรียนหลัก ป.5 แนววอลดอร์ฟ</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .region-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:14px;
+  }
+  .region{
+    border:1px solid var(--card-edge);
+    border-top:5px solid var(--c, var(--blue));
+    border-radius:12px;
+    background:color-mix(in srgb, var(--c, var(--blue)) 6%, var(--card));
+    padding:16px 18px;
+  }
+  .region h3{
+    font-family:var(--font-display); font-style:italic; font-size:19px;
+    color:var(--c, var(--blue)); margin:0 0 4px;
+  }
+  .region .r-tag{
+    font-size:12px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:8px; font-weight:700;
+  }
+  .region p{font-size:14px; margin-bottom:8px;}
+  .region .r-prov{font-size:13px; color:var(--ink-soft);}
+  .region .r-prov b{color:var(--ink);}
+
+  .river-row{
+    display:flex; align-items:center; gap:0; flex-wrap:wrap;
+    justify-content:center; margin:10px 0 4px;
+  }
+  .river-chip{
+    font-weight:700; font-size:14.5px;
+    background:color-mix(in srgb, var(--blue) 16%, var(--card));
+    border:1px solid var(--card-edge);
+    border-radius:10px; padding:9px 14px;
+  }
+  .river-arrow{color:var(--ink-soft); font-size:18px; padding:0 8px;}
+</style>
+</head>
+<body>
+<div class="page" style="--page-accent:var(--blue)">
+  <div class="wrap">
+
+    <div class="cover">
+      <p class="eyebrow">สมุดบทเรียนหลัก · การศึกษาแนววอลดอร์ฟ · ป.5</p>
+      <h1>ภูมิศาสตร์</h1>
+      <p class="sub">จากดอยสูงทางเหนือ สู่ทะเลสองฝั่งทางใต้ — ทำความรู้จักแผ่นดินไทยทั้งหกภูมิภาค และสายน้ำที่หล่อเลี้ยงเรา</p>
+      <div class="rule"></div>
+    </div>
+
+    <nav class="site-nav" aria-label="วิชา">
+      <a href="index.html" style="--s:var(--ink-soft)"><span class="dot"></span>หน้าหลัก</a>
+      <a href="math.html" style="--s:var(--red)"><span class="dot"></span>คณิตศาสตร์</a>
+      <a href="thai.html" style="--s:var(--plum)"><span class="dot"></span>ภาษาไทย</a>
+      <a href="botany.html" style="--s:var(--leaf)"><span class="dot"></span>พฤกษศาสตร์</a>
+      <a href="history.html" style="--s:var(--gold)"><span class="dot"></span>อารยธรรมโบราณ</a>
+      <a href="geography.html" style="--s:var(--blue)" aria-current="page"><span class="dot"></span>ภูมิศาสตร์</a>
+    </nav>
+
+    <nav class="tabs" role="tablist" aria-label="บทเรียน">
+      <button role="tab" data-target="regions" style="--tab-accent:var(--blue)" aria-selected="true">หกภูมิภาค</button>
+      <button role="tab" data-target="rivers" style="--tab-accent:var(--leaf)" aria-selected="false">สายน้ำและขุนเขา</button>
+      <button role="tab" data-target="quiz" style="--tab-accent:var(--red)" aria-selected="false">เกมจังหวัดของเรา</button>
+    </nav>
+
+    <!-- ============ REGIONS ============ -->
+    <section class="lesson active" id="regions">
+      <div class="card" style="--card-accent:var(--blue)">
+        <h2>หกภูมิภาคของประเทศไทย</h2>
+        <p class="lead">แผ่นดินไทยแบ่งเป็น 6 ภูมิภาคตามลักษณะภูมิประเทศ แต่ละภาคมีธรรมชาติ อาหาร และวิถีชีวิตเป็นของตัวเอง</p>
+
+        <div class="region-grid">
+          <div class="region" style="--c:var(--leaf)">
+            <h3>ภาคเหนือ</h3>
+            <div class="r-tag">ภูเขาสูงและหุบเขา</div>
+            <p>เต็มไปด้วยดอยสูงสลับหุบเขา อากาศเย็นสบาย เป็นต้นกำเนิดแม่น้ำปิง วัง ยม น่าน มีดอยอินทนนท์ยอดเขาสูงสุดของประเทศ (2,565 เมตร)</p>
+            <p class="r-prov"><b>จังหวัดสำคัญ:</b> เชียงใหม่ เชียงราย น่าน แม่ฮ่องสอน ลำปาง</p>
+          </div>
+          <div class="region" style="--c:var(--gold)">
+            <h3>ภาคตะวันออกเฉียงเหนือ (อีสาน)</h3>
+            <div class="r-tag">ที่ราบสูงโคราช</div>
+            <p>ภูมิภาคที่ใหญ่ที่สุด เป็นที่ราบสูงมีแม่น้ำโขงไหลเลียบพรมแดน แม่น้ำมูลและชีหล่อเลี้ยงท้องนา ดินแดนแห่งข้าวเหนียว หมอลำ และปลาร้า</p>
+            <p class="r-prov"><b>จังหวัดสำคัญ:</b> ขอนแก่น อุบลราชธานี อุดรธานี นครราชสีมา</p>
+          </div>
+          <div class="region" style="--c:var(--red)">
+            <h3>ภาคกลาง</h3>
+            <div class="r-tag">ที่ราบลุ่มแม่น้ำเจ้าพระยา</div>
+            <p>อู่ข้าวอู่น้ำของประเทศ ที่ราบกว้างใหญ่อุดมสมบูรณ์จากแม่น้ำเจ้าพระยา เป็นที่ตั้งของกรุงเทพมหานครและราชธานีเก่าอย่างอยุธยาและสุโขทัย</p>
+            <p class="r-prov"><b>จังหวัดสำคัญ:</b> กรุงเทพฯ พระนครศรีอยุธยา สุพรรณบุรี นครปฐม</p>
+          </div>
+          <div class="region" style="--c:var(--plum)">
+            <h3>ภาคตะวันออก</h3>
+            <div class="r-tag">ชายฝั่งทะเลและสวนผลไม้</div>
+            <p>ชายหาดสวยงามริมอ่าวไทย และสวนผลไม้เลื่องชื่อ — ทุเรียน เงาะ มังคุด จากจันทบุรีและระยองส่งไปทั่วโลก</p>
+            <p class="r-prov"><b>จังหวัดสำคัญ:</b> ชลบุรี ระยอง จันทบุรี ตราด</p>
+          </div>
+          <div class="region" style="--c:var(--ink-soft)">
+            <h3>ภาคตะวันตก</h3>
+            <div class="r-tag">ภูเขา ป่า และสายน้ำ</div>
+            <p>แนวเทือกเขาตะนาวศรีกั้นพรมแดนไทย–เมียนมา มีป่าใหญ่ เขื่อนสำคัญ และแม่น้ำแควที่ไหลรวมเป็นแม่น้ำแม่กลอง</p>
+            <p class="r-prov"><b>จังหวัดสำคัญ:</b> กาญจนบุรี ราชบุรี เพชรบุรี ประจวบคีรีขันธ์</p>
+          </div>
+          <div class="region" style="--c:var(--blue)">
+            <h3>ภาคใต้</h3>
+            <div class="r-tag">คาบสมุทรทะเลสองฝั่ง</div>
+            <p>แผ่นดินแคบยาวขนาบด้วยทะเลอ่าวไทยและอันดามัน ฝนตกชุกทั้งปี เหมาะกับสวนยางพาราและปาล์มน้ำมัน มีเกาะงดงามระดับโลก</p>
+            <p class="r-prov"><b>จังหวัดสำคัญ:</b> ภูเก็ต สงขลา สุราษฎร์ธานี นครศรีธรรมราช</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RIVERS ============ -->
+    <section class="lesson" id="rivers">
+      <div class="card" style="--card-accent:var(--leaf)">
+        <h2>สายน้ำและขุนเขา</h2>
+        <p class="lead">แม่น้ำคือเส้นเลือดของแผ่นดิน — ชาวไทยตั้งบ้านเรือน ปลูกข้าว และค้าขายริมสายน้ำมาแต่โบราณ</p>
+
+        <h3>กำเนิดแม่น้ำเจ้าพระยา</h3>
+        <p style="font-size:14.5px; margin-bottom:6px;">แม่น้ำสี่สายจากภาคเหนือไหลลงมารวมกันเป็นสองสาย แล้วบรรจบกันที่ปากน้ำโพ จังหวัดนครสวรรค์:</p>
+        <div class="river-row">
+          <span class="river-chip">ปิง + วัง</span>
+          <span class="river-arrow">→</span>
+          <span class="river-chip">ปิง</span>
+        </div>
+        <div class="river-row">
+          <span class="river-chip">ยม + น่าน</span>
+          <span class="river-arrow">→</span>
+          <span class="river-chip">น่าน</span>
+        </div>
+        <div class="river-row">
+          <span class="river-chip">ปิง + น่าน (ที่นครสวรรค์)</span>
+          <span class="river-arrow">→</span>
+          <span class="river-chip" style="background:color-mix(in srgb, var(--blue) 30%, var(--card));">แม่น้ำเจ้าพระยา</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--leaf)">
+            <h4>แม่น้ำสำคัญอื่น ๆ</h4>
+            <ul>
+              <li><b>แม่น้ำโขง</b> — กั้นพรมแดนไทย–ลาว ยาวที่สุดในเอเชียตะวันออกเฉียงใต้</li>
+              <li><b>แม่น้ำมูลและชี</b> — หล่อเลี้ยงท้องนาภาคอีสาน</li>
+              <li><b>แม่น้ำแม่กลอง</b> — เกิดจากแควน้อยรวมแควใหญ่ที่กาญจนบุรี</li>
+              <li><b>แม่น้ำตาปี</b> — สายน้ำใหญ่ที่สุดของภาคใต้</li>
+            </ul>
+          </div>
+          <div class="know" style="--card-accent:var(--leaf)">
+            <h4>ขุนเขาของไทย</h4>
+            <ul>
+              <li><b>ดอยอินทนนท์</b> (เชียงใหม่) — ยอดสูงสุดของไทย 2,565 เมตร</li>
+              <li><b>เทือกเขาถนนธงชัย–ตะนาวศรี</b> — กำแพงฝั่งตะวันตก</li>
+              <li><b>เทือกเขาเพชรบูรณ์–ดงพญาเย็น</b> — กั้นภาคกลางกับอีสาน</li>
+              <li><b>เขาหลวง</b> (นครศรีธรรมราช) — ยอดสูงสุดของภาคใต้</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ QUIZ ============ -->
+    <section class="lesson" id="quiz">
+      <div class="card" style="--card-accent:var(--red)">
+        <h2>จังหวัดนี้อยู่ภาคไหน?</h2>
+        <p class="lead">ทายให้ถูกว่าแต่ละจังหวัดอยู่ภูมิภาคใดของประเทศไทย</p>
+        <div id="provinceQuiz"></div>
+
+        <div class="divider"></div>
+
+        <h3>คำถามสายน้ำและขุนเขา</h3>
+        <div id="riverQuiz"></div>
+      </div>
+    </section>
+
+    <footer>สมุดบทเรียนหลัก · ภูมิศาสตร์ ชั้นประถมศึกษาปีที่ 5 · แนวการศึกษาวอลดอร์ฟ</footer>
+  </div>
+</div>
+
+<script src="assets/quiz.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var tabButtons = document.querySelectorAll("nav.tabs button");
+  var sections = document.querySelectorAll("section.lesson");
+  tabButtons.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      tabButtons.forEach(function(b){ b.setAttribute("aria-selected","false"); });
+      sections.forEach(function(s){ s.classList.remove("active"); });
+      btn.setAttribute("aria-selected","true");
+      document.getElementById(btn.dataset.target).classList.add("active");
+    });
+  });
+
+  makeQuiz(document.getElementById("provinceQuiz"), {
+    fixedChoices: ["เหนือ","ตะวันออกเฉียงเหนือ","กลาง","ตะวันออก","ตะวันตก","ใต้"],
+    items: [
+      {prompt:"เชียงใหม่ — เมืองแห่งดอยสุเทพ", answer:"เหนือ"},
+      {prompt:"ขอนแก่น — เมืองใหญ่กลางที่ราบสูง", answer:"ตะวันออกเฉียงเหนือ"},
+      {prompt:"ภูเก็ต — ไข่มุกแห่งอันดามัน", answer:"ใต้"},
+      {prompt:"ชลบุรี — เมืองชายทะเลใกล้กรุงเทพฯ", answer:"ตะวันออก"},
+      {prompt:"กาญจนบุรี — เมืองแห่งสะพานข้ามแม่น้ำแคว", answer:"ตะวันตก"},
+      {prompt:"พระนครศรีอยุธยา — ราชธานีเก่า 417 ปี", answer:"กลาง"},
+      {prompt:"อุบลราชธานี — เมืองริมแม่น้ำมูล", answer:"ตะวันออกเฉียงเหนือ"},
+      {prompt:"สุราษฎร์ธานี — เมืองร้อยเกาะ", answer:"ใต้"},
+      {prompt:"เชียงราย — เหนือสุดแดนสยาม", answer:"เหนือ"},
+      {prompt:"จันทบุรี — เมืองแห่งทุเรียนและพลอย", answer:"ตะวันออก"},
+      {prompt:"นครปฐม — เมืองพระปฐมเจดีย์", answer:"กลาง"},
+      {prompt:"เพชรบุรี — เมืองขนมหวานเชิงเขาตะนาวศรี", answer:"ตะวันตก"}
+    ]
+  });
+
+  makeQuiz(document.getElementById("riverQuiz"), {
+    items: [
+      {prompt:"แม่น้ำเจ้าพระยาเกิดจากแม่น้ำปิงและน่านไหลมารวมกันที่จังหวัดใด?",
+       choices:["นครสวรรค์","อยุธยา","ชัยนาท"], answer:"นครสวรรค์",
+       explain:"บริเวณปากน้ำโพ จึงเรียกกันว่า 'ต้นแม่น้ำเจ้าพระยา'"},
+      {prompt:"แม่น้ำสายใดกั้นพรมแดนระหว่างไทยกับลาว?",
+       choices:["แม่น้ำโขง","แม่น้ำมูล","แม่น้ำน่าน"], answer:"แม่น้ำโขง"},
+      {prompt:"ยอดเขาที่สูงที่สุดในประเทศไทยคือ?",
+       choices:["ดอยอินทนนท์","ดอยสุเทพ","เขาหลวง"], answer:"ดอยอินทนนท์",
+       explain:"สูง 2,565 เมตร อยู่ที่จังหวัดเชียงใหม่"},
+      {prompt:"แม่น้ำมูลและแม่น้ำชีหล่อเลี้ยงภูมิภาคใด?",
+       choices:["ตะวันออกเฉียงเหนือ","ภาคกลาง","ภาคใต้"], answer:"ตะวันออกเฉียงเหนือ"},
+      {prompt:"ภูมิภาคใดมีทะเลขนาบทั้งสองฝั่ง?",
+       choices:["ภาคใต้","ภาคตะวันออก","ภาคกลาง"], answer:"ภาคใต้",
+       explain:"ฝั่งตะวันออกคืออ่าวไทย ฝั่งตะวันตกคือทะเลอันดามัน"}
+    ]
+  });
+})();
+</script>
+</body>
+</html>

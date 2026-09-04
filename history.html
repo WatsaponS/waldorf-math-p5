@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e6d9bd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c2a22" media="(prefers-color-scheme: dark)">
+<title>อารยธรรมโบราณ · สมุดบทเรียนหลัก ป.5 แนววอลดอร์ฟ</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  /* timeline */
+  .timeline{
+    position:relative;
+    padding:26px 0 10px;
+    overflow-x:auto;
+  }
+  .timeline-track{
+    position:relative;
+    min-width:640px;
+    height:4px; border-radius:4px;
+    background:linear-gradient(90deg, var(--gold), var(--red));
+    margin:40px 12px 56px;
+  }
+  .timeline-node{
+    position:absolute; top:50%;
+    transform:translate(-50%,-50%);
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    background:none; border:none; cursor:pointer; padding:8px;
+  }
+  .timeline-node .tick{
+    width:16px; height:16px; border-radius:50%;
+    background:var(--c, var(--gold));
+    border:3px solid var(--card);
+    box-shadow:0 2px 6px var(--shadow);
+  }
+  .timeline-node .t-name{
+    position:absolute; top:-34px; white-space:nowrap;
+    font-weight:700; font-size:13.5px; color:var(--ink);
+  }
+  .timeline-node .t-year{
+    position:absolute; top:22px; white-space:nowrap;
+    font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums;
+  }
+  .timeline-node:focus-visible{outline:2px solid var(--blue); border-radius:8px;}
+
+  /* civilization accordion */
+  .civ{
+    border:1px solid var(--card-edge);
+    border-left:5px solid var(--c, var(--gold));
+    border-radius:12px;
+    margin-bottom:12px;
+    background:color-mix(in srgb, var(--c, var(--gold)) 5%, var(--card));
+    overflow:hidden;
+  }
+  .civ > button{
+    width:100%; text-align:left; background:none; border:none;
+    padding:16px 18px; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+  }
+  .civ > button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px;}
+  .civ .c-title{
+    font-family:var(--font-display); font-style:italic; font-size:20px;
+    color:var(--c, var(--gold));
+  }
+  .civ .c-era{font-size:13px; color:var(--ink-soft); font-variant-numeric:tabular-nums;}
+  .civ .c-arrow{font-size:18px; color:var(--ink-soft); transition:transform .2s ease;}
+  .civ.open .c-arrow{transform:rotate(180deg);}
+  .civ .c-body{display:none; padding:0 18px 18px;}
+  .civ.open .c-body{display:block;}
+  .civ .c-body p{font-size:14.5px; margin-bottom:10px;}
+  .civ .c-facts{display:flex; flex-wrap:wrap; gap:8px;}
+  .civ .c-fact{
+    font-size:13px; font-weight:700;
+    background:color-mix(in srgb, var(--c, var(--gold)) 15%, var(--card));
+    border:1px solid var(--card-edge);
+    border-radius:999px; padding:6px 12px;
+  }
+</style>
+</head>
+<body>
+<div class="page" style="--page-accent:var(--gold)">
+  <div class="wrap">
+
+    <div class="cover">
+      <p class="eyebrow">สมุดบทเรียนหลัก · การศึกษาแนววอลดอร์ฟ · ป.5</p>
+      <h1>อารยธรรมโบราณ</h1>
+      <p class="sub">การเดินทางของมนุษยชาติผ่านห้าอารยธรรมยิ่งใหญ่ — จากลุ่มแม่น้ำสินธุ สู่วิหารพาร์เธนอนแห่งกรีซ</p>
+      <div class="rule"></div>
+    </div>
+
+    <nav class="site-nav" aria-label="วิชา">
+      <a href="index.html" style="--s:var(--ink-soft)"><span class="dot"></span>หน้าหลัก</a>
+      <a href="math.html" style="--s:var(--red)"><span class="dot"></span>คณิตศาสตร์</a>
+      <a href="thai.html" style="--s:var(--plum)"><span class="dot"></span>ภาษาไทย</a>
+      <a href="botany.html" style="--s:var(--leaf)"><span class="dot"></span>พฤกษศาสตร์</a>
+      <a href="history.html" style="--s:var(--gold)" aria-current="page"><span class="dot"></span>อารยธรรมโบราณ</a>
+      <a href="geography.html" style="--s:var(--blue)"><span class="dot"></span>ภูมิศาสตร์</a>
+    </nav>
+
+    <nav class="tabs" role="tablist" aria-label="บทเรียน">
+      <button role="tab" data-target="story" style="--tab-accent:var(--gold)" aria-selected="true">ห้าอารยธรรม</button>
+      <button role="tab" data-target="quiz" style="--tab-accent:var(--red)" aria-selected="false">เกมจับคู่ความรู้</button>
+    </nav>
+
+    <!-- ============ STORY ============ -->
+    <section class="lesson active" id="story">
+      <div class="card" style="--card-accent:var(--gold)">
+        <h2>เส้นเวลาแห่งอารยธรรม</h2>
+        <p class="lead">แตะจุดบนเส้นเวลาหรือแถบด้านล่างเพื่อเปิดอ่านเรื่องราวของแต่ละอารยธรรม — ทุกแห่งล้วนเกิดริมแม่น้ำใหญ่ที่หล่อเลี้ยงผู้คน</p>
+
+        <div class="timeline">
+          <div class="timeline-track" id="timelineTrack"></div>
+        </div>
+
+        <div id="civList"></div>
+      </div>
+    </section>
+
+    <!-- ============ QUIZ ============ -->
+    <section class="lesson" id="quiz">
+      <div class="card" style="--card-accent:var(--red)">
+        <h2>ผลงานนี้เป็นของอารยธรรมใด?</h2>
+        <p class="lead">อ่านผลงานหรือสิ่งประดิษฐ์ แล้วทายว่าเป็นของอารยธรรมไหน</p>
+        <div id="civQuiz"></div>
+      </div>
+    </section>
+
+    <footer>สมุดบทเรียนหลัก · อารยธรรมโบราณ ชั้นประถมศึกษาปีที่ 5 · แนวการศึกษาวอลดอร์ฟ</footer>
+  </div>
+</div>
+
+<script src="assets/quiz.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var tabButtons = document.querySelectorAll("nav.tabs button");
+  var sections = document.querySelectorAll("section.lesson");
+  tabButtons.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      tabButtons.forEach(function(b){ b.setAttribute("aria-selected","false"); });
+      sections.forEach(function(s){ s.classList.remove("active"); });
+      btn.setAttribute("aria-selected","true");
+      document.getElementById(btn.dataset.target).classList.add("active");
+    });
+  });
+
+  var civs = [
+    {
+      id:"meso", name:"เมโสโปเตเมีย", era:"ราว 3,500 ปีก่อน ค.ศ.", pos:8, color:"var(--gold)",
+      river:"ลุ่มแม่น้ำไทกริส–ยูเฟรทีส (อิรักปัจจุบัน)",
+      story:"ดินแดนระหว่างแม่น้ำสองสาย ที่ซึ่งมนุษย์เริ่มตั้งเมืองเป็นครั้งแรก ชาวสุเมเรียนประดิษฐ์อักษรคูนิฟอร์มโดยกดปลายไม้ลงบนแผ่นดินเหนียว สร้างซิกกูแรตสูงตระหง่านเพื่อบูชาเทพเจ้า และพระเจ้าฮัมมูราบีทรงตราประมวลกฎหมายเป็นลายลักษณ์อักษรฉบับแรก ๆ ของโลก",
+      facts:["อักษรคูนิฟอร์ม","ล้อ","ระบบเลขฐาน 60 (นาที/วินาที)","ซิกกูแรต","กฎหมายฮัมมูราบี"]
+    },
+    {
+      id:"egypt", name:"อียิปต์", era:"ราว 3,100 ปีก่อน ค.ศ.", pos:22, color:"var(--red)",
+      river:"ลุ่มแม่น้ำไนล์",
+      story:"ทุกปีแม่น้ำไนล์จะท่วมฝั่งและทิ้งดินดำอุดมสมบูรณ์ไว้ ชาวอียิปต์จึงเรียกแผ่นดินของตนว่า 'ของขวัญจากแม่น้ำไนล์' พวกเขาสร้างพีระมิดเป็นสุสานของฟาโรห์ เขียนอักษรภาพไฮโรกลิฟิกบนกระดาษปาปิรุส และเฝ้าดูดวงดาวจนคิดค้นปฏิทิน 365 วัน",
+      facts:["พีระมิด","ไฮโรกลิฟิก","ปฏิทิน 365 วัน","กระดาษปาปิรุส","การชลประทาน"]
+    },
+    {
+      id:"india", name:"อินเดียโบราณ", era:"ราว 2,600 ปีก่อน ค.ศ.", pos:38, color:"var(--plum)",
+      river:"ลุ่มแม่น้ำสินธุ",
+      story:"เมืองโมเฮนโจ-ดาโรและฮารัปปามีถนนตัดกันเป็นตาราง มีท่อระบายน้ำใต้ดิน — ผังเมืองล้ำสมัยที่สุดในยุคนั้น ต่อมาชาวอินเดียแต่งคัมภีร์พระเวท และเป็นต้นกำเนิดของตัวเลขที่เราใช้ทุกวันนี้ รวมทั้งเลขศูนย์อันยิ่งใหญ่ อินเดียยังเป็นแผ่นดินเกิดของพระพุทธเจ้า",
+      facts:["ผังเมืองและท่อระบายน้ำ","ตัวเลขและเลขศูนย์","คัมภีร์พระเวท","พุทธศาสนา","ผ้าฝ้าย"]
+    },
+    {
+      id:"persia", name:"เปอร์เซีย", era:"ราว 550 ปีก่อน ค.ศ.", pos:72, color:"var(--blue)",
+      river:"ที่ราบสูงอิหร่าน",
+      story:"จักรวรรดิที่กว้างใหญ่ที่สุดในยุคโบราณ พระเจ้าไซรัสมหาราชทรงปกครองด้วยความเมตตา ให้เสรีภาพในการนับถือศาสนา ชาวเปอร์เซียสร้างถนนหลวงยาวกว่า 2,500 กิโลเมตรพร้อมม้าเร็วส่งสาร และขุดคลองใต้ดิน 'คานาต' นำน้ำจากภูเขาข้ามทะเลทรายมาปลูกสวนอันงดงาม",
+      facts:["ถนนหลวงและม้าเร็วส่งสาร","คลองใต้ดินคานาต","สวนเปอร์เซีย","ศาสนาโซโรอัสเตอร์","การปกครองแบบเมตตา"]
+    },
+    {
+      id:"greece", name:"กรีซ", era:"ราว 800 ปีก่อน ค.ศ.", pos:90, color:"var(--leaf)",
+      river:"คาบสมุทรและหมู่เกาะทะเลอีเจียน",
+      story:"ชาวกรีกตั้งคำถามกับทุกสิ่ง — โสกราตีสสอนให้คิดด้วยการถาม เพลโตและอาริสโตเติลวางรากฐานปรัชญา ชาวเอเธนส์ทดลองให้พลเมืองปกครองกันเองเป็น 'ประชาธิปไตย' ครั้งแรกของโลก และทุกสี่ปีนักกีฬาจากทุกนครรัฐจะวางอาวุธมาแข่งขันโอลิมปิกที่โอลิมเปีย",
+      facts:["ประชาธิปไตย","กีฬาโอลิมปิก","ปรัชญา (โสกราตีส)","เรขาคณิต (พีทาโกรัส)","มหากาพย์โฮเมอร์"]
+    }
+  ];
+
+  /* timeline */
+  var track = document.getElementById("timelineTrack");
+  civs.forEach(function(c){
+    var node = document.createElement("button");
+    node.className = "timeline-node";
+    node.style.left = c.pos + "%";
+    node.style.setProperty("--c", c.color);
+    node.setAttribute("aria-label", c.name + " " + c.era);
+    node.innerHTML = "<span class='t-name'>" + c.name + "</span><span class='tick'></span><span class='t-year'>" + c.era + "</span>";
+    node.addEventListener("click", function(){
+      openCiv(c.id, true);
+    });
+    track.appendChild(node);
+  });
+
+  /* accordion */
+  var list = document.getElementById("civList");
+  civs.forEach(function(c){
+    var d = document.createElement("div");
+    d.className = "civ";
+    d.id = "civ-" + c.id;
+    d.style.setProperty("--c", c.color);
+    d.innerHTML =
+      "<button aria-expanded='false'>" +
+        "<span><span class='c-title'>" + c.name + "</span><br><span class='c-era'>" + c.era + " · " + c.river + "</span></span>" +
+        "<span class='c-arrow'>▾</span>" +
+      "</button>" +
+      "<div class='c-body'>" +
+        "<p>" + c.story + "</p>" +
+        "<div class='c-facts'>" + c.facts.map(function(f){ return "<span class='c-fact'>" + f + "</span>"; }).join("") + "</div>" +
+      "</div>";
+    d.querySelector("button").addEventListener("click", function(){
+      var open = d.classList.toggle("open");
+      d.querySelector("button").setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    list.appendChild(d);
+  });
+
+  function openCiv(id, scroll){
+    var d = document.getElementById("civ-" + id);
+    if(!d.classList.contains("open")){
+      d.classList.add("open");
+      d.querySelector("button").setAttribute("aria-expanded","true");
+    }
+    if(scroll) d.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+
+  /* quiz */
+  makeQuiz(document.getElementById("civQuiz"), {
+    fixedChoices: ["เมโสโปเตเมีย","อียิปต์","อินเดียโบราณ","เปอร์เซีย","กรีซ"],
+    items: [
+      {prompt:"ประดิษฐ์อักษรคูนิฟอร์มบนแผ่นดินเหนียว และคิดค้นล้อ", answer:"เมโสโปเตเมีย"},
+      {prompt:"สร้างพีระมิดเป็นสุสานของฟาโรห์ริมแม่น้ำไนล์", answer:"อียิปต์"},
+      {prompt:"ต้นกำเนิดของตัวเลขและเลขศูนย์ที่โลกใช้ทุกวันนี้", answer:"อินเดียโบราณ"},
+      {prompt:"จุดเริ่มต้นของประชาธิปไตยและกีฬาโอลิมปิก", answer:"กรีซ"},
+      {prompt:"สร้างถนนหลวงยาว 2,500 กม. และคลองใต้ดินข้ามทะเลทราย", answer:"เปอร์เซีย"},
+      {prompt:"พระเจ้าฮัมมูราบีตราประมวลกฎหมายลายลักษณ์อักษร", answer:"เมโสโปเตเมีย"},
+      {prompt:"เฝ้าดูดาวจนคิดค้นปฏิทิน 365 วัน และเขียนบนกระดาษปาปิรุส", answer:"อียิปต์"},
+      {prompt:"นักปรัชญาโสกราตีสสอนให้คิดด้วยการตั้งคำถาม", answer:"กรีซ"},
+      {prompt:"เมืองโมเฮนโจ-ดาโรมีผังเมืองตารางและท่อระบายน้ำใต้ดิน", answer:"อินเดียโบราณ"},
+      {prompt:"ระบบเลขฐาน 60 ที่กลายมาเป็นนาทีและวินาทีบนนาฬิกา", answer:"เมโสโปเตเมีย"}
+    ]
+  });
+})();
+</script>
+</body>
+</html>

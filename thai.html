@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e6d9bd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c2a22" media="(prefers-color-scheme: dark)">
+<title>ภาษาไทย · สมุดบทเรียนหลัก ป.5 แนววอลดอร์ฟ</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .story{
+    font-size:15.5px; line-height:1.9; max-width:65ch;
+  }
+  .story p{margin-bottom:14px; text-indent:2.5em;}
+  .word-chip{
+    display:inline-block; padding:2px 8px; border-radius:6px;
+    background:color-mix(in srgb, var(--plum) 14%, var(--card));
+    font-weight:700;
+  }
+</style>
+</head>
+<body>
+<div class="page" style="--page-accent:var(--plum)">
+  <div class="wrap">
+
+    <div class="cover">
+      <p class="eyebrow">สมุดบทเรียนหลัก · การศึกษาแนววอลดอร์ฟ · ป.5</p>
+      <h1>ภาษาไทย</h1>
+      <p class="sub">ภาษาคือเสียงของหัวใจ — เรียนรู้ชนิดของคำ สำนวนสุภาษิต และวรรณคดีไทย ผ่านเรื่องเล่าและบทเพลงของถ้อยคำ</p>
+      <div class="rule"></div>
+    </div>
+
+    <nav class="site-nav" aria-label="วิชา">
+      <a href="index.html" style="--s:var(--ink-soft)"><span class="dot"></span>หน้าหลัก</a>
+      <a href="math.html" style="--s:var(--red)"><span class="dot"></span>คณิตศาสตร์</a>
+      <a href="thai.html" style="--s:var(--plum)" aria-current="page"><span class="dot"></span>ภาษาไทย</a>
+      <a href="botany.html" style="--s:var(--leaf)"><span class="dot"></span>พฤกษศาสตร์</a>
+      <a href="history.html" style="--s:var(--gold)"><span class="dot"></span>อารยธรรมโบราณ</a>
+      <a href="geography.html" style="--s:var(--blue)"><span class="dot"></span>ภูมิศาสตร์</a>
+    </nav>
+
+    <nav class="tabs" role="tablist" aria-label="บทเรียน">
+      <button role="tab" data-target="words" style="--tab-accent:var(--plum)" aria-selected="true">ชนิดของคำ</button>
+      <button role="tab" data-target="proverbs" style="--tab-accent:var(--gold)" aria-selected="false">สำนวนสุภาษิต</button>
+      <button role="tab" data-target="literature" style="--tab-accent:var(--red)" aria-selected="false">วรรณคดี: สังข์ทอง</button>
+      <button role="tab" data-target="writing" style="--tab-accent:var(--leaf)" aria-selected="false">การเขียน</button>
+    </nav>
+
+    <!-- ============ WORDS ============ -->
+    <section class="lesson active" id="words">
+      <div class="card" style="--card-accent:var(--plum)">
+        <h2>ชนิดของคำทั้งเจ็ด</h2>
+        <p class="lead">คำในภาษาไทยแบ่งเป็น 7 ชนิด แต่ละชนิดมีหน้าที่ของตัวเองในประโยค เหมือนนักดนตรีแต่ละคนในวงดนตรี</p>
+
+        <div class="know-grid">
+          <div class="know"><h4>คำนาม</h4><p>ชื่อเรียกคน สัตว์ สิ่งของ สถานที่ เช่น <b>แม่น้ำ ครู ช้าง โรงเรียน</b></p></div>
+          <div class="know"><h4>คำสรรพนาม</h4><p>คำที่ใช้แทนคำนาม เช่น <b>ฉัน เธอ เรา ท่าน มัน</b></p></div>
+          <div class="know"><h4>คำกริยา</h4><p>คำแสดงอาการหรือการกระทำ เช่น <b>วิ่ง อ่าน กิน นอน คิด</b></p></div>
+          <div class="know"><h4>คำวิเศษณ์</h4><p>คำขยายให้ชัดเจนขึ้น เช่น <b>สวย เร็ว สูง เบา ๆ</b></p></div>
+          <div class="know"><h4>คำบุพบท</h4><p>คำบอกตำแหน่งความสัมพันธ์ เช่น <b>ใน บน ใต้ ของ จาก</b></p></div>
+          <div class="know"><h4>คำสันธาน</h4><p>คำเชื่อมประโยค เช่น <b>และ แต่ หรือ เพราะว่า</b></p></div>
+          <div class="know"><h4>คำอุทาน</h4><p>คำแสดงอารมณ์ความรู้สึก เช่น <b>โอ้โฮ อุ๊ย เฮ้อ ว้าว</b></p></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>เกมจำแนกคำ — คำนี้เป็นคำชนิดใด?</h3>
+        <div id="wordQuiz"></div>
+      </div>
+    </section>
+
+    <!-- ============ PROVERBS ============ -->
+    <section class="lesson" id="proverbs">
+      <div class="card" style="--card-accent:var(--gold)">
+        <h2>สำนวน สุภาษิต คำพังเพย</h2>
+        <p class="lead">ภูมิปัญญาของคนไทยที่ซ่อนอยู่ในถ้อยคำสั้น ๆ — เปรียบเปรยจากธรรมชาติและชีวิตประจำวัน อ่านความหมายแล้วลองทายดู</p>
+
+        <div class="know">
+          <h4>รู้ไว้ก่อนเล่น</h4>
+          <ul>
+            <li><b>สุภาษิต</b> — คำสอนใจ เช่น น้ำขึ้นให้รีบตัก</li>
+            <li><b>คำพังเพย</b> — เปรียบเทียบเหตุการณ์ เช่น กระต่ายตื่นตูม</li>
+            <li><b>สำนวน</b> — ถ้อยคำที่มีความหมายไม่ตรงตัวอักษร เช่น ปากหวาน</li>
+          </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>เกมทายความหมาย</h3>
+        <div id="proverbQuiz"></div>
+      </div>
+    </section>
+
+    <!-- ============ LITERATURE ============ -->
+    <section class="lesson" id="literature">
+      <div class="card" style="--card-accent:var(--red)">
+        <h2>สังข์ทอง ตอน กำเนิดพระสังข์</h2>
+        <p class="lead">วรรณคดีไทยจากบทละครนอกพระราชนิพนธ์ในรัชกาลที่ 2 — นิทานที่สอนว่าคุณค่าของคนไม่ได้อยู่ที่รูปกายภายนอก</p>
+
+        <div class="story">
+          <p>ท้าวยศวิมลมีมเหสีชื่อนางจันท์เทวี วันหนึ่งนางประสูติพระโอรสออกมาเป็นหอยสังข์ พระมเหสีรองชื่อนางจันทาไม่พอใจ จึงใส่ร้ายว่านางจันท์เทวีเป็นกาลกิณี ท้าวยศวิมลหลงเชื่อ จึงขับนางจันท์เทวีกับหอยสังข์ออกจากเมือง</p>
+          <p>นางจันท์เทวีไปอาศัยอยู่กับตายายชาวไร่ ทุกวันเมื่อนางออกไปทำงาน พระสังข์ซึ่งซ่อนอยู่ในหอยจะแอบออกมาช่วยหุงหาอาหารและปัดกวาดบ้านเรือน วันหนึ่งนางแอบดูจึงรู้ความจริง แล้วทุบหอยสังข์เสีย พระสังข์จึงต้องอยู่ในร่างมนุษย์ตั้งแต่นั้นมา</p>
+          <p>ต่อมาพระสังข์ถูกจับถ่วงน้ำ แต่ท้าวภุชงค์พญานาคช่วยไว้ แล้วส่งไปให้นางพันธุรัตยักษิณีเลี้ยงเป็นบุตรบุญธรรม เมื่อพระสังข์โตขึ้นได้แอบไปพบบ่อเงินบ่อทอง รูปเงาะ เกือกแก้ว และไม้เท้าวิเศษ จึงชุบตัวในบ่อทอง สวมรูปเงาะ แล้วเหาะหนีไป นางพันธุรัตตามมาไม่ทัน เสียใจจนอกแตกตาย แต่ก่อนตายได้เขียนมนต์มหาจินดาเรียกเนื้อเรียกปลาไว้ให้พระสังข์</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>คำถามชวนคิดจากเรื่อง</h3>
+        <div id="litQuiz"></div>
+
+        <div class="divider"></div>
+
+        <div class="know" style="--card-accent:var(--red)">
+          <h4>ข้อคิดจากเรื่อง</h4>
+          <ul>
+            <li>อย่าตัดสินคนจากรูปลักษณ์ภายนอก — พระสังข์ในรูปเงาะยังคงมีจิตใจงดงาม</li>
+            <li>ความรักของแม่ยิ่งใหญ่ — นางจันท์เทวีดูแลลูกแม้ถูกขับจากเมือง</li>
+            <li>การหลงเชื่อคำยุยงโดยไม่ไตร่ตรองนำมาซึ่งความทุกข์</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WRITING ============ -->
+    <section class="lesson" id="writing">
+      <div class="card" style="--card-accent:var(--leaf)">
+        <h2>การเขียนเรียงความ</h2>
+        <p class="lead">เรียงความที่ดีมี 3 ส่วน เหมือนต้นไม้ที่มีราก ลำต้น และยอด</p>
+
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--leaf)"><h4>1. คำนำ (ราก)</h4><p>ชวนผู้อ่านให้อยากอ่านต่อ อาจเริ่มด้วยคำถาม ภาพ หรือเสียง</p></div>
+          <div class="know" style="--card-accent:var(--leaf)"><h4>2. เนื้อเรื่อง (ลำต้น)</h4><p>เล่ารายละเอียดเป็นลำดับ มีตัวอย่างประกอบ หนึ่งย่อหน้าต่อหนึ่งใจความ</p></div>
+          <div class="know" style="--card-accent:var(--leaf)"><h4>3. สรุป (ยอด)</h4><p>ทิ้งท้ายด้วยข้อคิดหรือความรู้สึก ให้ผู้อ่านจดจำ</p></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>หัวข้อชวนเขียนประจำสัปดาห์</h3>
+        <div class="pill-row" id="promptPicker" style="margin-bottom:18px;"></div>
+
+        <label class="field-label" for="essay">ลงมือเขียน (บันทึกอัตโนมัติในเครื่อง)</label>
+        <textarea id="essay" class="journal" placeholder="เริ่มจากคำนำที่ชวนให้อยากอ่านต่อ..."></textarea>
+        <p style="font-size:13px; color:var(--ink-soft); margin-top:8px;">นับคำแล้วประมาณ <b id="wordCount">0</b> คำ</p>
+      </div>
+    </section>
+
+    <footer>สมุดบทเรียนหลัก · ภาษาไทย ชั้นประถมศึกษาปีที่ 5 · แนวการศึกษาวอลดอร์ฟ</footer>
+  </div>
+</div>
+
+<script src="assets/quiz.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var tabButtons = document.querySelectorAll("nav.tabs button");
+  var sections = document.querySelectorAll("section.lesson");
+  tabButtons.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      tabButtons.forEach(function(b){ b.setAttribute("aria-selected","false"); });
+      sections.forEach(function(s){ s.classList.remove("active"); });
+      btn.setAttribute("aria-selected","true");
+      document.getElementById(btn.dataset.target).classList.add("active");
+    });
+  });
+
+  makeQuiz(document.getElementById("wordQuiz"), {
+    fixedChoices: ["คำนาม","คำสรรพนาม","คำกริยา","คำวิเศษณ์","คำบุพบท","คำสันธาน","คำอุทาน"],
+    items: [
+      {prompt:"“แม่น้ำ”", answer:"คำนาม", explain:"เป็นชื่อเรียกสถานที่ตามธรรมชาติ"},
+      {prompt:"“พวกเรา”", answer:"คำสรรพนาม", explain:"ใช้แทนตัวผู้พูดหลายคน"},
+      {prompt:"“กระโดด”", answer:"คำกริยา", explain:"แสดงอาการการกระทำ"},
+      {prompt:"“รวดเร็ว”", answer:"คำวิเศษณ์", explain:"ขยายกริยาให้ชัดเจนขึ้น เช่น วิ่งรวดเร็ว"},
+      {prompt:"“ใต้” (นั่งอยู่ใต้ต้นไม้)", answer:"คำบุพบท", explain:"บอกตำแหน่งความสัมพันธ์"},
+      {prompt:"“เพราะว่า”", answer:"คำสันธาน", explain:"เชื่อมประโยคบอกเหตุผล"},
+      {prompt:"“อุ๊ย!”", answer:"คำอุทาน", explain:"แสดงความตกใจ"},
+      {prompt:"“คุณครู”", answer:"คำนาม", explain:"เป็นชื่อเรียกบุคคล"},
+      {prompt:"“อ่าน”", answer:"คำกริยา", explain:"แสดงการกระทำ"},
+      {prompt:"“แต่” (อยากไปเล่น แต่ฝนตก)", answer:"คำสันธาน", explain:"เชื่อมประโยคที่ขัดแย้งกัน"}
+    ]
+  });
+
+  makeQuiz(document.getElementById("proverbQuiz"), {
+    items: [
+      {prompt:"“น้ำขึ้นให้รีบตัก” หมายความว่าอย่างไร?",
+       choices:["เมื่อมีโอกาสดีควรรีบทำ","ควรตักน้ำไว้ใช้ยามแล้ง","อย่าออกจากบ้านตอนน้ำท่วม"],
+       answer:"เมื่อมีโอกาสดีควรรีบทำ"},
+      {prompt:"“ขี่ช้างจับตั๊กแตน” หมายความว่าอย่างไร?",
+       choices:["ลงทุนมากเพื่อสิ่งเล็กน้อยไม่คุ้มค่า","คนตัวใหญ่ย่อมชนะคนตัวเล็ก","ทำงานใหญ่ต้องใช้เครื่องมือใหญ่"],
+       answer:"ลงทุนมากเพื่อสิ่งเล็กน้อยไม่คุ้มค่า"},
+      {prompt:"“น้ำนิ่งไหลลึก” หมายความว่าอย่างไร?",
+       choices:["คนเงียบ ๆ มักคิดลึกซึ้ง","น้ำที่นิ่งอันตรายกว่าน้ำเชี่ยว","ควรอยู่นิ่ง ๆ เมื่อตกน้ำ"],
+       answer:"คนเงียบ ๆ มักคิดลึกซึ้ง"},
+      {prompt:"“ปิดทองหลังพระ” หมายความว่าอย่างไร?",
+       choices:["ทำความดีโดยไม่หวังให้ใครเห็น","การบูรณะวัดวาอาราม","ทำดีแล้วต้องบอกให้คนรู้"],
+       answer:"ทำความดีโดยไม่หวังให้ใครเห็น"},
+      {prompt:"“กระต่ายตื่นตูม” หมายความว่าอย่างไร?",
+       choices:["ตื่นตกใจกับเรื่องเล็กน้อยเกินเหตุ","ตื่นนอนแต่เช้าเป็นนิสัยที่ดี","วิ่งหนีเร็วเหมือนกระต่าย"],
+       answer:"ตื่นตกใจกับเรื่องเล็กน้อยเกินเหตุ"},
+      {prompt:"“ฝนทั่งให้เป็นเข็ม” หมายความว่าอย่างไร?",
+       choices:["เพียรพยายามไม่ย่อท้อจนสำเร็จ","ฝนตกหนักจนเหล็กเป็นสนิม","ของใหญ่มีค่ากว่าของเล็ก"],
+       answer:"เพียรพยายามไม่ย่อท้อจนสำเร็จ"}
+    ]
+  });
+
+  makeQuiz(document.getElementById("litQuiz"), {
+    shuffleItems: false,
+    items: [
+      {prompt:"พระสังข์ประสูติออกมาในลักษณะใด?",
+       choices:["อยู่ในหอยสังข์","อยู่ในดอกบัว","เป็นเงาะป่า"],
+       answer:"อยู่ในหอยสังข์"},
+      {prompt:"นางพันธุรัตคือใคร?",
+       choices:["ยักษิณีที่เลี้ยงพระสังข์เป็นบุตรบุญธรรม","มเหสีของท้าวยศวิมล","ยายชาวไร่ที่ให้ที่พักนางจันท์เทวี"],
+       answer:"ยักษิณีที่เลี้ยงพระสังข์เป็นบุตรบุญธรรม"},
+      {prompt:"พระสังข์สวมสิ่งใดเพื่อปลอมตัว?",
+       choices:["รูปเงาะ","หน้ากากทองคำ","หนังเสือ"],
+       answer:"รูปเงาะ", explain:"พร้อมชุบตัวในบ่อทองและนำเกือกแก้วกับไม้เท้าวิเศษไปด้วย"},
+      {prompt:"เรื่องสังข์ทองสอนข้อคิดสำคัญข้อใด?",
+       choices:["อย่าตัดสินคนจากรูปลักษณ์ภายนอก","ควรเชื่อฟังผู้ใหญ่ทุกกรณี","ทองคำสำคัญกว่าสิ่งใด"],
+       answer:"อย่าตัดสินคนจากรูปลักษณ์ภายนอก"}
+    ]
+  });
+
+  /* writing prompts + essay autosave */
+  var prompts = [
+    "ต้นไม้ที่ฉันรัก",
+    "หนึ่งวันในตลาดเช้า",
+    "ถ้าฉันย่อตัวเล็กเท่ามด",
+    "สายฝนแรกของฤดู",
+    "จดหมายถึงตัวเองในอีกสิบปี"
+  ];
+  var picker = document.getElementById("promptPicker");
+  prompts.forEach(function(p, i){
+    var b = document.createElement("button");
+    b.className = "pill";
+    b.textContent = p;
+    b.style.setProperty("--pill-color","var(--leaf)");
+    b.setAttribute("aria-pressed", i===0 ? "true" : "false");
+    b.addEventListener("click", function(){
+      picker.querySelectorAll(".pill").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+      b.setAttribute("aria-pressed","true");
+    });
+    picker.appendChild(b);
+  });
+
+  var essay = document.getElementById("essay");
+  var wc = document.getElementById("wordCount");
+  function countWords(){
+    var t = essay.value.trim();
+    /* Thai has no spaces between words — estimate ~5 characters per word */
+    var thaiChars = (t.match(/[฀-๿]/g) || []).length;
+    var spaced = t ? t.split(/\s+/).length : 0;
+    wc.textContent = Math.max(spaced, Math.round(thaiChars/5));
+  }
+  try{
+    var saved = localStorage.getItem("waldorf-thai-essay-p5");
+    if(saved) essay.value = saved;
+  }catch(e){}
+  countWords();
+  essay.addEventListener("input", function(){
+    try{ localStorage.setItem("waldorf-thai-essay-p5", essay.value); }catch(e){}
+    countWords();
+  });
+})();
+</script>
+</body>
+</html>
