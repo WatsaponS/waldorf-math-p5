@@ -48,6 +48,8 @@
   var planUrl = "plan.html#subj-" + subject.id;
 
   banner.innerHTML =
+    "<div class='session-banner-art' aria-hidden='true' style=\"--session-sheet:url('assets/session-sheet-" + subject.id + ".jpg');background-position:" + ((idx % 5) * 25) + "% " + (Math.floor(idx / 5) % 2 ? "100%" : "0%") + "\"></div>" +
+    "<div class='session-banner-copy'>" +
     "<div class='sb-eyebrow'>แผนการเรียน Home School · " + subject.name +
       " · Session " + (idx+1) + "/" + subject.sessions.length +
       (done ? " · <b class='sb-done-mark'>เรียนจบแล้ว ✓</b>" : "") + "</div>" +
@@ -57,7 +59,7 @@
       "<button class='btn' id='sbDone'>✓ เรียนจบ session นี้</button>" +
       (hasNext ? "<button class='btn ghost' id='sbDoneNext'>✓ จบแล้ว ไป session ถัดไป →</button>" : "") +
       "<a class='sb-back' href='" + planUrl + "'>กลับสู่แผนการเรียน</a>" +
-    "</div>";
+    "</div></div>";
 
   tabs.parentNode.insertBefore(banner, tabs);
 

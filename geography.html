@@ -73,6 +73,9 @@
     <nav class="tabs" role="tablist" aria-label="บทเรียน">
       <button role="tab" data-target="regions" style="--tab-accent:var(--blue)" aria-selected="true">หกภูมิภาค</button>
       <button role="tab" data-target="rivers" style="--tab-accent:var(--leaf)" aria-selected="false">สายน้ำและขุนเขา</button>
+      <button role="tab" data-target="maptools" style="--tab-accent:var(--gold)" aria-selected="false">เครื่องมือภูมิศาสตร์</button>
+      <button role="tab" data-target="climate" style="--tab-accent:var(--plum)" aria-selected="false">ภูมิอากาศและมรสุม</button>
+      <button role="tab" data-target="asean" style="--tab-accent:var(--leaf)" aria-selected="false">อาเซียน 10 ประเทศ</button>
       <button role="tab" data-target="quiz" style="--tab-accent:var(--red)" aria-selected="false">เกมจังหวัดของเรา</button>
     </nav>
 
@@ -172,6 +175,194 @@
       </div>
     </section>
 
+    <!-- ============ MAP TOOLS ============ -->
+    <section class="lesson" id="maptools">
+      <div class="card" style="--card-accent:var(--gold)">
+        <h2>เครื่องมือทางภูมิศาสตร์</h2>
+        <p class="lead">แผนที่คือภาษาของนักภูมิศาสตร์ — อ่านเป็นเมื่อไหร่ เราจะเดินทางไปได้ทุกที่บนโลกโดยไม่หลง</p>
+
+        <div class="two-col">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+            <h3>เข็มทิศ 8 ทิศ</h3>
+            <svg width="230" height="230" viewBox="0 0 230 230" role="img" aria-label="เข็มทิศแสดงทิศทั้งแปด">
+              <circle cx="115" cy="115" r="98" fill="none" stroke="var(--card-edge)" stroke-width="2"></circle>
+              <circle cx="115" cy="115" r="72" fill="none" stroke="var(--card-edge)" stroke-width="1" stroke-dasharray="3 4"></circle>
+              <path d="M115 25 L128 108 L115 118 L102 108 Z" fill="var(--red)"></path>
+              <path d="M115 205 L128 122 L115 112 L102 122 Z" fill="var(--ink-soft)"></path>
+              <circle cx="115" cy="115" r="7" fill="var(--gold)"></circle>
+              <text x="115" y="16" text-anchor="middle" font-size="16" font-weight="700" fill="var(--red)">เหนือ</text>
+              <text x="115" y="224" text-anchor="middle" font-size="16" font-weight="700" fill="var(--ink)">ใต้</text>
+              <text x="222" y="121" text-anchor="end" font-size="16" font-weight="700" fill="var(--ink)">อ.</text>
+              <text x="8" y="121" text-anchor="start" font-size="16" font-weight="700" fill="var(--ink)">ต.</text>
+              <text x="185" y="50" text-anchor="middle" font-size="12" fill="var(--ink-soft)">ต.อ.เฉียงเหนือ</text>
+              <text x="185" y="192" text-anchor="middle" font-size="12" fill="var(--ink-soft)">ต.อ.เฉียงใต้</text>
+              <text x="46" y="50" text-anchor="middle" font-size="12" fill="var(--ink-soft)">ต.ต.เฉียงเหนือ</text>
+              <text x="46" y="192" text-anchor="middle" font-size="12" fill="var(--ink-soft)">ต.ต.เฉียงใต้</text>
+            </svg>
+            <p style="font-size:13.5px; color:var(--ink-soft); text-align:center;">บนแผนที่ <b>ทิศเหนืออยู่ด้านบนเสมอ</b> ยกเว้นจะระบุไว้เป็นอย่างอื่น</p>
+          </div>
+
+          <div>
+            <h3>มาตราส่วน — ลองคำนวณดู</h3>
+            <p style="font-size:14.5px; margin-bottom:14px;">มาตราส่วน <b>1 : 100,000</b> หมายความว่า ระยะ 1 หน่วยบนแผนที่ เท่ากับ 100,000 หน่วยจริงบนพื้นโลก</p>
+            <label class="field-label" for="scaleCm">ระยะที่วัดได้บนแผนที่: <span id="scaleCmVal">4</span> เซนติเมตร</label>
+            <input type="range" id="scaleCm" min="1" max="20" value="4">
+            <label class="field-label" for="scaleSel" style="margin-top:14px;">มาตราส่วนของแผนที่</label>
+            <div class="pill-row" id="scalePicker" style="margin-bottom:14px;"></div>
+            <div class="readout" style="width:100%;">
+              <div class="k">ระยะจริงบนพื้นโลก</div>
+              <div class="v" id="scaleOut">4 กิโลเมตร</div>
+            </div>
+            <p style="font-size:13px; color:var(--ink-soft); margin-top:10px;" id="scaleWork"></p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--gold)">
+            <h4>เส้นละติจูด (เส้นรุ้ง)</h4>
+            <p>ลากขนานรอบโลกในแนวนอน บอกว่าอยู่<b>เหนือหรือใต้</b>เส้นศูนย์สูตรเท่าใด<br>
+            เส้นศูนย์สูตรคือ 0° ขั้วโลกเหนือคือ 90° เหนือ<br>
+            <b>ประเทศไทยอยู่ที่ประมาณ 6°–20° เหนือ</b> จึงเป็นเขตร้อน</p>
+          </div>
+          <div class="know" style="--card-accent:var(--gold)">
+            <h4>เส้นลองจิจูด (เส้นแวง)</h4>
+            <p>ลากจากขั้วโลกเหนือถึงใต้ในแนวตั้ง บอกว่าอยู่<b>ตะวันออกหรือตะวันตก</b>ของเส้นเมริเดียนแรกที่กรีนิช<br>
+            <b>ประเทศไทยอยู่ที่ประมาณ 97°–105° ตะวันออก</b> เวลาจึงเร็วกว่ากรีนิช 7 ชั่วโมง</p>
+          </div>
+          <div class="know" style="--card-accent:var(--gold)">
+            <h4>สัญลักษณ์บนแผนที่</h4>
+            <ul>
+              <li><b>สีน้ำเงิน</b> — แม่น้ำ ทะเล ทะเลสาบ</li>
+              <li><b>สีเขียว</b> — ที่ราบต่ำและป่าไม้</li>
+              <li><b>สีเหลือง–น้ำตาล</b> — ที่ราบสูงและภูเขา (ยิ่งเข้มยิ่งสูง)</li>
+              <li><b>เส้นแดง</b> — ถนน &nbsp;·&nbsp; <b>จุดวงกลม</b> — เมือง &nbsp;·&nbsp; <b>ดาว</b> — เมืองหลวง</li>
+            </ul>
+          </div>
+          <div class="know" style="--card-accent:var(--gold)">
+            <h4>ประเภทของแผนที่</h4>
+            <ul>
+              <li><b>แผนที่กายภาพ</b> — แสดงภูเขา แม่น้ำ ที่ราบ</li>
+              <li><b>แผนที่รัฐกิจ</b> — แสดงเขตแดนจังหวัดและประเทศ</li>
+              <li><b>แผนที่เฉพาะเรื่อง</b> — เช่น แผนที่ฝนตก แผนที่ประชากร</li>
+              <li><b>ลูกโลก</b> — แม่นยำที่สุดเพราะเป็นทรงกลมเหมือนโลกจริง</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ฝึกอ่านแผนที่</h3>
+        <div id="mapQuiz"></div>
+      </div>
+    </section>
+
+    <!-- ============ CLIMATE ============ -->
+    <section class="lesson" id="climate">
+      <div class="card" style="--card-accent:var(--plum)">
+        <h2>ภูมิอากาศและลมมรสุม</h2>
+        <p class="lead">ประเทศไทยมี 3 ฤดู ไม่ใช่ 4 เพราะเราอยู่ในเขตร้อน — และผู้กำหนดฤดูของเราคือ "ลมมรสุม" ที่เปลี่ยนทิศปีละ 2 ครั้ง</p>
+
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--plum)">
+            <h4>🌧 มรสุมตะวันตกเฉียงใต้</h4>
+            <p><b>ช่วงเวลา:</b> กลางพฤษภาคม – กลางตุลาคม</p>
+            <p style="margin-top:6px;">พัดจากมหาสมุทรอินเดียซึ่งชื้นมาก จึงพา<b>ฝน</b>มาให้ทั้งประเทศ — นี่คือฤดูฝนของเรา ภาคใต้ฝั่งอันดามันจะรับฝนหนักที่สุด</p>
+          </div>
+          <div class="know" style="--card-accent:var(--plum)">
+            <h4>❄️ มรสุมตะวันออกเฉียงเหนือ</h4>
+            <p><b>ช่วงเวลา:</b> กลางตุลาคม – กลางกุมภาพันธ์</p>
+            <p style="margin-top:6px;">พัดจากแผ่นดินจีนซึ่งแห้งและเย็น จึงนำ<b>อากาศหนาว</b>มาให้ภาคเหนือและอีสาน แต่พอพัดผ่านอ่าวไทยจะอุ้มความชื้น ทำให้<b>ภาคใต้ฝั่งอ่าวไทยมีฝนตกช่วงนี้แทน</b></p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>สามฤดูของไทย</h3>
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--plum)"><h4>ฤดูร้อน</h4><p><b>กลาง ก.พ. – กลาง พ.ค.</b><br>ดวงอาทิตย์ตั้งฉากกับประเทศไทย อากาศร้อนจัด เมษายนร้อนที่สุด</p></div>
+          <div class="know" style="--card-accent:var(--plum)"><h4>ฤดูฝน</h4><p><b>กลาง พ.ค. – กลาง ต.ค.</b><br>มรสุมตะวันตกเฉียงใต้พัดเข้ามา กันยายนฝนตกชุกที่สุด เป็นฤดูทำนา</p></div>
+          <div class="know" style="--card-accent:var(--plum)"><h4>ฤดูหนาว</h4><p><b>กลาง ต.ค. – กลาง ก.พ.</b><br>มรสุมตะวันออกเฉียงเหนือพัดลงมา ภาคเหนือและอีสานหนาวที่สุด</p></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="know" style="--card-accent:var(--plum)">
+          <h4>ทำไมภาคใต้จึงไม่มีฤดูหนาว?</h4>
+          <p>เพราะภาคใต้อยู่ใกล้เส้นศูนย์สูตรที่สุด และมีทะเลขนาบทั้งสองด้าน น้ำทะเลช่วยรักษาอุณหภูมิไม่ให้เปลี่ยนแปลงมาก ภาคใต้จึงมีเพียง <b>2 ฤดู คือฤดูฝนและฤดูร้อน</b> และฝนตกยาวนานเกือบทั้งปี เหมาะกับสวนยางพาราและปาล์มน้ำมันที่ต้องการความชื้นสูง</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ทรัพยากรและภัยธรรมชาติ</h3>
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--plum)">
+            <h4>ทรัพยากรสำคัญของไทย</h4>
+            <ul>
+              <li><b>ดิน</b> — ที่ราบลุ่มเจ้าพระยาปลูกข้าวเลี้ยงคนทั้งประเทศและส่งออก</li>
+              <li><b>ป่าไม้</b> — ต้นน้ำลำธาร ที่อยู่ของสัตว์ป่า และดูดซับคาร์บอน</li>
+              <li><b>แร่ธาตุ</b> — ดีบุก (ภูเก็ต) ก๊าซธรรมชาติ (อ่าวไทย) ยิปซัม ลิกไนต์</li>
+              <li><b>ทะเล</b> — ประมง การท่องเที่ยว และเส้นทางขนส่งสินค้า</li>
+            </ul>
+          </div>
+          <div class="know" style="--card-accent:var(--plum)">
+            <h4>ภัยธรรมชาติที่พบบ่อย</h4>
+            <ul>
+              <li><b>น้ำท่วม</b> — ภาคกลางช่วงฝนชุก เพราะเป็นที่ราบต่ำรับน้ำจากภาคเหนือ</li>
+              <li><b>ภัยแล้ง</b> — อีสานเพราะดินเป็นทรายเก็บน้ำไม่อยู่</li>
+              <li><b>ดินถล่ม</b> — ภูเขาที่ถูกตัดไม้ทำลายป่า</li>
+              <li><b>พายุหมุนเขตร้อน</b> — เข้าทางอีสานและภาคใต้ช่วงปลายฝน</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ฝึกจากโจทย์</h3>
+        <div id="climateQuiz"></div>
+      </div>
+    </section>
+
+    <!-- ============ ASEAN ============ -->
+    <section class="lesson" id="asean">
+      <div class="card" style="--card-accent:var(--leaf)">
+        <h2>อาเซียน — เพื่อนบ้านสิบประเทศ</h2>
+        <p class="lead">สมาคมประชาชาติแห่งเอเชียตะวันออกเฉียงใต้ (ASEAN) ก่อตั้งเมื่อ <b>8 สิงหาคม พ.ศ. 2510</b> ที่กรุงเทพมหานคร โดยเริ่มจาก 5 ประเทศ ปัจจุบันมี 10 ประเทศ คำขวัญคือ <b>"หนึ่งวิสัยทัศน์ หนึ่งอัตลักษณ์ หนึ่งประชาคม"</b></p>
+
+        <div class="table-scroll">
+          <table class="plain">
+            <thead>
+              <tr><th>ประเทศ</th><th>เมืองหลวง</th><th>สกุลเงิน</th><th>เกร็ดน่ารู้</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>ไทย</b></td><td>กรุงเทพมหานคร</td><td>บาท</td><td>ประเทศเดียวในอาเซียนที่ไม่เคยเป็นเมืองขึ้นของชาติตะวันตก</td></tr>
+              <tr><td><b>เมียนมา</b></td><td>เนปยีดอ</td><td>จ๊าด</td><td>ประเทศที่ใหญ่ที่สุดในอาเซียนภาคพื้นทวีป มีพรมแดนติดไทยยาวที่สุด</td></tr>
+              <tr><td><b>ลาว</b></td><td>เวียงจันทน์</td><td>กีบ</td><td>ประเทศเดียวในอาเซียนที่ไม่มีทางออกสู่ทะเล</td></tr>
+              <tr><td><b>กัมพูชา</b></td><td>พนมเปญ</td><td>เรียล</td><td>ที่ตั้งของนครวัด ศาสนสถานที่ใหญ่ที่สุดในโลก</td></tr>
+              <tr><td><b>เวียดนาม</b></td><td>ฮานอย</td><td>ด่ง</td><td>รูปร่างประเทศยาวเรียวคล้ายตัว S ส่งออกข้าวและกาแฟรายใหญ่</td></tr>
+              <tr><td><b>มาเลเซีย</b></td><td>กัวลาลัมเปอร์</td><td>ริงกิต</td><td>แบ่งเป็นสองส่วนคั่นด้วยทะเลจีนใต้</td></tr>
+              <tr><td><b>สิงคโปร์</b></td><td>สิงคโปร์</td><td>ดอลลาร์สิงคโปร์</td><td>เล็กที่สุดในอาเซียนแต่ร่ำรวยที่สุด เป็นท่าเรือสำคัญของโลก</td></tr>
+              <tr><td><b>บรูไน</b></td><td>บันดาร์เสรีเบกาวัน</td><td>ดอลลาร์บรูไน</td><td>ประชากรน้อยที่สุด ร่ำรวยจากน้ำมันและก๊าซธรรมชาติ</td></tr>
+              <tr><td><b>อินโดนีเซีย</b></td><td>จาการ์ตา</td><td>รูเปียห์</td><td>ประเทศหมู่เกาะที่ใหญ่ที่สุดในโลก มีกว่า 17,000 เกาะ ประชากรมากที่สุดในอาเซียน</td></tr>
+              <tr><td><b>ฟิลิปปินส์</b></td><td>มะนิลา</td><td>เปโซ</td><td>ประเทศหมู่เกาะกว่า 7,000 เกาะ ตั้งอยู่บนวงแหวนไฟจึงมีภูเขาไฟมาก</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="know" style="--card-accent:var(--leaf); margin-top:16px;">
+          <h4>เคล็ดลับจำ 5 ประเทศผู้ก่อตั้ง</h4>
+          <p>ไทย · มาเลเซีย · อินโดนีเซีย · ฟิลิปปินส์ · สิงคโปร์ &nbsp;→&nbsp; ท่องว่า “<b>ไทย มา อิน ฟิ ส</b>”<br>
+          ต่อมาบรูไนเข้าร่วมปี 2527 · เวียดนามปี 2538 · ลาวและเมียนมาปี 2540 · กัมพูชาปี 2542 (เข้าเป็นชาติสุดท้าย)</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>เกมจับคู่เมืองหลวงอาเซียน</h3>
+        <div id="aseanQuiz"></div>
+      </div>
+    </section>
+
     <!-- ============ QUIZ ============ -->
     <section class="lesson" id="quiz">
       <div class="card" style="--card-accent:var(--red)">
@@ -221,6 +412,144 @@
       {prompt:"จันทบุรี — เมืองแห่งทุเรียนและพลอย", answer:"ตะวันออก"},
       {prompt:"นครปฐม — เมืองพระปฐมเจดีย์", answer:"กลาง"},
       {prompt:"เพชรบุรี — เมืองขนมหวานเชิงเขาตะนาวศรี", answer:"ตะวันตก"}
+    ]
+  });
+
+  /* ---------- map scale calculator ---------- */
+  var scaleOptions = [
+    {label:"1 : 50,000", v:50000},
+    {label:"1 : 100,000", v:100000},
+    {label:"1 : 250,000", v:250000},
+    {label:"1 : 1,000,000", v:1000000}
+  ];
+  var curScale = scaleOptions[1];
+  var sPicker = document.getElementById("scalePicker");
+  scaleOptions.forEach(function(o, i){
+    var b = document.createElement("button");
+    b.className = "pill";
+    b.textContent = o.label;
+    b.style.setProperty("--pill-color","var(--gold)");
+    b.setAttribute("aria-pressed", i === 1 ? "true" : "false");
+    b.addEventListener("click", function(){
+      sPicker.querySelectorAll(".pill").forEach(function(p){ p.setAttribute("aria-pressed","false"); });
+      b.setAttribute("aria-pressed","true");
+      curScale = o;
+      renderScale();
+    });
+    sPicker.appendChild(b);
+  });
+  var scaleCm = document.getElementById("scaleCm");
+  function renderScale(){
+    var cm = +scaleCm.value;
+    document.getElementById("scaleCmVal").textContent = cm;
+    var realCm = cm * curScale.v;
+    var km = realCm / 100000;
+    document.getElementById("scaleOut").textContent =
+      (km >= 1 ? (Math.round(km*100)/100) + " กิโลเมตร" : (Math.round(realCm/100)) + " เมตร");
+    document.getElementById("scaleWork").innerHTML =
+      "วิธีคิด: " + cm + " ซม. × " + curScale.v.toLocaleString() + " = " + realCm.toLocaleString() +
+      " ซม. แล้วหารด้วย 100,000 เพื่อเปลี่ยนเป็นกิโลเมตร";
+  }
+  scaleCm.addEventListener("input", renderScale);
+  renderScale();
+
+  makeQuiz(document.getElementById("mapQuiz"), {
+    items:[
+      {prompt:"บนแผนที่ทั่วไป ทิศใดอยู่ด้านบนของแผ่น?",
+       choices:["ทิศเหนือ","ทิศใต้","ทิศตะวันออก"], answer:"ทิศเหนือ"},
+      {prompt:"มาตราส่วน 1 : 100,000 หมายความว่าอย่างไร?",
+       choices:["1 ซม. บนแผนที่ = 1 กิโลเมตรจริง","1 ซม. บนแผนที่ = 100 เมตรจริง","1 เมตรบนแผนที่ = 100,000 เมตรจริง"],
+       answer:"1 ซม. บนแผนที่ = 1 กิโลเมตรจริง",
+       explain:"100,000 ซม. = 1,000 ม. = 1 กม."},
+      {prompt:"บนแผนที่ สีน้ำเงินมักหมายถึงอะไร?",
+       choices:["แหล่งน้ำ","ภูเขา","ป่าไม้"], answer:"แหล่งน้ำ"},
+      {prompt:"สีน้ำตาลเข้มบนแผนที่กายภาพหมายถึงอะไร?",
+       choices:["พื้นที่สูงมาก เช่น ภูเขา","ทะเลลึก","ทะเลทราย"], answer:"พื้นที่สูงมาก เช่น ภูเขา"},
+      {prompt:"เส้นละติจูดบอกอะไรเรา?",
+       choices:["อยู่เหนือหรือใต้เส้นศูนย์สูตรเท่าใด","อยู่ตะวันออกหรือตะวันตกเท่าใด","ความสูงจากระดับน้ำทะเล"],
+       answer:"อยู่เหนือหรือใต้เส้นศูนย์สูตรเท่าใด"},
+      {prompt:"ประเทศไทยตั้งอยู่ที่ละติจูดประมาณเท่าใด?",
+       choices:["6°–20° เหนือ","20°–40° ใต้","0° พอดี"], answer:"6°–20° เหนือ",
+       explain:"อยู่เหนือเส้นศูนย์สูตร จึงเป็นเขตร้อนชื้น"},
+      {prompt:"เครื่องมือใดแสดงรูปร่างของโลกได้แม่นยำที่สุด?",
+       choices:["ลูกโลก","แผนที่กระดาษ","เข็มทิศ"], answer:"ลูกโลก",
+       explain:"เพราะเป็นทรงกลมเหมือนโลกจริง ไม่มีการบิดเบี้ยวจากการแผ่เป็นแผ่นแบน"},
+      {prompt:"แผนที่ที่แสดงเขตแดนจังหวัดและประเทศเรียกว่าแผนที่อะไร?",
+       choices:["แผนที่รัฐกิจ","แผนที่กายภาพ","แผนที่เฉพาะเรื่อง"], answer:"แผนที่รัฐกิจ"},
+      {prompt:"ทิศที่อยู่ระหว่างทิศเหนือกับทิศตะวันออกเรียกว่าอะไร?",
+       choices:["ตะวันออกเฉียงเหนือ","ตะวันตกเฉียงเหนือ","ตะวันออกเฉียงใต้"], answer:"ตะวันออกเฉียงเหนือ"},
+      {prompt:"ถ้าวัดระยะบนแผนที่มาตราส่วน 1:50,000 ได้ 6 ซม. ระยะจริงเท่าใด?",
+       choices:["3 กิโลเมตร","6 กิโลเมตร","300 เมตร"], answer:"3 กิโลเมตร",
+       explain:"6 × 50,000 = 300,000 ซม. = 3 กม."}
+    ]
+  });
+
+  /* ---------- climate quiz ---------- */
+  makeQuiz(document.getElementById("climateQuiz"), {
+    items:[
+      {prompt:"ประเทศไทยมีกี่ฤดู?", choices:["3 ฤดู","4 ฤดู","2 ฤดู"], answer:"3 ฤดู",
+       explain:"ร้อน ฝน หนาว — เพราะอยู่ในเขตร้อนจึงไม่มีฤดูใบไม้ร่วงและใบไม้ผลิ"},
+      {prompt:"ลมมรสุมใดนำฝนมาสู่ประเทศไทย?",
+       choices:["มรสุมตะวันตกเฉียงใต้","มรสุมตะวันออกเฉียงเหนือ","ลมทะเล"],
+       answer:"มรสุมตะวันตกเฉียงใต้",
+       explain:"พัดมาจากมหาสมุทรอินเดียซึ่งอุ้มความชื้นไว้มาก"},
+      {prompt:"ลมมรสุมตะวันออกเฉียงเหนือนำอะไรมาสู่ภาคเหนือและอีสาน?",
+       choices:["อากาศหนาวและแห้ง","ฝนตกหนัก","พายุหมุน"], answer:"อากาศหนาวและแห้ง",
+       explain:"เพราะพัดมาจากแผ่นดินจีนที่หนาวเย็นและแห้ง"},
+      {prompt:"ทำไมภาคใต้จึงมีเพียง 2 ฤดู?",
+       choices:["อยู่ใกล้เส้นศูนย์สูตรและมีทะเลขนาบสองด้าน","อยู่บนภูเขาสูง","มีป่ามากที่สุด"],
+       answer:"อยู่ใกล้เส้นศูนย์สูตรและมีทะเลขนาบสองด้าน",
+       explain:"ทะเลช่วยรักษาอุณหภูมิให้คงที่ ไม่หนาวและมีฝนเกือบทั้งปี"},
+      {prompt:"เดือนใดของไทยร้อนที่สุด?", choices:["เมษายน","มกราคม","กันยายน"], answer:"เมษายน"},
+      {prompt:"ภูมิภาคใดประสบภัยแล้งบ่อยที่สุด?",
+       choices:["ตะวันออกเฉียงเหนือ","ภาคใต้","ภาคตะวันออก"], answer:"ตะวันออกเฉียงเหนือ",
+       explain:"เพราะดินเป็นทรายและมีชั้นเกลือใต้ดิน เก็บน้ำไม่อยู่"},
+      {prompt:"ช่วงเดือนพฤศจิกายน–ธันวาคม ภาคใต้ฝั่งอ่าวไทยเป็นอย่างไร?",
+       choices:["ฝนตกหนัก","แล้งที่สุด","หนาวจัด"], answer:"ฝนตกหนัก",
+       explain:"มรสุมตะวันออกเฉียงเหนือพัดผ่านอ่าวไทยแล้วอุ้มความชื้นขึ้นฝั่ง"},
+      {prompt:"ทรัพยากรใดที่ทำให้ภาคกลางเป็นอู่ข้าวอู่น้ำของไทย?",
+       choices:["ดินตะกอนจากแม่น้ำเจ้าพระยา","แร่ดีบุก","ป่าไม้"],
+       answer:"ดินตะกอนจากแม่น้ำเจ้าพระยา"},
+      {prompt:"ก๊าซธรรมชาติของไทยส่วนใหญ่มาจากที่ใด?",
+       choices:["อ่าวไทย","ภาคเหนือ","ทะเลอันดามัน"], answer:"อ่าวไทย"},
+      {prompt:"การตัดไม้ทำลายป่าบนภูเขาทำให้เกิดภัยใดตามมา?",
+       choices:["ดินถล่มและน้ำป่าไหลหลาก","แผ่นดินไหว","ภูเขาไฟระเบิด"],
+       answer:"ดินถล่มและน้ำป่าไหลหลาก",
+       explain:"รากไม้คือสิ่งที่ยึดดินไว้และชะลอน้ำฝนไม่ให้ไหลลงมาเร็วเกินไป"}
+    ]
+  });
+
+  /* ---------- ASEAN quiz ---------- */
+  makeQuiz(document.getElementById("aseanQuiz"), {
+    items:[
+      {prompt:"เมืองหลวงของเวียดนามคือเมืองใด?",
+       choices:["ฮานอย","โฮจิมินห์ซิตี","พนมเปญ"], answer:"ฮานอย"},
+      {prompt:"เมืองหลวงของเมียนมาคือเมืองใด?",
+       choices:["เนปยีดอ","ย่างกุ้ง","มัณฑะเลย์"], answer:"เนปยีดอ",
+       explain:"ย้ายจากย่างกุ้งมาเนปยีดอในปี พ.ศ. 2549"},
+      {prompt:"เมืองหลวงของอินโดนีเซียคือเมืองใด?",
+       choices:["จาการ์ตา","บาหลี","กัวลาลัมเปอร์"], answer:"จาการ์ตา"},
+      {prompt:"ประเทศใดในอาเซียนไม่มีทางออกสู่ทะเล?",
+       choices:["ลาว","กัมพูชา","เมียนมา"], answer:"ลาว"},
+      {prompt:"ประเทศใดในอาเซียนมีขนาดเล็กที่สุด?",
+       choices:["สิงคโปร์","บรูไน","กัมพูชา"], answer:"สิงคโปร์"},
+      {prompt:"ประเทศใดในอาเซียนมีประชากรมากที่สุด?",
+       choices:["อินโดนีเซีย","ฟิลิปปินส์","เวียดนาม"], answer:"อินโดนีเซีย",
+       explain:"มีประชากรกว่า 270 ล้านคน มากเป็นอันดับ 4 ของโลก"},
+      {prompt:"อาเซียนก่อตั้งขึ้นที่ประเทศใด?",
+       choices:["ไทย","สิงคโปร์","อินโดนีเซีย"], answer:"ไทย",
+       explain:"ลงนามปฏิญญากรุงเทพฯ เมื่อ 8 สิงหาคม พ.ศ. 2510"},
+      {prompt:"นครวัดอยู่ในประเทศใด?",
+       choices:["กัมพูชา","ลาว","เมียนมา"], answer:"กัมพูชา"},
+      {prompt:"ประเทศใดในอาเซียนไม่เคยตกเป็นเมืองขึ้นของชาติตะวันตก?",
+       choices:["ไทย","มาเลเซีย","ฟิลิปปินส์"], answer:"ไทย"},
+      {prompt:"สกุลเงินของลาวคืออะไร?",
+       choices:["กีบ","จ๊าด","เรียล"], answer:"กีบ"},
+      {prompt:"ประเทศใดเข้าร่วมอาเซียนเป็นชาติสุดท้าย?",
+       choices:["กัมพูชา","เวียดนาม","บรูไน"], answer:"กัมพูชา",
+       explain:"เข้าร่วมในปี พ.ศ. 2542 ทำให้อาเซียนครบ 10 ประเทศ"},
+      {prompt:"ประเทศใดตั้งอยู่บนวงแหวนไฟจึงมีภูเขาไฟและแผ่นดินไหวบ่อย?",
+       choices:["ฟิลิปปินส์","ไทย","ลาว"], answer:"ฟิลิปปินส์"}
     ]
   });
 

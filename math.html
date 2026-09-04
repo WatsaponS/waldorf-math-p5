@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#1c2a22" media="(prefers-color-scheme: dark)">
 <title>คณิตศาสตร์ · สมุดบทเรียนหลัก ป.5 แนววอลดอร์ฟ</title>
 <link rel="stylesheet" href="assets/style.css">
+<script src="assets/quiz.js"></script>
 <style>
   /* ---------- star ---------- */
   .star-wrap{display:flex; flex-direction:column; align-items:center; gap:14px;}
@@ -77,6 +78,128 @@
   }
   .readout .k{font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft);}
   .readout .v{font-family:var(--font-display); font-size:20px; font-weight:700; font-variant-numeric:tabular-nums;}
+
+  /* ---------- fraction arithmetic ---------- */
+  .frac-picker{display:flex; align-items:center; justify-content:center; gap:16px;}
+  .frac-col{display:flex; flex-direction:column; align-items:center; gap:5px;}
+  .frac-col button{
+    width:34px; height:30px; border-radius:8px;
+    border:1px solid var(--card-edge); background:color-mix(in srgb, var(--card) 60%, var(--bg));
+    font-size:16px; font-weight:700; cursor:pointer; line-height:1;
+  }
+  .frac-col button:hover{background:var(--gold); color:var(--card); border-color:var(--gold);}
+  .frac-col button:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+  .frac-view{
+    font-family:var(--font-display); font-size:30px; font-weight:700;
+    font-variant-numeric:tabular-nums; text-align:center; line-height:1.15;
+  }
+  .frac-view .bar{
+    display:block; height:3px; background:var(--ink); border-radius:2px; margin:3px 0;
+  }
+  .work-steps{
+    background:color-mix(in srgb, var(--card-accent, var(--gold)) 9%, var(--card));
+    border:1px solid var(--card-edge); border-radius:12px;
+    padding:14px 18px;
+  }
+  .work-steps:empty{display:none;}
+  .work-steps .step{
+    display:flex; gap:12px; align-items:baseline;
+    padding:7px 0; border-bottom:1px dashed var(--card-edge);
+    font-size:15px; font-variant-numeric:tabular-nums;
+  }
+  .work-steps .step:last-child{border-bottom:none;}
+  .work-steps .step .n{
+    flex:none; width:1.6em; font-family:var(--font-display); font-style:italic;
+    color:var(--card-accent, var(--gold)); font-weight:700;
+  }
+  .work-steps .step .why{display:block; font-size:13px; color:var(--ink-soft); margin-top:2px;}
+  .work-steps .final{
+    font-family:var(--font-display); font-size:21px; font-weight:700;
+    color:var(--card-accent, var(--gold)); padding-top:10px;
+  }
+
+  /* ---------- hundred grid ---------- */
+  .hundred-stage{
+    display:flex; flex-wrap:wrap; gap:26px; align-items:center; justify-content:center;
+  }
+  .hundred-grid{
+    display:grid; grid-template-columns:repeat(10, 1fr);
+    gap:2px; width:min(100%, 290px); aspect-ratio:1;
+    padding:5px; border-radius:8px;
+    background:color-mix(in srgb, var(--blue) 22%, var(--card));
+    touch-action:manipulation;
+  }
+  .hundred-grid span{
+    background:var(--card); border-radius:2px; cursor:pointer;
+    transition:background .1s ease;
+  }
+  .hundred-grid span.on{background:var(--blue);}
+  .three-faces{display:grid; grid-template-columns:1fr 1fr; gap:10px; min-width:250px;}
+  .face{
+    border:1px solid var(--card-edge); border-radius:12px; padding:11px 14px;
+    background:color-mix(in srgb, var(--blue) 9%, var(--card)); text-align:center;
+  }
+  .face .k{font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft);}
+  .face .v{
+    font-family:var(--font-display); font-size:21px; font-weight:700;
+    font-variant-numeric:tabular-nums; margin-top:2px;
+  }
+
+  /* ---------- volume & angle ---------- */
+  .box-stack{
+    display:flex; flex-direction:column-reverse; gap:3px; align-items:center;
+    padding:10px;
+  }
+  .box-layer{
+    display:grid; gap:2px;
+    transform:skewX(-18deg);
+  }
+  .box-cell{
+    width:15px; height:15px; border-radius:2px;
+    background:color-mix(in srgb, var(--leaf) 55%, var(--card));
+    box-shadow:inset -1px -1px 0 color-mix(in srgb, var(--ink) 22%, transparent);
+  }
+  .plan-hint{
+    font-size:13.5px; color:var(--ink-soft); text-align:center; margin-top:14px;
+  }
+  .angle-stage{display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:center;}
+  .angle-name{
+    font-family:var(--font-display); font-style:italic; font-size:22px;
+    color:var(--leaf); margin-top:10px;
+  }
+
+  /* ---------- drill ---------- */
+  .drill-box{
+    background:color-mix(in srgb, var(--red) 6%, var(--card));
+    border:1px solid var(--card-edge); border-radius:14px; padding:18px;
+  }
+  .drill-stats{
+    display:flex; flex-wrap:wrap; gap:16px; justify-content:center;
+    font-size:13px; color:var(--ink-soft); margin-bottom:14px;
+    font-variant-numeric:tabular-nums;
+  }
+  .drill-stats b{color:var(--ink); font-size:15px;}
+  .drill-q{
+    font-family:var(--font-display); font-size:clamp(19px,3vw,25px);
+    text-align:center; margin-bottom:16px; text-wrap:balance;
+    font-variant-numeric:tabular-nums;
+  }
+  .drill-input-row{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center;
+  }
+  .drill-input-row input{
+    width:150px; padding:12px 14px; min-height:46px;
+    border:2px solid var(--card-edge); border-radius:10px;
+    background:var(--card); color:var(--ink);
+    font-size:17px; font-weight:700; text-align:center;
+    font-variant-numeric:tabular-nums;
+  }
+  .drill-input-row input:focus-visible{outline:2px solid var(--blue); outline-offset:1px;}
+  .drill-fb{
+    text-align:center; min-height:1.6em; margin:14px 0 10px; font-size:15px; font-weight:700;
+  }
+  .drill-fb.ok{color:var(--ok);}
+  .drill-fb.no{color:var(--bad);}
 </style>
 </head>
 <body>
@@ -108,8 +231,12 @@
     <nav class="tabs" role="tablist" aria-label="บทเรียน">
       <button role="tab" data-target="star" style="--tab-accent:var(--red)" aria-selected="true">ดาวแห่งการคูณ</button>
       <button role="tab" data-target="bread" style="--tab-accent:var(--gold)" aria-selected="false">ขนมปังเศษส่วน</button>
+      <button role="tab" data-target="fracmath" style="--tab-accent:var(--gold)" aria-selected="false">บวกลบเศษส่วน</button>
       <button role="tab" data-target="garden" style="--tab-accent:var(--leaf)" aria-selected="false">สวนตัวประกอบ</button>
+      <button role="tab" data-target="decimal" style="--tab-accent:var(--blue)" aria-selected="false">ทศนิยมและร้อยละ</button>
       <button role="tab" data-target="plot" style="--tab-accent:var(--blue)" aria-selected="false">แปลงผักเรขาคณิต</button>
+      <button role="tab" data-target="volume" style="--tab-accent:var(--leaf)" aria-selected="false">ปริมาตรและมุม</button>
+      <button role="tab" data-target="drill" style="--tab-accent:var(--red)" aria-selected="false">คลังโจทย์ฝึกฝน</button>
       <button role="tab" data-target="journal" style="--tab-accent:var(--plum)" aria-selected="false">สมุดบันทึกและโจทย์</button>
     </nav>
 
@@ -252,6 +379,206 @@
       </div>
     </section>
 
+    <!-- ================= FRACTION ARITHMETIC ================= -->
+    <section class="lesson" id="fracmath">
+      <div class="card" style="--card-accent:var(--gold)">
+        <h2>บวกลบเศษส่วน</h2>
+        <p class="lead">เศษส่วนสองตัวจะบวกลบกันได้ก็ต่อเมื่อ "ชิ้นเท่ากัน" — คือมีตัวส่วนเท่ากัน เลือกเศษส่วนสองตัวด้านล่าง แล้วดูว่าเราทำให้ชิ้นเท่ากันได้อย่างไร</p>
+
+        <div class="two-col">
+          <div>
+            <label class="field-label">เศษส่วนตัวที่ 1</label>
+            <div class="frac-picker" id="fp0"></div>
+          </div>
+          <div>
+            <label class="field-label">เศษส่วนตัวที่ 2</label>
+            <div class="frac-picker" id="fp1"></div>
+          </div>
+        </div>
+
+        <div class="pill-row" style="justify-content:center; margin:16px 0;">
+          <button class="pill" id="opAdd" style="--pill-color:var(--gold)" aria-pressed="true">บวก (+)</button>
+          <button class="pill" id="opSub" style="--pill-color:var(--gold)" aria-pressed="false">ลบ (−)</button>
+        </div>
+
+        <div class="work-steps" id="fracWork"></div>
+
+        <div class="divider"></div>
+
+        <div class="know" style="--card-accent:var(--gold)">
+          <h4>กฎที่ต้องจำให้ขึ้นใจ</h4>
+          <ul>
+            <li><b>ตัวส่วนเท่ากัน</b> → บวกลบเฉพาะตัวเศษ ตัวส่วนคงเดิม เช่น 2/7 + 3/7 = 5/7</li>
+            <li><b>ตัวส่วนไม่เท่ากัน</b> → หา ค.ร.น. ของตัวส่วนก่อน แล้วขยายเศษส่วนทั้งสองให้ตัวส่วนเท่ากัน</li>
+            <li><b>คูณเศษส่วน</b> → เศษคูณเศษ ส่วนคูณส่วน เช่น 2/3 × 3/4 = 6/12 = 1/2</li>
+            <li><b>หารเศษส่วน</b> → กลับตัวหารแล้วคูณ เช่น 1/2 ÷ 1/4 = 1/2 × 4/1 = 4/2 = 2</li>
+            <li><b>เศษเกิน ↔ จำนวนคละ</b> → 7/3 = 2 เศษ 1 = 2⅓ &nbsp;·&nbsp; 2⅓ = (2×3+1)/3 = 7/3</li>
+          </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ฝึกจากโจทย์</h3>
+        <div id="fracQuiz"></div>
+      </div>
+    </section>
+
+    <!-- ================= DECIMAL & PERCENT ================= -->
+    <section class="lesson" id="decimal">
+      <div class="card" style="--card-accent:var(--blue)">
+        <h2>ทศนิยมและร้อยละ</h2>
+        <p class="lead">ตารางร้อยช่องนี้คือกุญแจ — แตะช่องเพื่อระบายสี แล้วสังเกตว่า <b>เศษส่วน ทศนิยม และร้อยละ</b> คือสิ่งเดียวกันที่เขียนคนละหน้าตา</p>
+
+        <div class="hundred-stage">
+          <div class="hundred-grid" id="hundredGrid" aria-label="ตารางร้อยช่อง แตะเพื่อระบายสี"></div>
+          <div class="three-faces">
+            <div class="face"><div class="k">เศษส่วน</div><div class="v" id="fFrac">0/100</div></div>
+            <div class="face"><div class="k">ทศนิยม</div><div class="v" id="fDec">0.00</div></div>
+            <div class="face"><div class="k">ร้อยละ</div><div class="v" id="fPct">0%</div></div>
+            <div class="face"><div class="k">อย่างต่ำ</div><div class="v" id="fSimp">—</div></div>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:12px;">
+          <button class="btn ghost" id="hundredClear">ล้างตาราง</button>
+          <button class="btn ghost" id="hundredRandom">สุ่มให้ทาย</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--blue)">
+            <h4>ค่าประจำหลักทศนิยม</h4>
+            <p>3.<b>4</b><b>7</b><b>2</b> → 4 คือส่วนสิบ (0.4), 7 คือส่วนร้อย (0.07), 2 คือส่วนพัน (0.002)</p>
+            <p style="margin-top:6px;">อ่านว่า "สามจุดสี่เจ็ดสอง"</p>
+          </div>
+          <div class="know" style="--card-accent:var(--blue)">
+            <h4>เปรียบเทียบทศนิยม</h4>
+            <p>เทียบทีละหลักจากซ้ายไปขวา — <b>0.5 มากกว่า 0.45</b> เพราะส่วนสิบคือ 5 กับ 4 (อย่าดูว่าตัวเลขยาวกว่าแล้วมากกว่า!)</p>
+          </div>
+          <div class="know" style="--card-accent:var(--blue)">
+            <h4>ปัดทศนิยม</h4>
+            <p>ดูหลักถัดไป — ถ้า <b>5 ขึ้นไปปัดขึ้น</b> ต่ำกว่า 5 ปัดลง เช่น 3.47 ปัดเป็นทศนิยม 1 ตำแหน่ง = 3.5</p>
+          </div>
+          <div class="know" style="--card-accent:var(--blue)">
+            <h4>คูณ–หารด้วย 10, 100</h4>
+            <p>คูณ 10 = เลื่อนจุดไปขวา 1 ตำแหน่ง (2.5 × 10 = 25)<br>หาร 10 = เลื่อนจุดไปซ้าย 1 ตำแหน่ง (2.5 ÷ 10 = 0.25)</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ร้อยละในชีวิตจริง</h3>
+        <div class="know" style="--card-accent:var(--blue)">
+          <h4>สูตรที่ใช้บ่อยที่สุด</h4>
+          <ul>
+            <li><b>หาร้อยละของจำนวน:</b> 20% ของ 350 บาท = 350 × 20 ÷ 100 = <b>70 บาท</b></li>
+            <li><b>ราคาหลังลด:</b> เสื้อ 400 บาท ลด 25% → ลด 100 บาท เหลือ <b>300 บาท</b></li>
+            <li><b>คิดเป็นร้อยละ:</b> ได้ 36 คะแนนจาก 40 → 36 ÷ 40 × 100 = <b>90%</b></li>
+            <li><b>ทางลัด:</b> 50% = ครึ่งหนึ่ง · 25% = หนึ่งในสี่ · 10% = หารสิบ · 1% = หารร้อย</li>
+          </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ฝึกจากโจทย์</h3>
+        <div id="decQuiz"></div>
+      </div>
+    </section>
+
+    <!-- ================= VOLUME & ANGLES ================= -->
+    <section class="lesson" id="volume">
+      <div class="card" style="--card-accent:var(--leaf)">
+        <h2>ปริมาตรและมุม</h2>
+        <p class="lead">พื้นที่วัดพื้นราบ ส่วนปริมาตรวัดที่ว่างภายในกล่อง — ปรับกล่องด้านล่างแล้วนับลูกบาศก์ดูว่าใส่ได้กี่ก้อน</p>
+
+        <div class="two-col">
+          <div>
+            <label class="field-label" for="boxW">กว้าง: <span id="bwVal">4</span> ซม.</label>
+            <input type="range" id="boxW" min="1" max="8" value="4">
+            <label class="field-label" for="boxL" style="margin-top:12px;">ยาว: <span id="blVal">5</span> ซม.</label>
+            <input type="range" id="boxL" min="1" max="8" value="5">
+            <label class="field-label" for="boxH" style="margin-top:12px;">สูง: <span id="bhVal">3</span> ซม.</label>
+            <input type="range" id="boxH" min="1" max="6" value="3">
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;">
+            <div class="box-stack" id="boxStack" aria-hidden="true"></div>
+            <div class="readout" style="min-width:220px;">
+              <div class="k">ปริมาตร = กว้าง × ยาว × สูง</div>
+              <div class="v" id="volVal">60 ลบ.ซม.</div>
+            </div>
+            <div class="readout" style="min-width:220px;">
+              <div class="k">พื้นที่ผิวทั้งหมด</div>
+              <div class="v" id="surfVal">94 ตร.ซม.</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="plan-hint">หน่วยปริมาตรใช้ <b>ลูกบาศก์</b> เสมอ — ลบ.ซม. หรือ cm³ เพราะเรานับ "ก้อน" ไม่ใช่ "แผ่น"</p>
+
+        <div class="divider"></div>
+
+        <h3>มุมและการวัด</h3>
+        <div class="angle-stage">
+          <svg id="angleSvg" width="280" height="180" viewBox="0 0 280 180" role="img" aria-label="ภาพมุมที่กำลังปรับ"></svg>
+          <div style="flex:1; min-width:220px;">
+            <label class="field-label" for="angleRange">ขนาดมุม: <span id="angVal">60</span>°</label>
+            <input type="range" id="angleRange" min="0" max="180" value="60">
+            <p class="angle-name" id="angName">มุมแหลม</p>
+          </div>
+        </div>
+
+        <div class="know-grid" style="margin-top:16px;">
+          <div class="know" style="--card-accent:var(--leaf)"><h4>มุมแหลม</h4><p>เล็กกว่า 90° — เหมือนปลายดินสอที่เพิ่งเหลา</p></div>
+          <div class="know" style="--card-accent:var(--leaf)"><h4>มุมฉาก</h4><p>เท่ากับ 90° พอดี — มุมของหนังสือและกรอบหน้าต่าง</p></div>
+          <div class="know" style="--card-accent:var(--leaf)"><h4>มุมป้าน</h4><p>มากกว่า 90° แต่น้อยกว่า 180° — เหมือนพัดที่กางเกินครึ่ง</p></div>
+          <div class="know" style="--card-accent:var(--leaf)"><h4>มุมตรง</h4><p>เท่ากับ 180° พอดี — เป็นเส้นตรงเส้นเดียว</p></div>
+        </div>
+
+        <div class="know" style="--card-accent:var(--leaf); margin-top:14px;">
+          <h4>กฎมุมที่ออกสอบบ่อย</h4>
+          <ul>
+            <li>มุมภายในของ <b>สามเหลี่ยม</b> รวมกันได้ <b>180°</b> เสมอ</li>
+            <li>มุมภายในของ <b>สี่เหลี่ยม</b> รวมกันได้ <b>360°</b> เสมอ</li>
+            <li>มุมตรงข้ามที่เกิดจากเส้นตัดกัน มีขนาด <b>เท่ากัน</b></li>
+            <li>สามเหลี่ยมด้านเท่า มุมละ 60° ทุกมุม</li>
+          </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ฝึกจากโจทย์</h3>
+        <div id="volQuiz"></div>
+      </div>
+    </section>
+
+    <!-- ================= DRILL ================= -->
+    <section class="lesson" id="drill">
+      <div class="card" style="--card-accent:var(--red)">
+        <h2>คลังโจทย์ฝึกฝน</h2>
+        <p class="lead">โจทย์สุ่มใหม่ทุกครั้งไม่มีวันหมด — เลือกหัวข้อที่อยากฝึก พิมพ์คำตอบแล้วกดตรวจ ถ้าตอบผิดจะมีวิธีทำทีละขั้นให้ดู</p>
+
+        <div class="pill-row" id="drillPicker" role="group" aria-label="เลือกหัวข้อฝึก"></div>
+
+        <div class="divider"></div>
+
+        <div class="drill-box">
+          <div class="drill-stats">
+            <span>ทำแล้ว <b id="drillTotal">0</b> ข้อ</span>
+            <span>ถูก <b id="drillRight">0</b> ข้อ</span>
+            <span>ติดต่อกัน <b id="drillStreak">0</b> ข้อ 🔥</span>
+          </div>
+          <p class="drill-q" id="drillQ">เลือกหัวข้อเพื่อเริ่มฝึก</p>
+          <div class="drill-input-row">
+            <input type="text" id="drillAns" inputmode="decimal" autocomplete="off" placeholder="พิมพ์คำตอบ" aria-label="คำตอบ">
+            <button class="btn" id="drillCheck" style="--card-accent:var(--red)">ตรวจคำตอบ</button>
+            <button class="btn ghost" id="drillSkip">ข้อใหม่</button>
+          </div>
+          <p class="drill-fb" id="drillFb" aria-live="polite"></p>
+          <div class="work-steps" id="drillSteps"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= JOURNAL ================= -->
     <section class="lesson" id="journal-section">
       <div class="card" style="--card-accent:var(--plum)">
@@ -274,6 +601,76 @@
           <p><b>3.</b> แปลงนากว้าง 4.5 เมตร ยาว 6 เมตร ต้องใช้เมล็ดพันธุ์ 2 กรัมต่อตารางเมตร ต้องใช้เมล็ดพันธุ์ทั้งหมดกี่กรัม?</p>
           <button class="btn ghost" data-reveal="a3">ดูเฉลย</button>
           <div class="answer" id="a3">พื้นที่ = 4.5 × 6 = 27 ตารางเมตร ใช้เมล็ดพันธุ์ = 27 × 2 = <b>54 กรัม</b></div>
+        </div>
+
+        <div class="problem" style="--card-accent:var(--plum)">
+          <p><b>4.</b> พ่อค้าซื้อส้มมา 240 ผล ราคาผลละ 3.50 บาท ขายไปในราคาผลละ 5 บาท แต่ส้มเน่าเสีย 1/8 ของทั้งหมดขายไม่ได้ พ่อค้าได้กำไรหรือขาดทุนกี่บาท?</p>
+          <button class="btn ghost" data-reveal="a4">ดูเฉลย</button>
+          <div class="answer" id="a4">
+            ต้นทุน = 240 × 3.50 = 840 บาท<br>
+            ส้มเสีย = 240 × 1/8 = 30 ผล เหลือขายได้ 240 − 30 = 210 ผล<br>
+            รายได้ = 210 × 5 = 1,050 บาท<br>
+            1,050 − 840 = <b>กำไร 210 บาท</b>
+          </div>
+        </div>
+
+        <div class="problem" style="--card-accent:var(--plum)">
+          <p><b>5.</b> ถังน้ำทรงสี่เหลี่ยมกว้าง 40 ซม. ยาว 50 ซม. สูง 30 ซม. ใส่น้ำเต็ม 3/4 ของถัง มีน้ำอยู่กี่ลูกบาศก์เซนติเมตร?</p>
+          <button class="btn ghost" data-reveal="a5">ดูเฉลย</button>
+          <div class="answer" id="a5">
+            ปริมาตรถัง = 40 × 50 × 30 = 60,000 ลบ.ซม.<br>
+            น้ำ 3/4 = 60,000 × 3 ÷ 4 = <b>45,000 ลูกบาศก์เซนติเมตร</b> (เท่ากับ 45 ลิตร)
+          </div>
+        </div>
+
+        <div class="problem" style="--card-accent:var(--plum)">
+          <p><b>6.</b> นักเรียน 5 คนสอบได้คะแนน 78, 85, 92, 68 และ 87 คะแนน ค่าเฉลี่ยของคะแนนทั้งห้องเป็นเท่าใด และมีกี่คนที่ได้คะแนนสูงกว่าค่าเฉลี่ย?</p>
+          <button class="btn ghost" data-reveal="a6">ดูเฉลย</button>
+          <div class="answer" id="a6">
+            รวม = 78 + 85 + 92 + 68 + 87 = 410 คะแนน<br>
+            ค่าเฉลี่ย = 410 ÷ 5 = <b>82 คะแนน</b><br>
+            คนที่ได้สูงกว่า 82 คือ 85, 92, 87 = <b>3 คน</b>
+          </div>
+        </div>
+
+        <div class="problem" style="--card-accent:var(--plum)">
+          <p><b>7.</b> รถไฟออกจากสถานีเวลา 07:45 น. ใช้เวลาเดินทาง 2 ชั่วโมง 50 นาที จะถึงปลายทางเวลาใด?</p>
+          <button class="btn ghost" data-reveal="a7">ดูเฉลย</button>
+          <div class="answer" id="a7">
+            07:45 + 2 ชั่วโมง = 09:45 น.<br>
+            09:45 + 50 นาที → 45 + 50 = 95 นาที = 1 ชั่วโมง 35 นาที<br>
+            ดังนั้นถึงเวลา <b>10:35 น.</b>
+          </div>
+        </div>
+
+        <div class="problem" style="--card-accent:var(--plum)">
+          <p><b>8.</b> ร้านหนังสือลดราคา 20% ทุกเล่ม แม่ซื้อหนังสือราคาเต็ม 350 บาท และสมุดราคาเต็ม 150 บาท ต้องจ่ายเงินทั้งหมดกี่บาท?</p>
+          <button class="btn ghost" data-reveal="a8">ดูเฉลย</button>
+          <div class="answer" id="a8">
+            ราคาเต็มรวม = 350 + 150 = 500 บาท<br>
+            ส่วนลด = 500 × 20 ÷ 100 = 100 บาท<br>
+            ต้องจ่าย = 500 − 100 = <b>400 บาท</b><br>
+            <i>ทางลัด: ลด 20% คือจ่าย 80% → 500 × 80 ÷ 100 = 400 บาท</i>
+          </div>
+        </div>
+
+        <div class="problem" style="--card-accent:var(--plum)">
+          <p><b>9.</b> เชือกยาว 12 เมตร ตัดเป็นท่อนละ 3/4 เมตร จะได้ทั้งหมดกี่ท่อน?</p>
+          <button class="btn ghost" data-reveal="a9">ดูเฉลย</button>
+          <div class="answer" id="a9">
+            เป็นโจทย์การหารด้วยเศษส่วน: 12 ÷ 3/4<br>
+            กลับตัวหารแล้วคูณ = 12 × 4/3 = 48/3 = <b>16 ท่อน</b>
+          </div>
+        </div>
+
+        <div class="problem" style="--card-accent:var(--plum)">
+          <p><b>10.</b> สวนรูปสี่เหลี่ยมผืนผ้ากว้าง 15 เมตร ยาว 24 เมตร เจ้าของต้องการปูทางเดินกว้าง 1 เมตรรอบขอบสวนด้านใน เหลือพื้นที่ปลูกต้นไม้กี่ตารางเมตร?</p>
+          <button class="btn ghost" data-reveal="a10">ดูเฉลย</button>
+          <div class="answer" id="a10">
+            ทางเดินกินเข้าไปด้านละ 1 เมตร ทั้งสองข้าง จึงลดทั้งกว้างและยาวไป 2 เมตร<br>
+            พื้นที่ปลูก = (15 − 2) × (24 − 2) = 13 × 22 = <b>286 ตารางเมตร</b><br>
+            <i>ตรวจ: พื้นที่ทั้งสวน 15 × 24 = 360 ตร.ม. ทางเดินกิน 360 − 286 = 74 ตร.ม.</i>
+          </div>
         </div>
 
         <div class="divider"></div>
@@ -302,7 +699,9 @@
 
   var tabButtons = document.querySelectorAll("nav.tabs button");
   var sections = document.querySelectorAll("section.lesson");
-  var sectionMap = { star:"star", bread:"bread", garden:"garden", plot:"plot", journal:"journal-section" };
+  var sectionMap = { star:"star", bread:"bread", fracmath:"fracmath", garden:"garden",
+                     decimal:"decimal", plot:"plot", volume:"volume", drill:"drill",
+                     journal:"journal-section" };
   tabButtons.forEach(function(btn){
     btn.addEventListener("click", function(){
       tabButtons.forEach(function(b){ b.setAttribute("aria-selected","false"); });
@@ -561,6 +960,525 @@
       ans.classList.toggle("show");
       btn.textContent = ans.classList.contains("show") ? "ซ่อนเฉลย" : "ดูเฉลย";
     });
+  });
+
+  /* ================= FRACTION ARITHMETIC ================= */
+  var fr = [{n:1,d:2},{n:1,d:3}];
+  var fracOp = "+";
+
+  function buildFracPicker(idx){
+    var box = document.getElementById("fp" + idx);
+    box.innerHTML = "";
+    var col = document.createElement("div");
+    col.className = "frac-col";
+    col.innerHTML =
+      "<button data-f='" + idx + "' data-p='n' data-dir='1' aria-label='เพิ่มตัวเศษ'>+</button>" +
+      "<button data-f='" + idx + "' data-p='n' data-dir='-1' aria-label='ลดตัวเศษ'>−</button>";
+    var view = document.createElement("div");
+    view.className = "frac-view";
+    view.id = "fv" + idx;
+    var col2 = document.createElement("div");
+    col2.className = "frac-col";
+    col2.innerHTML =
+      "<button data-f='" + idx + "' data-p='d' data-dir='1' aria-label='เพิ่มตัวส่วน'>+</button>" +
+      "<button data-f='" + idx + "' data-p='d' data-dir='-1' aria-label='ลดตัวส่วน'>−</button>";
+    box.appendChild(col);
+    box.appendChild(view);
+    box.appendChild(col2);
+  }
+  buildFracPicker(0); buildFracPicker(1);
+
+  document.querySelectorAll("[data-f]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var i = +b.dataset.f, p = b.dataset.p, dir = +b.dataset.dir;
+      var lo = (p === "n") ? 1 : 2;
+      fr[i][p] = Math.min(12, Math.max(lo, fr[i][p] + dir));
+      if(p === "d" && fr[i].n > fr[i].d * 2) fr[i].n = fr[i].d * 2;
+      renderFrac();
+    });
+  });
+  document.getElementById("opAdd").addEventListener("click", function(){
+    fracOp = "+";
+    this.setAttribute("aria-pressed","true");
+    document.getElementById("opSub").setAttribute("aria-pressed","false");
+    renderFrac();
+  });
+  document.getElementById("opSub").addEventListener("click", function(){
+    fracOp = "−";
+    this.setAttribute("aria-pressed","true");
+    document.getElementById("opAdd").setAttribute("aria-pressed","false");
+    renderFrac();
+  });
+
+  function fracHTML(n, d){
+    return "<span>" + n + "</span><span class='bar'></span><span>" + d + "</span>";
+  }
+  function renderFrac(){
+    document.getElementById("fv0").innerHTML = fracHTML(fr[0].n, fr[0].d);
+    document.getElementById("fv1").innerHTML = fracHTML(fr[1].n, fr[1].d);
+
+    var a = fr[0], b = fr[1];
+    var L = lcm(a.d, b.d);
+    var an = a.n * (L / a.d), bn = b.n * (L / b.d);
+    var rn = (fracOp === "+") ? an + bn : an - bn;
+    var steps = [];
+
+    if(a.d === b.d){
+      steps.push(["ตัวส่วนเท่ากันอยู่แล้ว จึง " + (fracOp === "+" ? "บวก" : "ลบ") + "ตัวเศษได้เลย",
+                  a.n + "/" + a.d + " " + fracOp + " " + b.n + "/" + b.d + " = " + rn + "/" + L]);
+    } else {
+      steps.push(["หา ค.ร.น. ของตัวส่วน " + a.d + " กับ " + b.d, "ค.ร.น. = " + L]);
+      steps.push(["ขยายเศษส่วนทั้งสองให้ตัวส่วนเป็น " + L,
+                  a.n + "/" + a.d + " = " + an + "/" + L + "  และ  " + b.n + "/" + b.d + " = " + bn + "/" + L]);
+      steps.push([(fracOp === "+" ? "บวก" : "ลบ") + "เฉพาะตัวเศษ ตัวส่วนคงเดิม",
+                  an + " " + fracOp + " " + bn + " = " + rn + "  →  " + rn + "/" + L]);
+    }
+
+    var out = rn + "/" + L;
+    var neg = rn < 0;
+    var absn = Math.abs(rn);
+    if(absn !== 0){
+      var g = gcd(absn, L);
+      if(g > 1){
+        steps.push(["ทำให้เป็นเศษส่วนอย่างต่ำ โดยหารด้วย ห.ร.ม. = " + g,
+                    (neg?"-":"") + absn + "/" + L + " = " + (neg?"-":"") + (absn/g) + "/" + (L/g)]);
+        absn = absn/g; L = L/g;
+      }
+      out = (neg?"-":"") + absn + "/" + L;
+      if(absn > L){
+        var whole = Math.floor(absn / L), rem = absn % L;
+        steps.push(["เศษเกิน จึงเขียนเป็นจำนวนคละ",
+                    absn + "/" + L + " = " + whole + (rem ? " และ " + rem + "/" + L : "")]);
+        out = (neg?"-":"") + whole + (rem ? " " + rem + "/" + L : "");
+      } else if(absn === L){
+        out = (neg?"-":"") + "1";
+      }
+    } else {
+      out = "0";
+    }
+
+    var html = "";
+    steps.forEach(function(s, i){
+      html += "<div class='step'><span class='n'>" + (i+1) + ".</span><span>" + s[1] +
+              "<span class='why'>" + s[0] + "</span></span></div>";
+    });
+    html += "<div class='final'>คำตอบ:  " + fr[0].n + "/" + fr[0].d + " " + fracOp + " " +
+            fr[1].n + "/" + fr[1].d + " = " + out + "</div>";
+    document.getElementById("fracWork").innerHTML = html;
+  }
+  renderFrac();
+
+  makeQuiz(document.getElementById("fracQuiz"), {
+    items:[
+      {prompt:"3/8 + 2/8 เท่ากับเท่าใด?", choices:["5/8","5/16","6/8"], answer:"5/8",
+       explain:"ตัวส่วนเท่ากัน บวกเฉพาะตัวเศษ 3+2=5"},
+      {prompt:"1/2 + 1/3 เท่ากับเท่าใด?", choices:["5/6","2/5","1/6"], answer:"5/6",
+       explain:"ค.ร.น. ของ 2 กับ 3 คือ 6 → 3/6 + 2/6 = 5/6"},
+      {prompt:"3/4 − 1/2 เท่ากับเท่าใด?", choices:["1/4","2/2","1/2"], answer:"1/4",
+       explain:"ทำเป็น 3/4 − 2/4 = 1/4"},
+      {prompt:"เศษส่วน 8/12 เขียนอย่างต่ำได้เป็น?", choices:["2/3","4/6","3/4"], answer:"2/3",
+       explain:"ห.ร.ม. ของ 8 กับ 12 คือ 4 → 8÷4 / 12÷4 = 2/3"},
+      {prompt:"2/3 × 3/5 เท่ากับเท่าใด?", choices:["2/5","6/15 เท่านั้น","5/8"], answer:"2/5",
+       explain:"เศษคูณเศษ ส่วนคูณส่วน = 6/15 แล้วทำอย่างต่ำได้ 2/5"},
+      {prompt:"1/2 ÷ 1/4 เท่ากับเท่าใด?", choices:["2","1/8","4"], answer:"2",
+       explain:"กลับตัวหารแล้วคูณ: 1/2 × 4/1 = 4/2 = 2"},
+      {prompt:"จำนวนคละ 2 และ 1/4 เขียนเป็นเศษเกินได้เป็น?", choices:["9/4","7/4","3/4"], answer:"9/4",
+       explain:"(2×4)+1 = 9 ตัวส่วนคงเดิม → 9/4"},
+      {prompt:"แม่มีเค้ก 3/4 ก้อน แบ่งให้น้อง 1/4 ก้อน เหลือเท่าใด?", choices:["1/2 ก้อน","2/4 ก้อน เท่านั้น","1/4 ก้อน"], answer:"1/2 ก้อน",
+       explain:"3/4 − 1/4 = 2/4 = 1/2 ก้อน"},
+      {prompt:"เศษส่วนใดมากที่สุด: 2/3, 3/5, 5/9?", choices:["2/3","3/5","5/9"], answer:"2/3",
+       explain:"ทำตัวส่วนเป็น 45 → 30/45, 27/45, 25/45 ดังนั้น 2/3 มากที่สุด"},
+      {prompt:"5/6 − 1/3 เท่ากับเท่าใด?", choices:["1/2","4/3","2/3"], answer:"1/2",
+       explain:"5/6 − 2/6 = 3/6 = 1/2"}
+    ]
+  });
+
+  /* ================= HUNDRED GRID ================= */
+  var hGrid = document.getElementById("hundredGrid");
+  var hOn = 0;
+  for(var hi=0; hi<100; hi++){
+    var cell = document.createElement("span");
+    cell.addEventListener("click", function(){
+      this.classList.toggle("on");
+      updateHundred();
+    });
+    hGrid.appendChild(cell);
+  }
+  function updateHundred(){
+    hOn = hGrid.querySelectorAll("span.on").length;
+    document.getElementById("fFrac").textContent = hOn + "/100";
+    document.getElementById("fDec").textContent = (hOn/100).toFixed(2);
+    document.getElementById("fPct").textContent = hOn + "%";
+    if(hOn === 0){
+      document.getElementById("fSimp").textContent = "—";
+    } else {
+      var g = gcd(hOn, 100);
+      document.getElementById("fSimp").textContent = (hOn/g) + "/" + (100/g);
+    }
+  }
+  document.getElementById("hundredClear").addEventListener("click", function(){
+    hGrid.querySelectorAll("span").forEach(function(s){ s.classList.remove("on"); });
+    updateHundred();
+  });
+  document.getElementById("hundredRandom").addEventListener("click", function(){
+    var target = Math.floor(Math.random()*95) + 3;
+    var cells = Array.prototype.slice.call(hGrid.querySelectorAll("span"));
+    cells.forEach(function(s){ s.classList.remove("on"); });
+    for(var k=0;k<target;k++){ cells[k].classList.add("on"); }
+    updateHundred();
+  });
+  updateHundred();
+
+  makeQuiz(document.getElementById("decQuiz"), {
+    items:[
+      {prompt:"0.7 เขียนเป็นเศษส่วนได้เป็น?", choices:["7/10","7/100","1/7"], answer:"7/10",
+       explain:"ทศนิยม 1 ตำแหน่งคือส่วนสิบ"},
+      {prompt:"เลขใดมีค่ามากที่สุด: 0.5, 0.45, 0.409?", choices:["0.5","0.45","0.409"], answer:"0.5",
+       explain:"เทียบส่วนสิบก่อน: 5 > 4 ดังนั้น 0.5 มากที่สุด ถึงจะมีตัวเลขน้อยกว่า"},
+      {prompt:"3.68 ปัดเป็นทศนิยม 1 ตำแหน่ง ได้เท่าใด?", choices:["3.7","3.6","4.0"], answer:"3.7",
+       explain:"ดูหลักส่วนร้อยคือ 8 ซึ่ง ≥ 5 จึงปัดขึ้น"},
+      {prompt:"2.4 × 10 เท่ากับเท่าใด?", choices:["24","0.24","240"], answer:"24",
+       explain:"คูณ 10 เลื่อนจุดทศนิยมไปทางขวา 1 ตำแหน่ง"},
+      {prompt:"25% ของ 80 บาท เท่ากับกี่บาท?", choices:["20 บาท","25 บาท","40 บาท"], answer:"20 บาท",
+       explain:"25% คือหนึ่งในสี่ → 80 ÷ 4 = 20"},
+      {prompt:"เสื้อราคา 500 บาท ลด 20% ต้องจ่ายกี่บาท?", choices:["400 บาท","480 บาท","100 บาท"], answer:"400 บาท",
+       explain:"ลด 500×20÷100 = 100 บาท เหลือ 500−100 = 400 บาท"},
+      {prompt:"สอบได้ 45 คะแนนจาก 50 คิดเป็นร้อยละเท่าใด?", choices:["90%","45%","95%"], answer:"90%",
+       explain:"45 ÷ 50 × 100 = 90"},
+      {prompt:"0.25 เท่ากับเศษส่วนอย่างต่ำใด?", choices:["1/4","25/10","2/5"], answer:"1/4",
+       explain:"25/100 หารด้วย 25 ได้ 1/4"},
+      {prompt:"1.5 + 2.75 เท่ากับเท่าใด?", choices:["4.25","3.25","4.75"], answer:"4.25",
+       explain:"เขียน 1.50 + 2.75 ให้จุดตรงกัน แล้วบวกได้ 4.25"},
+      {prompt:"7.2 ÷ 10 เท่ากับเท่าใด?", choices:["0.72","72","0.072"], answer:"0.72",
+       explain:"หาร 10 เลื่อนจุดไปทางซ้าย 1 ตำแหน่ง"},
+      {prompt:"ห้องเรียนมี 40 คน ขาดเรียน 10% วันนี้มาเรียนกี่คน?", choices:["36 คน","30 คน","39 คน"], answer:"36 คน",
+       explain:"ขาด 40×10÷100 = 4 คน มาเรียน 40−4 = 36 คน"},
+      {prompt:"0.6 เท่ากับกี่เปอร์เซ็นต์?", choices:["60%","6%","0.6%"], answer:"60%",
+       explain:"คูณ 100: 0.6 × 100 = 60%"}
+    ]
+  });
+
+  /* ================= VOLUME & ANGLES ================= */
+  var bw = document.getElementById("boxW"), bl = document.getElementById("boxL"), bh = document.getElementById("boxH");
+  function renderBox(){
+    var w = +bw.value, l = +bl.value, h = +bh.value;
+    document.getElementById("bwVal").textContent = w;
+    document.getElementById("blVal").textContent = l;
+    document.getElementById("bhVal").textContent = h;
+    var stack = document.getElementById("boxStack");
+    stack.innerHTML = "";
+    for(var y=0; y<h; y++){
+      var layer = document.createElement("div");
+      layer.className = "box-layer";
+      layer.style.gridTemplateColumns = "repeat(" + w + ", 15px)";
+      for(var c=0; c<w*l; c++){
+        var cell = document.createElement("div");
+        cell.className = "box-cell";
+        cell.style.opacity = (0.62 + 0.38 * (y+1)/h).toFixed(2);
+        layer.appendChild(cell);
+      }
+      stack.appendChild(layer);
+    }
+    document.getElementById("volVal").textContent = (w*l*h) + " ลบ.ซม.";
+    document.getElementById("surfVal").textContent = (2*(w*l + w*h + l*h)) + " ตร.ซม.";
+  }
+  [bw, bl, bh].forEach(function(el){ el.addEventListener("input", renderBox); });
+  renderBox();
+
+  var angleRange = document.getElementById("angleRange");
+  function renderAngle(){
+    var deg = +angleRange.value;
+    document.getElementById("angVal").textContent = deg;
+    var ox = 40, oy = 145, len = 165;
+    var rad = deg * Math.PI/180;
+    var ex = ox + len*Math.cos(rad), ey = oy - len*Math.sin(rad);
+    var arcR = 42;
+    var ax = ox + arcR, ay = oy;
+    var bx = ox + arcR*Math.cos(rad), by = oy - arcR*Math.sin(rad);
+    var large = deg > 180 ? 1 : 0;
+    var svg = document.getElementById("angleSvg");
+    svg.innerHTML =
+      "<path d='M " + ax + " " + ay + " A " + arcR + " " + arcR + " 0 " + large + " 0 " + bx.toFixed(1) + " " + by.toFixed(1) + "' " +
+        "fill='none' stroke='var(--gold)' stroke-width='3'></path>" +
+      "<line x1='" + ox + "' y1='" + oy + "' x2='" + (ox+len) + "' y2='" + oy + "' stroke='var(--ink-soft)' stroke-width='3' stroke-linecap='round'></line>" +
+      "<line x1='" + ox + "' y1='" + oy + "' x2='" + ex.toFixed(1) + "' y2='" + ey.toFixed(1) + "' stroke='var(--leaf)' stroke-width='4' stroke-linecap='round'></line>" +
+      "<circle cx='" + ox + "' cy='" + oy + "' r='5' fill='var(--ink)'></circle>" +
+      "<text x='" + (ox+arcR+8) + "' y='" + (oy-16) + "' fill='var(--ink-soft)' font-size='14' font-weight='700'>" + deg + "°</text>";
+    var name;
+    if(deg === 0) name = "ยังไม่เป็นมุม";
+    else if(deg < 90) name = "มุมแหลม (น้อยกว่า 90°)";
+    else if(deg === 90) name = "มุมฉาก (90° พอดี)";
+    else if(deg < 180) name = "มุมป้าน (มากกว่า 90°)";
+    else name = "มุมตรง (180° พอดี)";
+    document.getElementById("angName").textContent = name;
+  }
+  angleRange.addEventListener("input", renderAngle);
+  renderAngle();
+
+  makeQuiz(document.getElementById("volQuiz"), {
+    items:[
+      {prompt:"กล่องกว้าง 3 ซม. ยาว 4 ซม. สูง 5 ซม. มีปริมาตรเท่าใด?",
+       choices:["60 ลบ.ซม.","12 ลบ.ซม.","47 ลบ.ซม."], answer:"60 ลบ.ซม.",
+       explain:"3 × 4 × 5 = 60"},
+      {prompt:"ลูกบาศก์มีด้านยาว 4 ซม. ปริมาตรเท่าใด?",
+       choices:["64 ลบ.ซม.","16 ลบ.ซม.","12 ลบ.ซม."], answer:"64 ลบ.ซม.",
+       explain:"ลูกบาศก์ทุกด้านเท่ากัน → 4 × 4 × 4 = 64"},
+      {prompt:"มุมขนาด 120° เรียกว่ามุมอะไร?",
+       choices:["มุมป้าน","มุมแหลม","มุมฉาก"], answer:"มุมป้าน",
+       explain:"มากกว่า 90° แต่น้อยกว่า 180°"},
+      {prompt:"สามเหลี่ยมมีมุม 50° และ 60° มุมที่สามกี่องศา?",
+       choices:["70°","80°","60°"], answer:"70°",
+       explain:"มุมในสามเหลี่ยมรวม 180° → 180 − 50 − 60 = 70"},
+      {prompt:"สี่เหลี่ยมมีมุมภายในรวมกันกี่องศา?",
+       choices:["360°","180°","270°"], answer:"360°"},
+      {prompt:"หน่วยใดใช้วัดปริมาตร?",
+       choices:["ลูกบาศก์เซนติเมตร","ตารางเซนติเมตร","เซนติเมตร"], answer:"ลูกบาศก์เซนติเมตร",
+       explain:"ปริมาตรวัดที่ว่าง 3 มิติ จึงใช้หน่วยลูกบาศก์เสมอ"},
+      {prompt:"ตู้ปลากว้าง 50 ซม. ยาว 100 ซม. สูง 40 ซม. จุน้ำได้กี่ลูกบาศก์เซนติเมตร?",
+       choices:["200,000 ลบ.ซม.","190 ลบ.ซม.","2,000 ลบ.ซม."], answer:"200,000 ลบ.ซม.",
+       explain:"50 × 100 × 40 = 200,000 (เท่ากับ 200 ลิตร)"},
+      {prompt:"มุมของสามเหลี่ยมด้านเท่าแต่ละมุมกี่องศา?",
+       choices:["60°","90°","45°"], answer:"60°",
+       explain:"180 ÷ 3 = 60 องศาเท่ากันทุกมุม"}
+    ]
+  });
+
+  /* ================= DRILL GENERATOR ================= */
+  function ri(a, b){ return Math.floor(Math.random()*(b-a+1)) + a; }
+  function fmt(x){
+    var r = Math.round(x*1000)/1000;
+    return (String(r).indexOf(".") > -1) ? String(r) : String(r);
+  }
+
+  var drillTypes = [
+    {
+      id:"mul", name:"คูณหลายหลัก",
+      make:function(){
+        var a = ri(12, 99), b = ri(12, 49);
+        var tens = Math.floor(b/10)*10, ones = b%10;
+        return {
+          q: a + " × " + b + " = ?",
+          a: String(a*b),
+          steps:[
+            ["แยก " + b + " เป็น " + tens + " + " + ones, b + " = " + tens + " + " + ones],
+            ["คูณทีละส่วน", a + " × " + tens + " = " + (a*tens) + "  และ  " + a + " × " + ones + " = " + (a*ones)],
+            ["บวกผลลัพธ์เข้าด้วยกัน", (a*tens) + " + " + (a*ones) + " = " + (a*b)]
+          ]
+        };
+      }
+    },
+    {
+      id:"div", name:"หารยาว",
+      make:function(){
+        var b = ri(3, 12), q = ri(11, 89), r = ri(0, b-1);
+        var a = b*q + r;
+        return {
+          q: a + " ÷ " + b + " = ? " + (r ? "(ตอบผลหาร ไม่ต้องใส่เศษ)" : ""),
+          a: String(q),
+          steps:[
+            ["หาว่า " + b + " คูณอะไรแล้วใกล้ " + a + " ที่สุดโดยไม่เกิน", b + " × " + q + " = " + (b*q)],
+            ["ลบออกเพื่อหาเศษ", a + " − " + (b*q) + " = " + r],
+            ["สรุป", a + " ÷ " + b + " = " + q + (r ? " เศษ " + r : " ลงตัว")]
+          ]
+        };
+      }
+    },
+    {
+      id:"frac", name:"บวกลบเศษส่วน",
+      make:function(){
+        var d1 = [2,3,4,5,6,8][ri(0,5)], d2 = [2,3,4,5,6,8][ri(0,5)];
+        var n1 = ri(1, d1-1), n2 = ri(1, d2-1);
+        var L = lcm(d1, d2);
+        var an = n1*(L/d1), bn = n2*(L/d2);
+        var sum = an + bn;
+        var g = gcd(sum, L);
+        var fn = sum/g, fd = L/g;
+        var ansTxt = (fd === 1) ? String(fn) : (fn + "/" + fd);
+        return {
+          q: n1 + "/" + d1 + " + " + n2 + "/" + d2 + " = ?  (ตอบเป็นเศษส่วนอย่างต่ำ เช่น 3/4)",
+          a: ansTxt,
+          alt: [sum + "/" + L],
+          steps:[
+            ["หา ค.ร.น. ของ " + d1 + " กับ " + d2, "ค.ร.น. = " + L],
+            ["ขยายให้ตัวส่วนเท่ากัน", n1 + "/" + d1 + " = " + an + "/" + L + "  และ  " + n2 + "/" + d2 + " = " + bn + "/" + L],
+            ["บวกตัวเศษ", an + " + " + bn + " = " + sum + "  →  " + sum + "/" + L],
+            [g > 1 ? "ทำอย่างต่ำด้วย ห.ร.ม. = " + g : "เป็นอย่างต่ำอยู่แล้ว", "คำตอบ = " + ansTxt]
+          ]
+        };
+      }
+    },
+    {
+      id:"dec", name:"ทศนิยม",
+      make:function(){
+        var mode = ri(0,2);
+        if(mode === 0){
+          var a = ri(10, 400)/10, b = ri(10, 400)/100;
+          var s = Math.round((a+b)*100)/100;
+          return {q: a + " + " + b + " = ?", a: String(s),
+            steps:[["เขียนให้จุดทศนิยมตรงกัน แล้วเติมศูนย์ให้ครบ", a.toFixed(2) + " + " + b.toFixed(2)],
+                   ["บวกตามปกติ", "ได้ " + s]]};
+        } else if(mode === 1){
+          var c = ri(11, 99)/10, m = [10,100][ri(0,1)];
+          var shift = String(m).length - 1;
+          return {q: c + " × " + m + " = ?", a: String(Math.round(c*m*100)/100),
+            steps:[["คูณด้วย " + m + " คือเลื่อนจุดทศนิยมไปทางขวา " + shift + " ตำแหน่ง", c + " → " + (c*m)]]};
+        } else {
+          var cents = ri(100, 999);
+          var shown = (cents/100).toFixed(2);
+          var hundredthsDigit = shown.charAt(shown.length - 1);
+          var rounded = (Math.round(cents/10)/10).toFixed(1);
+          return {q: shown + " ปัดเป็นทศนิยม 1 ตำแหน่ง = ?", a: rounded,
+            steps:[["ดูหลักส่วนร้อยของ " + shown, "คือเลข " + hundredthsDigit],
+                   [+hundredthsDigit >= 5 ? "เลข 5 ขึ้นไป จึงปัดขึ้น" : "เลขต่ำกว่า 5 จึงปัดลง", "ได้ " + rounded]]};
+        }
+      }
+    },
+    {
+      id:"pct", name:"ร้อยละ",
+      make:function(){
+        var pct = [5,10,15,20,25,30,40,50,60,75][ri(0,9)];
+        var base = ri(4, 40) * 10;
+        var val = base * pct / 100;
+        var mode = ri(0,1);
+        if(mode === 0){
+          return {q: pct + "% ของ " + base + " เท่ากับเท่าใด?", a: fmt(val),
+            steps:[["ใช้สูตร จำนวน × ร้อยละ ÷ 100", base + " × " + pct + " ÷ 100"],
+                   ["คำนวณ", base + " × " + pct + " = " + (base*pct) + " แล้วหาร 100 ได้ " + fmt(val)]]};
+        } else {
+          return {q: "ของราคา " + base + " บาท ลด " + pct + "% ต้องจ่ายกี่บาท?", a: fmt(base - val),
+            steps:[["หาส่วนลดก่อน", base + " × " + pct + " ÷ 100 = " + fmt(val) + " บาท"],
+                   ["ลบออกจากราคาเต็ม", base + " − " + fmt(val) + " = " + fmt(base-val) + " บาท"]]};
+        }
+      }
+    },
+    {
+      id:"gcflcm", name:"ห.ร.ม. และ ค.ร.น.",
+      make:function(){
+        var a = ri(6, 48), b = ri(6, 48);
+        var wantGcf = ri(0,1) === 0;
+        return {
+          q: (wantGcf ? "ห.ร.ม." : "ค.ร.น.") + " ของ " + a + " และ " + b + " คือเท่าใด?",
+          a: String(wantGcf ? gcd(a,b) : lcm(a,b)),
+          steps:[
+            ["ตัวประกอบของ " + a, factorsOf(a).join(", ")],
+            ["ตัวประกอบของ " + b, factorsOf(b).join(", ")],
+            [wantGcf ? "ตัวประกอบร่วมที่มากที่สุด" : "ใช้สูตร ค.ร.น. = (a × b) ÷ ห.ร.ม.",
+             wantGcf ? ("ห.ร.ม. = " + gcd(a,b)) : (a + " × " + b + " ÷ " + gcd(a,b) + " = " + lcm(a,b))]
+          ]
+        };
+      }
+    },
+    {
+      id:"area", name:"พื้นที่และปริมาตร",
+      make:function(){
+        var mode = ri(0,2);
+        if(mode === 0){
+          var w = ri(3, 25), l = ri(3, 25);
+          return {q: "สี่เหลี่ยมผืนผ้ากว้าง " + w + " ม. ยาว " + l + " ม. มีพื้นที่กี่ตารางเมตร?", a: String(w*l),
+            steps:[["พื้นที่ = กว้าง × ยาว", w + " × " + l + " = " + (w*l)]]};
+        } else if(mode === 1){
+          var w2 = ri(3, 25), l2 = ri(3, 25);
+          return {q: "สี่เหลี่ยมผืนผ้ากว้าง " + w2 + " ม. ยาว " + l2 + " ม. มีเส้นรอบรูปกี่เมตร?", a: String(2*(w2+l2)),
+            steps:[["เส้นรอบรูป = 2 × (กว้าง + ยาว)", "2 × (" + w2 + " + " + l2 + ") = " + 2*(w2+l2)]]};
+        } else {
+          var a3 = ri(2,12), b3 = ri(2,12), c3 = ri(2,12);
+          return {q: "กล่องกว้าง " + a3 + " ยาว " + b3 + " สูง " + c3 + " ซม. มีปริมาตรกี่ลูกบาศก์เซนติเมตร?", a: String(a3*b3*c3),
+            steps:[["ปริมาตร = กว้าง × ยาว × สูง", a3 + " × " + b3 + " × " + c3 + " = " + (a3*b3*c3)]]};
+        }
+      }
+    },
+    {
+      id:"avg", name:"ค่าเฉลี่ย",
+      make:function(){
+        /* draw plausible scores until they happen to average to a whole number */
+        var n = ri(3, 5), nums, sum;
+        do {
+          nums = []; sum = 0;
+          for(var i=0;i<n;i++){ var v = ri(15, 95); nums.push(v); sum += v; }
+        } while(sum % n !== 0);
+        var mean = sum / n;
+        return {
+          q: "คะแนน " + nums.join(", ") + " มีค่าเฉลี่ยเท่าใด?",
+          a: String(mean),
+          steps:[
+            ["บวกทุกจำนวนเข้าด้วยกัน", nums.join(" + ") + " = " + sum],
+            ["หารด้วยจำนวนข้อมูล " + n + " ตัว", sum + " ÷ " + n + " = " + mean]
+          ]
+        };
+      }
+    }
+  ];
+
+  var curType = null, curProb = null;
+  var dTotal = 0, dRight = 0, dStreak = 0;
+
+  var dPicker = document.getElementById("drillPicker");
+  drillTypes.forEach(function(t, i){
+    var b = document.createElement("button");
+    b.className = "pill";
+    b.textContent = t.name;
+    b.style.setProperty("--pill-color", accentColors[i % accentColors.length]);
+    b.setAttribute("aria-pressed","false");
+    b.addEventListener("click", function(){
+      dPicker.querySelectorAll(".pill").forEach(function(p){ p.setAttribute("aria-pressed","false"); });
+      b.setAttribute("aria-pressed","true");
+      curType = t;
+      nextProblem();
+    });
+    dPicker.appendChild(b);
+  });
+
+  function nextProblem(){
+    if(!curType) return;
+    curProb = curType.make();
+    document.getElementById("drillQ").textContent = curProb.q;
+    document.getElementById("drillAns").value = "";
+    document.getElementById("drillFb").textContent = "";
+    document.getElementById("drillFb").className = "drill-fb";
+    document.getElementById("drillSteps").innerHTML = "";
+    document.getElementById("drillAns").focus();
+  }
+  function showSteps(){
+    var html = "";
+    curProb.steps.forEach(function(s, i){
+      html += "<div class='step'><span class='n'>" + (i+1) + ".</span><span>" + s[1] +
+              "<span class='why'>" + s[0] + "</span></span></div>";
+    });
+    html += "<div class='final'>คำตอบ: " + curProb.a + "</div>";
+    document.getElementById("drillSteps").innerHTML = html;
+  }
+  function checkDrill(){
+    if(!curProb) return;
+    var given = document.getElementById("drillAns").value.trim().replace(/,/g, "").replace(/\s/g, "");
+    if(!given) return;
+    var accept = [curProb.a].concat(curProb.alt || []);
+    var ok = accept.some(function(x){
+      if(given === x) return true;
+      var gn = parseFloat(given), xn = parseFloat(x);
+      return !isNaN(gn) && !isNaN(xn) && x.indexOf("/") === -1 && Math.abs(gn - xn) < 0.0001;
+    });
+    var fb = document.getElementById("drillFb");
+    dTotal++;
+    if(ok){
+      dRight++; dStreak++;
+      fb.textContent = dStreak >= 5 ? ("ถูกต้อง! ต่อเนื่อง " + dStreak + " ข้อแล้ว เก่งมาก 🔥") : "ถูกต้อง! 🎉";
+      fb.className = "drill-fb ok";
+      document.getElementById("drillSteps").innerHTML = "";
+      setTimeout(nextProblem, 1100);
+    } else {
+      dStreak = 0;
+      fb.textContent = "ยังไม่ใช่ — ลองดูวิธีทำด้านล่างแล้วคิดตามทีละขั้น";
+      fb.className = "drill-fb no";
+      showSteps();
+    }
+    document.getElementById("drillTotal").textContent = dTotal;
+    document.getElementById("drillRight").textContent = dRight;
+    document.getElementById("drillStreak").textContent = dStreak;
+  }
+  document.getElementById("drillCheck").addEventListener("click", checkDrill);
+  document.getElementById("drillSkip").addEventListener("click", nextProblem);
+  document.getElementById("drillAns").addEventListener("keydown", function(e){
+    if(e.key === "Enter"){ e.preventDefault(); checkDrill(); }
   });
 
   var journalEl = document.getElementById("journal");

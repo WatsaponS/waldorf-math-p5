@@ -17,6 +17,64 @@
     background:color-mix(in srgb, var(--plum) 14%, var(--card));
     font-weight:700;
   }
+
+  /* ---------- tone table ---------- */
+  .letter-set{
+    font-size:19px; font-weight:700; letter-spacing:.12em;
+    color:var(--blue); line-height:1.7; margin-bottom:6px;
+  }
+  .tone-table th{white-space:nowrap;}
+  .tone-table td{font-size:17px; font-weight:700; text-align:center;}
+  .tone-table td.lbl{
+    font-size:13px; font-weight:700; text-align:left;
+    color:var(--ink-soft); white-space:nowrap;
+  }
+  .tone-table td.na{color:var(--ink-soft); font-weight:400; font-size:14px;}
+  .tone-note{
+    font-size:14px; color:var(--ink-soft); margin-top:12px;
+    background:color-mix(in srgb, var(--blue) 10%, var(--card));
+    border-radius:10px; padding:12px 14px;
+  }
+
+  /* ---------- poem ---------- */
+  .poem-scheme{
+    background:color-mix(in srgb, var(--plum) 8%, var(--card));
+    border:1px solid var(--card-edge); border-radius:14px;
+    padding:20px 16px; overflow-x:auto;
+  }
+  .p-line{
+    display:flex; gap:5px; justify-content:center; align-items:center;
+    margin-bottom:12px; min-width:420px;
+  }
+  .p-cell{
+    width:30px; height:30px; border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--card); border:1px solid var(--card-edge);
+    font-size:13px; color:var(--ink-soft);
+  }
+  .p-gap{width:26px;}
+  .p-cell.rhyme-a{background:var(--gold); border-color:var(--gold); color:#3a2a1c;}
+  .p-cell.rhyme-b{background:var(--plum); border-color:var(--plum); color:#fff8ec;}
+  .p-legend{
+    font-size:13px; color:var(--ink-soft); text-align:center;
+    margin-top:6px; min-width:420px;
+  }
+  .p-legend .rhyme-a{color:var(--gold); font-weight:700;}
+  .p-legend .rhyme-b{color:var(--plum); font-weight:700;}
+  .poem-sample{
+    background:color-mix(in srgb, var(--card-accent, var(--plum)) 9%, var(--card));
+    border-left:4px solid var(--card-accent, var(--plum));
+    border-radius:0 12px 12px 0; padding:16px 20px;
+  }
+  .poem-sample p{
+    display:flex; flex-wrap:wrap; gap:8px 40px;
+    font-family:var(--font-display); font-size:18px; line-height:2;
+  }
+  .poem-sample p span{min-width:180px;}
+  .poem-sample .poem-credit{
+    display:block; font-size:14px; font-style:italic;
+    color:var(--ink-soft); margin-top:8px;
+  }
 </style>
 </head>
 <body>
@@ -47,8 +105,12 @@
 
     <nav class="tabs" role="tablist" aria-label="บทเรียน">
       <button role="tab" data-target="words" style="--tab-accent:var(--plum)" aria-selected="true">ชนิดของคำ</button>
+      <button role="tab" data-target="tone" style="--tab-accent:var(--blue)" aria-selected="false">ไตรยางศ์และวรรณยุกต์</button>
+      <button role="tab" data-target="wordbuild" style="--tab-accent:var(--leaf)" aria-selected="false">การสร้างคำ</button>
+      <button role="tab" data-target="royal" style="--tab-accent:var(--gold)" aria-selected="false">คำราชาศัพท์</button>
       <button role="tab" data-target="proverbs" style="--tab-accent:var(--gold)" aria-selected="false">สำนวนสุภาษิต</button>
       <button role="tab" data-target="literature" style="--tab-accent:var(--red)" aria-selected="false">วรรณคดี: สังข์ทอง</button>
+      <button role="tab" data-target="poem" style="--tab-accent:var(--plum)" aria-selected="false">กาพย์ยานี 11</button>
       <button role="tab" data-target="writing" style="--tab-accent:var(--leaf)" aria-selected="false">การเขียน</button>
     </nav>
 
@@ -72,6 +134,169 @@
 
         <h3>เกมจำแนกคำ — คำนี้เป็นคำชนิดใด?</h3>
         <div id="wordQuiz"></div>
+      </div>
+    </section>
+
+    <!-- ============ TONE / TRIYANG ============ -->
+    <section class="lesson" id="tone">
+      <div class="card" style="--card-accent:var(--blue)">
+        <h2>ไตรยางศ์และการผันวรรณยุกต์</h2>
+        <p class="lead">พยัญชนะไทย 44 ตัวแบ่งเป็น 3 หมู่ เรียกว่า "ไตรยางศ์" — หมู่ของพยัญชนะเป็นตัวกำหนดว่าคำนั้นจะผันเสียงวรรณยุกต์ออกมาเป็นอย่างไร นี่คือกุญแจของการเขียนคำให้ถูกต้อง</p>
+
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--blue)">
+            <h4>อักษรสูง (11 ตัว)</h4>
+            <p class="letter-set">ข ฃ ฉ ฐ ถ ผ ฝ ศ ษ ส ห</p>
+            <p>ท่องว่า “<b>ผี ฝาก ถุง ข้าว สาร ให้ ฉัน</b>”</p>
+          </div>
+          <div class="know" style="--card-accent:var(--blue)">
+            <h4>อักษรกลาง (9 ตัว)</h4>
+            <p class="letter-set">ก จ ฎ ฏ ด ต บ ป อ</p>
+            <p>ท่องว่า “<b>ไก่ จิก เด็ก ตาย บน ปาก โอ่ง</b>”</p>
+          </div>
+          <div class="know" style="--card-accent:var(--blue)">
+            <h4>อักษรต่ำ (24 ตัว)</h4>
+            <p class="letter-set">ค ฅ ฆ ง ช ซ ฌ ญ ฑ ฒ ณ ท ธ น พ ฟ ภ ม ย ร ล ว ฬ ฮ</p>
+            <p>ที่เหลือทั้งหมดเป็นอักษรต่ำ</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ตารางผันวรรณยุกต์ — แตะพยัญชนะเพื่อดู</h3>
+        <div class="pill-row" id="tonePicker" style="margin-bottom:16px;"></div>
+        <div class="table-scroll">
+          <table class="plain tone-table" id="toneTable"></table>
+        </div>
+        <p class="tone-note" id="toneNote"></p>
+
+        <div class="divider"></div>
+
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--blue)">
+            <h4>คำเป็น–คำตาย</h4>
+            <ul>
+              <li><b>คำเป็น</b> — สะกดด้วยแม่ กง กน กม เกย เกอว หรือสระเสียงยาวไม่มีตัวสะกด เช่น <b>ขาว มา ยิ้ม</b></li>
+              <li><b>คำตาย</b> — สะกดด้วยแม่ กก กด กบ หรือสระเสียงสั้นไม่มีตัวสะกด เช่น <b>นก จับ ปะ</b></li>
+              <li>คำเป็นผันได้ครบทุกเสียง ส่วนคำตายผันได้จำกัดกว่า</li>
+            </ul>
+          </div>
+          <div class="know" style="--card-accent:var(--blue)">
+            <h4>มาตราตัวสะกด 8 แม่</h4>
+            <ul>
+              <li><b>แม่กก</b> ก ข ค ฆ — นก เลข โรค</li>
+              <li><b>แม่กด</b> ด จ ช ซ ฎ ฏ ฐ ท ธ ส — จัด ก๊าซ รส</li>
+              <li><b>แม่กบ</b> บ ป พ ฟ ภ — จับ ภาพ กราฟ</li>
+              <li><b>แม่กง</b> ง · <b>แม่กน</b> น ญ ณ ร ล ฬ · <b>แม่กม</b> ม</li>
+              <li><b>แม่เกย</b> ย · <b>แม่เกอว</b> ว</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ฝึกจำแนกหมู่อักษร</h3>
+        <div id="toneQuiz"></div>
+      </div>
+    </section>
+
+    <!-- ============ WORD BUILDING ============ -->
+    <section class="lesson" id="wordbuild">
+      <div class="card" style="--card-accent:var(--leaf)">
+        <h2>การสร้างคำในภาษาไทย</h2>
+        <p class="lead">ภาษาไทยสร้างคำใหม่ได้หลายวิธี เหมือนช่างไม้ที่นำไม้หลายท่อนมาต่อกันเป็นของใหม่ — รู้จักวิธีเหล่านี้แล้วจะเข้าใจความหมายของคำที่ไม่เคยเห็นได้ทันที</p>
+
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--leaf)">
+            <h4>คำประสม</h4>
+            <p>คำไทย 2 คำมารวมกันเกิดความหมายใหม่ที่ต่างจากเดิม</p>
+            <p style="margin-top:6px;"><b>แม่ + น้ำ = แม่น้ำ</b> (ไม่ใช่แม่ที่เป็นน้ำ)<br><b>พ่อ + ครัว = พ่อครัว</b> · <b>ลูก + น้ำ = ลูกน้ำ</b></p>
+          </div>
+          <div class="know" style="--card-accent:var(--leaf)">
+            <h4>คำซ้อน</h4>
+            <p>คำที่มีความหมายคล้ายหรือตรงข้ามมาซ้อนกัน เพื่อเน้นย้ำหรือขยายความ</p>
+            <p style="margin-top:6px;"><b>บ้านเรือน · เสื้อผ้า · ข้าวปลา · ยากดีมีจน · ใหญ่โต</b></p>
+          </div>
+          <div class="know" style="--card-accent:var(--leaf)">
+            <h4>คำซ้ำ</h4>
+            <p>คำเดียวกันซ้ำสองครั้ง ใช้ไม้ยมก (ๆ) เพื่อบอกความมาก ความไม่เจาะจง หรือลดน้ำหนัก</p>
+            <p style="margin-top:6px;"><b>เด็ก ๆ</b> (หลายคน) · <b>ดำ ๆ</b> (ค่อนข้างดำ) · <b>เร็ว ๆ</b> (เร่ง)</p>
+          </div>
+          <div class="know" style="--card-accent:var(--leaf)">
+            <h4>คำสมาส</h4>
+            <p>คำบาลี–สันสกฤตมารวมกัน อ่านออกเสียงเชื่อม แปลจากหลังมาหน้า</p>
+            <p style="margin-top:6px;"><b>วิทยา + ศาสตร์ = วิทยาศาสตร์</b> (ศาสตร์แห่งความรู้)<br><b>ราช + การ = ราชการ</b> · <b>ประวัติ + ศาสตร์ = ประวัติศาสตร์</b></p>
+          </div>
+        </div>
+
+        <div class="know" style="--card-accent:var(--leaf); margin-top:14px;">
+          <h4>เคล็ดลับแยกคำประสมกับคำซ้อน</h4>
+          <p>ถ้าคำทั้งสองมีความหมาย<b>คล้ายกัน</b>หรือ<b>ตรงข้ามกัน</b> → เป็นคำซ้อน (เสื้อ–ผ้า คล้ายกัน)<br>
+             ถ้าคำทั้งสองความหมาย<b>ต่างกัน</b> แต่รวมแล้วได้ความหมายใหม่ → เป็นคำประสม (แม่–น้ำ ต่างกัน)</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ฝึกจำแนกวิธีสร้างคำ</h3>
+        <div id="buildQuiz"></div>
+
+        <div class="divider"></div>
+
+        <h3>ชนิดของประโยค</h3>
+        <div class="know-grid">
+          <div class="know" style="--card-accent:var(--leaf)"><h4>ประโยคความเดียว</h4><p>มีใจความเดียว มีประธานและกริยาชุดเดียว<br><i>“น้องอ่านหนังสือ”</i></p></div>
+          <div class="know" style="--card-accent:var(--leaf)"><h4>ประโยคความรวม</h4><p>ประโยคความเดียวสองประโยคเชื่อมด้วยสันธาน<br><i>“น้องอ่านหนังสือ<b>และ</b>พี่ทำการบ้าน”</i></p></div>
+          <div class="know" style="--card-accent:var(--leaf)"><h4>ประโยคความซ้อน</h4><p>มีประโยคย่อยทำหน้าที่ขยายส่วนใดส่วนหนึ่ง<br><i>“น้องอ่านหนังสือ<b>ที่แม่ซื้อมา</b>”</i></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ROYAL WORDS ============ -->
+    <section class="lesson" id="royal">
+      <div class="card" style="--card-accent:var(--gold)">
+        <h2>คำราชาศัพท์</h2>
+        <p class="lead">ภาษาไทยมีถ้อยคำพิเศษสำหรับใช้กับพระมหากษัตริย์ พระบรมวงศานุวงศ์ พระสงฆ์ และผู้ใหญ่ — เป็นความงดงามที่แสดงความเคารพผ่านภาษา</p>
+
+        <div class="know" style="--card-accent:var(--gold)">
+          <h4>หลักการจำที่ง่ายที่สุด</h4>
+          <ul>
+            <li>เติม <b>พระ</b> หน้าคำนามทั่วไป → พระหัตถ์ (มือ) พระบาท (เท้า) พระเนตร (ตา)</li>
+            <li>เติม <b>พระราช</b> เมื่อเป็นสิ่งที่ทรงกระทำหรือเป็นของส่วนพระองค์ → พระราชดำริ พระราชวัง</li>
+            <li>ใช้ <b>ทรง</b> นำหน้าคำกริยาสามัญ → ทรงงาน ทรงกีฬา ทรงเครื่อง</li>
+            <li>คำที่เป็นราชาศัพท์อยู่แล้ว <b>ไม่ต้อง</b>เติม “ทรง” ซ้ำ เช่น เสวย บรรทม ตรัส</li>
+          </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="table-scroll">
+          <table class="plain">
+            <thead>
+              <tr><th>คำสามัญ</th><th>คำราชาศัพท์</th><th>คำสำหรับพระสงฆ์</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>กิน</td><td>เสวย</td><td>ฉัน</td></tr>
+              <tr><td>นอน</td><td>บรรทม</td><td>จำวัด</td></tr>
+              <tr><td>พูด</td><td>ตรัส / รับสั่ง</td><td>พูด</td></tr>
+              <tr><td>ป่วย</td><td>ประชวร</td><td>อาพาธ</td></tr>
+              <tr><td>ตาย</td><td>สวรรคต / สิ้นพระชนม์</td><td>มรณภาพ</td></tr>
+              <tr><td>ให้</td><td>พระราชทาน</td><td>ถวาย (เราให้ท่าน)</td></tr>
+              <tr><td>ไป / มา</td><td>เสด็จ</td><td>ไป</td></tr>
+              <tr><td>มือ</td><td>พระหัตถ์</td><td>มือ</td></tr>
+              <tr><td>เท้า</td><td>พระบาท</td><td>เท้า</td></tr>
+              <tr><td>ตา</td><td>พระเนตร</td><td>ตา</td></tr>
+              <tr><td>ผม</td><td>พระเกศา</td><td>ผม</td></tr>
+              <tr><td>ลูก</td><td>พระราชโอรส / พระราชธิดา</td><td>—</td></tr>
+              <tr><td>บ้าน</td><td>พระราชวัง / วัง</td><td>กุฏิ</td></tr>
+              <tr><td>ความคิด</td><td>พระราชดำริ</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ฝึกใช้คำราชาศัพท์</h3>
+        <div id="royalQuiz"></div>
       </div>
     </section>
 
@@ -124,6 +349,68 @@
             <li>การหลงเชื่อคำยุยงโดยไม่ไตร่ตรองนำมาซึ่งความทุกข์</li>
           </ul>
         </div>
+      </div>
+    </section>
+
+    <!-- ============ POEM ============ -->
+    <section class="lesson" id="poem">
+      <div class="card" style="--card-accent:var(--plum)">
+        <h2>กาพย์ยานี 11</h2>
+        <p class="lead">บทร้อยกรองที่ไพเราะและแต่งง่ายที่สุดชนิดหนึ่ง — หนึ่งบทมี 2 บาท แต่ละบาทแบ่งเป็น 2 วรรค คือ <b>วรรคหน้า 5 คำ</b> และ <b>วรรคหลัง 6 คำ</b> รวม 11 คำ จึงเรียก "ยานี 11"</p>
+
+        <div class="poem-scheme" aria-label="แผนผังฉันทลักษณ์กาพย์ยานี 11">
+          <div class="p-line">
+            <span class="p-cell">○</span><span class="p-cell">○</span><span class="p-cell">○</span><span class="p-cell">○</span><span class="p-cell rhyme-a">●</span>
+            <span class="p-gap"></span>
+            <span class="p-cell">○</span><span class="p-cell">○</span><span class="p-cell rhyme-a">●</span><span class="p-cell">○</span><span class="p-cell">○</span><span class="p-cell rhyme-b">◆</span>
+          </div>
+          <div class="p-line">
+            <span class="p-cell">○</span><span class="p-cell">○</span><span class="p-cell">○</span><span class="p-cell">○</span><span class="p-cell">○</span>
+            <span class="p-gap"></span>
+            <span class="p-cell">○</span><span class="p-cell">○</span><span class="p-cell rhyme-b">◆</span><span class="p-cell">○</span><span class="p-cell">○</span><span class="p-cell">○</span>
+          </div>
+          <p class="p-legend"><span class="rhyme-a">●</span> คำสุดท้ายวรรคที่ 1 ส่งสัมผัสไปยังคำที่ 3 ของวรรคที่ 2 &nbsp;·&nbsp; <span class="rhyme-b">◆</span> คำสุดท้ายวรรคที่ 2 ส่งสัมผัสไปยังคำที่ 3 ของวรรคที่ 4</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ตัวอย่างจากวรรณคดี</h3>
+        <div class="poem-sample">
+          <p><span>เรื่อยเรื่อยมาเรียงเรียง</span><span>นกบินเฉียงไปทั้งหมู่</span></p>
+          <p><span>ตัวเดียวมาพลัดคู่</span><span>เหมือนพี่อยู่ผู้เดียวดาย</span></p>
+          <p class="poem-credit">— กาพย์เห่เรือ เจ้าฟ้าธรรมธิเบศร</p>
+        </div>
+        <p style="font-size:14px; color:var(--ink-soft); margin-top:10px;">สังเกตสัมผัส: <b>เรียง</b> รับกับ <b>เฉียง</b> &nbsp;·&nbsp; <b>หมู่</b> รับกับ <b>คู่</b> &nbsp;·&nbsp; <b>ดาย</b> ส่งต่อไปยังบทถัดไป</p>
+
+        <div class="divider"></div>
+
+        <h3>ตัวอย่างที่แต่งขึ้นใหม่ — เรื่องธรรมชาติ</h3>
+        <div class="poem-sample" style="--card-accent:var(--leaf)">
+          <p><span>ต้นไม้ในสวนหลัง</span><span>ยืนต้นตั้งรับแสงตะวัน</span></p>
+          <p><span>รากหยั่งลึกลงพลัน</span><span>ใบเขียวขวัญพราวพริ้มไหว</span></p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="know" style="--card-accent:var(--plum)">
+          <h4>ขั้นตอนแต่งกาพย์ให้ไพเราะ</h4>
+          <ul>
+            <li><b>1.</b> คิดภาพที่อยากเล่าก่อน — ต้นไม้ สายฝน แม่น้ำ หรือความรู้สึกใดความรู้สึกหนึ่ง</li>
+            <li><b>2.</b> เขียนวรรคแรกให้ครบ 5 คำ โดยไม่ต้องกังวลเรื่องสัมผัส</li>
+            <li><b>3.</b> ดูคำสุดท้ายของวรรคแรก แล้วหาคำที่คล้องจองมาวางเป็นคำที่ 3 ของวรรคถัดไป</li>
+            <li><b>4.</b> อ่านออกเสียงดัง ๆ — ถ้าฟังแล้วสะดุด ให้เปลี่ยนคำจนลื่นไหล</li>
+          </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>ฝึกจากโจทย์</h3>
+        <div id="poemQuiz"></div>
+
+        <div class="divider"></div>
+
+        <label class="field-label" for="myPoem">แต่งกาพย์ยานี 11 ของฉัน (บันทึกอัตโนมัติ)</label>
+        <textarea id="myPoem" class="journal" placeholder="วรรคหน้า 5 คำ   วรรคหลัง 6 คำ&#10;วรรคหน้า 5 คำ   วรรคหลัง 6 คำ"></textarea>
       </div>
     </section>
 
@@ -186,6 +473,165 @@
     ]
   });
 
+  /* ---------- tone / triyang ---------- */
+  var toneSets = [
+    {
+      group:"อักษรกลาง", letter:"ก", color:"var(--gold)",
+      rows:[
+        ["พื้นเสียง (สามัญ)", "กา"],
+        ["ไม้เอก → เสียงเอก", "ก่า"],
+        ["ไม้โท → เสียงโท", "ก้า"],
+        ["ไม้ตรี → เสียงตรี", "ก๊า"],
+        ["ไม้จัตวา → เสียงจัตวา", "ก๋า"]
+      ],
+      note:"อักษรกลางผันได้ครบทั้ง 5 เสียง และรูปวรรณยุกต์ตรงกับเสียงพอดี — จำง่ายที่สุด"
+    },
+    {
+      group:"อักษรสูง", letter:"ข", color:"var(--red)",
+      rows:[
+        ["พื้นเสียง", "ขา (เสียงจัตวา)"],
+        ["ไม้เอก → เสียงเอก", "ข่า"],
+        ["ไม้โท → เสียงโท", "ข้า"],
+        ["ไม้ตรี", "— ผันไม่ได้"],
+        ["ไม้จัตวา", "— ผันไม่ได้"]
+      ],
+      note:"อักษรสูงพื้นเสียงเป็นเสียงจัตวา ผันได้เพียง 3 เสียง คือ จัตวา–เอก–โท"
+    },
+    {
+      group:"อักษรต่ำ", letter:"ค", color:"var(--leaf)",
+      rows:[
+        ["พื้นเสียง", "คา (เสียงสามัญ)"],
+        ["ไม้เอก → เสียงโท", "ค่า"],
+        ["ไม้โท → เสียงตรี", "ค้า"],
+        ["ไม้ตรี", "— ผันไม่ได้"],
+        ["ไม้จัตวา", "— ผันไม่ได้"]
+      ],
+      note:"ข้อควรระวัง! อักษรต่ำ รูปไม้เอกอ่านเป็นเสียงโท และรูปไม้โทอ่านเป็นเสียงตรี — รูปกับเสียงไม่ตรงกัน นี่คือจุดที่ผิดกันบ่อยที่สุด"
+    }
+  ];
+  var tPicker = document.getElementById("tonePicker");
+  toneSets.forEach(function(t, i){
+    var b = document.createElement("button");
+    b.className = "pill";
+    b.textContent = t.group + " (" + t.letter + ")";
+    b.style.setProperty("--pill-color", t.color);
+    b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    b.addEventListener("click", function(){
+      tPicker.querySelectorAll(".pill").forEach(function(p){ p.setAttribute("aria-pressed","false"); });
+      b.setAttribute("aria-pressed","true");
+      renderTone(t);
+    });
+    tPicker.appendChild(b);
+  });
+  function renderTone(t){
+    var html = "<thead><tr><th>รูปวรรณยุกต์</th><th style='text-align:center;'>" + t.group + " — ตัวอย่าง “" + t.letter + "”</th></tr></thead><tbody>";
+    t.rows.forEach(function(r){
+      var na = r[1].indexOf("—") === 0;
+      html += "<tr><td class='lbl'>" + r[0] + "</td><td class='" + (na ? "na" : "") + "'>" + r[1] + "</td></tr>";
+    });
+    html += "</tbody>";
+    document.getElementById("toneTable").innerHTML = html;
+    document.getElementById("toneNote").textContent = t.note;
+  }
+  renderTone(toneSets[0]);
+
+  makeQuiz(document.getElementById("toneQuiz"), {
+    fixedChoices:["อักษรสูง","อักษรกลาง","อักษรต่ำ"],
+    items:[
+      {prompt:"พยัญชนะ “ข”", answer:"อักษรสูง", explain:"อยู่ในกลุ่ม ผี ฝาก ถุง ข้าว สาร ให้ ฉัน"},
+      {prompt:"พยัญชนะ “ก”", answer:"อักษรกลาง", explain:"อยู่ในกลุ่ม ไก่ จิก เด็ก ตาย บน ปาก โอ่ง"},
+      {prompt:"พยัญชนะ “ค”", answer:"อักษรต่ำ"},
+      {prompt:"พยัญชนะ “ผ”", answer:"อักษรสูง"},
+      {prompt:"พยัญชนะ “บ”", answer:"อักษรกลาง"},
+      {prompt:"พยัญชนะ “ม”", answer:"อักษรต่ำ"},
+      {prompt:"พยัญชนะ “ส”", answer:"อักษรสูง"},
+      {prompt:"พยัญชนะ “อ”", answer:"อักษรกลาง", explain:"อ เป็นอักษรกลาง ตัวสุดท้ายของ ไก่ จิก เด็ก ตาย บน ปาก โอ่ง"},
+      {prompt:"พยัญชนะ “ร”", answer:"อักษรต่ำ"},
+      {prompt:"พยัญชนะ “ฝ”", answer:"อักษรสูง"},
+      {prompt:"คำว่า “นก” เป็นคำเป็นหรือคำตาย?", choices:["คำตาย","คำเป็น"], answer:"คำตาย",
+       explain:"สะกดด้วยแม่กก จึงเป็นคำตาย"},
+      {prompt:"คำว่า “ขาว” เป็นคำเป็นหรือคำตาย?", choices:["คำเป็น","คำตาย"], answer:"คำเป็น",
+       explain:"สะกดด้วยแม่เกอว จึงเป็นคำเป็น"},
+      {prompt:"คำว่า “จับ” สะกดด้วยมาตราใด?", choices:["แม่กบ","แม่กด","แม่กก"], answer:"แม่กบ"},
+      {prompt:"คำว่า “ทหาร” สะกดด้วยมาตราใด?", choices:["แม่กน","แม่กม","แม่กง"], answer:"แม่กน",
+       explain:"ตัว ร สะกดอยู่ในแม่กน"}
+    ]
+  });
+
+  /* ---------- word building ---------- */
+  makeQuiz(document.getElementById("buildQuiz"), {
+    fixedChoices:["คำประสม","คำซ้อน","คำซ้ำ","คำสมาส"],
+    items:[
+      {prompt:"“แม่น้ำ”", answer:"คำประสม", explain:"แม่ + น้ำ ได้ความหมายใหม่ที่ต่างจากทั้งสองคำเดิม"},
+      {prompt:"“เสื้อผ้า”", answer:"คำซ้อน", explain:"เสื้อกับผ้าความหมายใกล้เคียงกัน ซ้อนเพื่อขยายความ"},
+      {prompt:"“เด็ก ๆ”", answer:"คำซ้ำ", explain:"ใช้ไม้ยมกซ้ำคำ บอกความหมายว่าหลายคน"},
+      {prompt:"“วิทยาศาสตร์”", answer:"คำสมาส", explain:"วิทยา + ศาสตร์ เป็นคำบาลี–สันสกฤต แปลจากหลังมาหน้า"},
+      {prompt:"“พ่อครัว”", answer:"คำประสม"},
+      {prompt:"“บ้านเรือน”", answer:"คำซ้อน"},
+      {prompt:"“ประวัติศาสตร์”", answer:"คำสมาส"},
+      {prompt:"“ดำ ๆ”", answer:"คำซ้ำ", explain:"บอกว่าค่อนข้างดำ ไม่ดำสนิท — คำซ้ำช่วยลดน้ำหนักความหมาย"},
+      {prompt:"“ลูกน้ำ”", answer:"คำประสม", explain:"หมายถึงตัวอ่อนของยุง ไม่ใช่ลูกของน้ำ"},
+      {prompt:"“ยากดีมีจน”", answer:"คำซ้อน", explain:"ซ้อนคำที่ความหมายตรงข้ามกัน"},
+      {prompt:"“ราชการ”", answer:"คำสมาส"},
+      {prompt:"“แม่ทัพ”", answer:"คำประสม"},
+      {prompt:"ประโยค “น้องอ่านหนังสือและพี่ทำการบ้าน” เป็นประโยคชนิดใด?",
+       choices:["ประโยคความรวม","ประโยคความเดียว","ประโยคความซ้อน"], answer:"ประโยคความรวม",
+       explain:"มีสองใจความเชื่อมด้วยคำสันธาน “และ”"},
+      {prompt:"ประโยค “น้องอ่านหนังสือที่แม่ซื้อมา” เป็นประโยคชนิดใด?",
+       choices:["ประโยคความซ้อน","ประโยคความรวม","ประโยคความเดียว"], answer:"ประโยคความซ้อน",
+       explain:"“ที่แม่ซื้อมา” เป็นประโยคย่อยขยายคำว่าหนังสือ"}
+    ]
+  });
+
+  /* ---------- royal words ---------- */
+  makeQuiz(document.getElementById("royalQuiz"), {
+    items:[
+      {prompt:"คำราชาศัพท์ของ “กิน” คือคำใด?", choices:["เสวย","ฉัน","รับประทาน"], answer:"เสวย",
+       explain:"ส่วน “ฉัน” ใช้กับพระสงฆ์"},
+      {prompt:"คำราชาศัพท์ของ “นอน” คือคำใด?", choices:["บรรทม","จำวัด","หลับ"], answer:"บรรทม",
+       explain:"“จำวัด” ใช้กับพระสงฆ์"},
+      {prompt:"คำสำหรับพระสงฆ์ที่แปลว่า “ป่วย” คือ?", choices:["อาพาธ","ประชวร","ไข้"], answer:"อาพาธ",
+       explain:"“ประชวร” ใช้กับพระมหากษัตริย์และพระบรมวงศานุวงศ์"},
+      {prompt:"“พระหัตถ์” หมายถึงอวัยวะใด?", choices:["มือ","เท้า","ตา"], answer:"มือ"},
+      {prompt:"“พระเนตร” หมายถึงอวัยวะใด?", choices:["ตา","หู","จมูก"], answer:"ตา"},
+      {prompt:"เมื่อพระมหากษัตริย์ให้สิ่งของแก่ประชาชน ใช้คำว่าอะไร?",
+       choices:["พระราชทาน","ถวาย","มอบ"], answer:"พระราชทาน",
+       explain:"ส่วน “ถวาย” คือประชาชนให้แก่พระองค์ — ทิศทางตรงข้ามกัน"},
+      {prompt:"ข้อใดใช้คำผิด?", choices:["ทรงเสวย","ทรงงาน","ทรงกีฬา"], answer:"ทรงเสวย",
+       explain:"“เสวย” เป็นราชาศัพท์อยู่แล้ว จึงไม่ต้องเติม “ทรง” ซ้ำ"},
+      {prompt:"คำว่า “มรณภาพ” ใช้กับใคร?", choices:["พระสงฆ์","พระมหากษัตริย์","สามัญชน"], answer:"พระสงฆ์"},
+      {prompt:"“เสด็จ” มีความหมายว่าอย่างไร?", choices:["ไปหรือมา","พูด","กิน"], answer:"ไปหรือมา"},
+      {prompt:"ที่พักของพระสงฆ์เรียกว่าอะไร?", choices:["กุฏิ","วัง","ตำหนัก"], answer:"กุฏิ"}
+    ]
+  });
+
+  /* ---------- poem ---------- */
+  makeQuiz(document.getElementById("poemQuiz"), {
+    items:[
+      {prompt:"กาพย์ยานี 11 หนึ่งบาท วรรคหน้ามีกี่คำ?", choices:["5 คำ","6 คำ","11 คำ"], answer:"5 คำ"},
+      {prompt:"วรรคหลังของกาพย์ยานี 11 มีกี่คำ?", choices:["6 คำ","5 คำ","7 คำ"], answer:"6 คำ",
+       explain:"5 + 6 = 11 คำ จึงเรียกว่ายานี 11"},
+      {prompt:"หนึ่งบทของกาพย์ยานี 11 มีกี่บาท?", choices:["2 บาท","4 บาท","1 บาท"], answer:"2 บาท",
+       explain:"2 บาท = 4 วรรค รวม 22 คำ"},
+      {prompt:"คำสุดท้ายของวรรคที่ 1 ต้องสัมผัสกับคำที่เท่าใดของวรรคที่ 2?",
+       choices:["คำที่ 3","คำที่ 1","คำสุดท้าย"], answer:"คำที่ 3"},
+      {prompt:"“เรื่อยเรื่อยมาเรียงเรียง / นกบินเฉียงไปทั้งหมู่” คำใดสัมผัสกับ “เรียง”?",
+       choices:["เฉียง","หมู่","บิน"], answer:"เฉียง",
+       explain:"เป็นคำที่ 3 ของวรรคหลัง คล้องจองกับคำสุดท้ายของวรรคหน้า"},
+      {prompt:"กาพย์เห่เรือเป็นผลงานของใคร?",
+       choices:["เจ้าฟ้าธรรมธิเบศร","สุนทรภู่","รัชกาลที่ 2"], answer:"เจ้าฟ้าธรรมธิเบศร"}
+    ]
+  });
+
+  var poemEl = document.getElementById("myPoem");
+  try{
+    var savedPoem = localStorage.getItem("waldorf-thai-poem-p5");
+    if(savedPoem) poemEl.value = savedPoem;
+  }catch(e){}
+  poemEl.addEventListener("input", function(){
+    try{ localStorage.setItem("waldorf-thai-poem-p5", poemEl.value); }catch(e){}
+  });
+
   makeQuiz(document.getElementById("proverbQuiz"), {
     items: [
       {prompt:"“น้ำขึ้นให้รีบตัก” หมายความว่าอย่างไร?",
@@ -205,7 +651,34 @@
        answer:"ตื่นตกใจกับเรื่องเล็กน้อยเกินเหตุ"},
       {prompt:"“ฝนทั่งให้เป็นเข็ม” หมายความว่าอย่างไร?",
        choices:["เพียรพยายามไม่ย่อท้อจนสำเร็จ","ฝนตกหนักจนเหล็กเป็นสนิม","ของใหญ่มีค่ากว่าของเล็ก"],
-       answer:"เพียรพยายามไม่ย่อท้อจนสำเร็จ"}
+       answer:"เพียรพยายามไม่ย่อท้อจนสำเร็จ"},
+      {prompt:"“ตำน้ำพริกละลายแม่น้ำ” หมายความว่าอย่างไร?",
+       choices:["ลงทุนไปโดยเปล่าประโยชน์","ทำอาหารให้คนหมู่มาก","แบ่งปันสิ่งของให้ผู้อื่น"],
+       answer:"ลงทุนไปโดยเปล่าประโยชน์"},
+      {prompt:"“เข้าเมืองตาหลิ่ว ต้องหลิ่วตาตาม” หมายความว่าอย่างไร?",
+       choices:["ปรับตัวให้เข้ากับที่ที่เราไปอยู่","ต้องระวังคนแปลกหน้า","เดินทางไกลต้องมีเพื่อน"],
+       answer:"ปรับตัวให้เข้ากับที่ที่เราไปอยู่"},
+      {prompt:"“ชี้โพรงให้กระรอก” หมายความว่าอย่างไร?",
+       choices:["บอกทางให้คนคิดไม่ดีทำผิดได้ง่ายขึ้น","สอนคนที่ฉลาดอยู่แล้ว","ช่วยเหลือสัตว์ป่า"],
+       answer:"บอกทางให้คนคิดไม่ดีทำผิดได้ง่ายขึ้น"},
+      {prompt:"“รักวัวให้ผูก รักลูกให้ตี” หมายความว่าอย่างไร?",
+       choices:["รักลูกต้องอบรมสั่งสอนให้อยู่ในระเบียบ","ควรเลี้ยงวัวไว้ในคอก","การลงโทษเป็นเรื่องดีเสมอ"],
+       answer:"รักลูกต้องอบรมสั่งสอนให้อยู่ในระเบียบ"},
+      {prompt:"“ปลาหมอตายเพราะปาก” หมายความว่าอย่างไร?",
+       choices:["พูดพล่อยจนเกิดโทษแก่ตัวเอง","ปลาชนิดนี้ปากใหญ่","กินมากเกินไปเป็นอันตราย"],
+       answer:"พูดพล่อยจนเกิดโทษแก่ตัวเอง"},
+      {prompt:"“ดินพอกหางหมู” หมายความว่าอย่างไร?",
+       choices:["ปล่อยงานคั่งค้างจนสะสมมากขึ้นเรื่อย ๆ","เลี้ยงหมูให้อ้วน","สิ่งสกปรกที่ล้างไม่ออก"],
+       answer:"ปล่อยงานคั่งค้างจนสะสมมากขึ้นเรื่อย ๆ"},
+      {prompt:"“หัวล้านได้หวี” หมายความว่าอย่างไร?",
+       choices:["ได้สิ่งที่ไม่เป็นประโยชน์แก่ตน","โชคดีอย่างไม่คาดฝัน","ได้ของขวัญที่ถูกใจ"],
+       answer:"ได้สิ่งที่ไม่เป็นประโยชน์แก่ตน"},
+      {prompt:"“น้ำพึ่งเรือ เสือพึ่งป่า” หมายความว่าอย่างไร?",
+       choices:["คนเราต้องพึ่งพาอาศัยซึ่งกันและกัน","สัตว์ป่าต้องอยู่ในป่า","การเดินทางทางน้ำปลอดภัยกว่า"],
+       answer:"คนเราต้องพึ่งพาอาศัยซึ่งกันและกัน"},
+      {prompt:"“ตนเป็นที่พึ่งแห่งตน” เป็นคำประเภทใด?",
+       choices:["สุภาษิต","คำพังเพย","สำนวน"],
+       answer:"สุภาษิต", explain:"เป็นคำสอนใจโดยตรง จึงจัดเป็นสุภาษิต"}
     ]
   });
 

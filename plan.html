@@ -99,13 +99,19 @@
     flex:1; min-width:0;
     display:flex; align-items:center; gap:12px;
     text-decoration:none; color:inherit;
-    padding:10px 8px; margin:2px 0;
+    padding:0 8px 0 0; margin:2px 0; overflow:hidden;
     border-radius:12px;
     transition:background .15s ease;
   }
   .session .s-link:hover{background:color-mix(in srgb, var(--card-accent, var(--gold)) 8%, transparent);}
   .session .s-link:focus-visible{outline:2px solid var(--blue); outline-offset:-2px;}
   .session .s-body{flex:1; min-width:0;}
+  .session .s-body{padding:12px 4px;}
+  .session-art{
+    width:118px; align-self:stretch; min-height:108px; flex:none;
+    border-radius:9px 4px 4px 9px;
+    box-shadow:inset -1px 0 0 var(--card-edge);
+  }
   .session .s-title{
     font-weight:700; font-size:15.5px; margin-bottom:2px;
     display:flex; flex-wrap:wrap; align-items:baseline; gap:8px;
@@ -130,6 +136,7 @@
   }
   @media (max-width:560px){
     .session .s-go{display:none;}
+    .session-art{width:88px; min-height:112px;}
   }
 
   .plan-note{
@@ -157,7 +164,7 @@
     <div class="cover">
       <p class="eyebrow">สมุดบทเรียนหลัก · การศึกษาแนววอลดอร์ฟ · ป.5</p>
       <h1>แผนการเรียน Home School</h1>
-      <p class="sub">วันละ 1 ชั่วโมงต่อวิชา — แตะ session ที่ต้องการเพื่อเข้าเรียนบทเรียนนั้นได้ทันที</p>
+      <p class="sub">วิชาละ 15 session · วันละ 1 ชั่วโมง · ครบหนึ่งภาคเรียน — แตะ session ที่ต้องการเพื่อเข้าเรียนบทเรียนนั้นได้ทันที</p>
       <div class="rule"></div>
     </div>
 
@@ -175,7 +182,7 @@
     <div class="card" style="--card-accent:var(--gold)">
       <div class="progress-hero">
         <h2>ความคืบหน้าทั้งหมด</h2>
-        <div class="big-num"><span id="doneCount">0</span> / 50 session</div>
+        <div class="big-num"><span id="doneCount">0</span> / <span id="grandTotal">75</span> session</div>
         <div class="bar"><span id="totalBar" style="width:0%"></span></div>
       </div>
       <div class="continue-box">
@@ -192,20 +199,20 @@
       <div class="know-grid">
         <div class="know" style="--card-accent:var(--leaf)">
           <h4>แบบที่แนะนำ: เรียนเป็นบล็อก</h4>
-          <p>เรียนวิชาเดียว <b>วันละ 1 ชั่วโมง จันทร์–ศุกร์ เป็นเวลา 2 สัปดาห์</b> (= 10 session) แล้วเปลี่ยนวิชาใหม่ ครบ 5 วิชาใน <b>10 สัปดาห์</b> — พอดีหนึ่งภาคเรียน</p>
+          <p>เรียนวิชาเดียว <b>วันละ 1 ชั่วโมง จันทร์–ศุกร์ เป็นเวลา 3 สัปดาห์</b> (= 15 session) แล้วเปลี่ยนวิชาใหม่ ครบ 5 วิชาใน <b>15 สัปดาห์</b> — พอดีหนึ่งภาคเรียน และตรงกับความยาวบล็อกมาตรฐานของวอลดอร์ฟ</p>
         </div>
         <div class="know" style="--card-accent:var(--leaf)">
           <h4>แบบทางเลือก: หมุนเวียนรายวัน</h4>
-          <p>ถ้าเด็กชอบความหลากหลาย จัด <b>จันทร์=คณิต อังคาร=ไทย พุธ=พฤกษศาสตร์ พฤหัส=อารยธรรม ศุกร์=ภูมิศาสตร์</b> สัปดาห์ละ 5 ชั่วโมง ครบทุกวิชาใน 10 สัปดาห์เช่นกัน</p>
+          <p>ถ้าเด็กชอบความหลากหลาย จัด <b>จันทร์=คณิต อังคาร=ไทย พุธ=พฤกษศาสตร์ พฤหัส=อารยธรรม ศุกร์=ภูมิศาสตร์</b> สัปดาห์ละ 5 ชั่วโมง ครบทุกวิชาใน 15 สัปดาห์เช่นกัน</p>
         </div>
       </div>
 
-      <div class="schedule-visual" aria-label="ลำดับบล็อกการเรียน 10 สัปดาห์">
-        <span class="week-chip" style="--w:var(--red)">สัปดาห์ 1–2 · คณิตศาสตร์</span>
-        <span class="week-chip" style="--w:var(--plum)">สัปดาห์ 3–4 · ภาษาไทย</span>
-        <span class="week-chip" style="--w:var(--leaf)">สัปดาห์ 5–6 · พฤกษศาสตร์</span>
-        <span class="week-chip" style="--w:var(--gold)">สัปดาห์ 7–8 · อารยธรรมโบราณ</span>
-        <span class="week-chip" style="--w:var(--blue)">สัปดาห์ 9–10 · ภูมิศาสตร์</span>
+      <div class="schedule-visual" aria-label="ลำดับบล็อกการเรียน 15 สัปดาห์">
+        <span class="week-chip" style="--w:var(--red)">สัปดาห์ 1–3 · คณิตศาสตร์</span>
+        <span class="week-chip" style="--w:var(--plum)">สัปดาห์ 4–6 · ภาษาไทย</span>
+        <span class="week-chip" style="--w:var(--leaf)">สัปดาห์ 7–9 · พฤกษศาสตร์</span>
+        <span class="week-chip" style="--w:var(--gold)">สัปดาห์ 10–12 · อารยธรรมโบราณ</span>
+        <span class="week-chip" style="--w:var(--blue)">สัปดาห์ 13–15 · ภูมิศาสตร์</span>
       </div>
 
       <div class="divider"></div>
@@ -254,6 +261,9 @@
   function save(){ try{ localStorage.setItem(DATA.STORE_KEY, JSON.stringify(state)); }catch(e){} }
   load();
 
+  var grandTotal = subjects.reduce(function(sum, s){ return sum + s.sessions.length; }, 0);
+  document.getElementById("grandTotal").textContent = grandTotal;
+
   var root = document.getElementById("planRoot");
 
   subjects.forEach(function(s){
@@ -289,7 +299,9 @@
       link.className = "s-link";
       link.href = s.page + "?s=" + key;
       link.setAttribute("aria-label", "เข้าเรียน " + s.name + " session " + (i+1) + ": " + ses.t);
+      var artPos = (i % 5) * 25 + "% " + (Math.floor(i / 5) % 2 ? "100%" : "0%");
       link.innerHTML =
+        "<span class='session-art' aria-hidden='true' style=\"--session-sheet:url('assets/session-sheet-" + s.id + ".jpg');background-position:" + artPos + "\"></span>" +
         "<div class='s-body'>" +
           "<div class='s-title'><span class='s-no'>Session " + (i+1) + "</span> " + ses.t + "</div>" +
           "<div class='s-desc'>" + ses.d + "</div>" +
@@ -327,7 +339,7 @@
       document.getElementById("bar-" + s.id).style.width = (done * 100 / s.sessions.length) + "%";
     });
     document.getElementById("doneCount").textContent = total;
-    document.getElementById("totalBar").style.width = (total*2) + "%";
+    document.getElementById("totalBar").style.width = (total * 100 / grandTotal) + "%";
 
     var btn = document.getElementById("continueBtn");
     var hint = document.getElementById("continueHint");
@@ -338,7 +350,7 @@
       btn.style.display = "";
     } else {
       btn.style.display = "none";
-      hint.textContent = total === 50 ? "ยินดีด้วย! เรียนครบทั้ง 50 session แล้ว 🎉" : "";
+      hint.textContent = "ยินดีด้วย! เรียนครบทั้ง " + grandTotal + " session แล้ว 🎉";
     }
   }
   refresh();
