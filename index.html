@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e6d9bd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c2a22" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>สมุดบทเรียนหลัก · คณิตศาสตร์ ป.5 แนววอลดอร์ฟ</title>
+<style>
+  :root{
+    --bg: #e6d9bd;
+    --bg-2: #dccaa2;
+    --card: #f7efdc;
+    --card-edge: #e3d3ab;
+    --ink: #3a2a1c;
+    --ink-soft: #6b5842;
+    --red: #b8483a;
+    --gold: #b9852a;
+    --blue: #3f6f93;
+    --leaf: #55703f;
+    --plum: #7a4a68;
+    --shadow: rgba(58,42,28,0.22);
+    --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    --font-body: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg: #1c2a22;
+      --bg-2: #16211a;
+      --card: #24382c;
+      --card-edge: #3a5443;
+      --ink: #f1ead6;
+      --ink-soft: #cdbfa0;
+      --red: #e2967d;
+      --gold: #f0c674;
+      --blue: #93c6e4;
+      --leaf: #a8c98a;
+      --plum: #cf9fc0;
+      --shadow: rgba(0,0,0,0.45);
+    }
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  button{font:inherit; -webkit-tap-highlight-color:transparent; touch-action:manipulation;}
+  input, textarea{font:inherit;}
+  body{
+    margin:0;
+    -webkit-text-size-adjust:100%;
+  }
+  .page{
+    min-height:100vh;
+    min-height:100dvh;
+    background:
+      radial-gradient(ellipse at 15% 8%, color-mix(in srgb, var(--red) 14%, transparent), transparent 45%),
+      radial-gradient(ellipse at 85% 92%, color-mix(in srgb, var(--blue) 14%, transparent), transparent 45%),
+      linear-gradient(180deg, var(--bg), var(--bg-2));
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.6;
+    padding:clamp(16px,4vw,48px);
+    padding-left:max(clamp(16px,4vw,48px), env(safe-area-inset-left));
+    padding-right:max(clamp(16px,4vw,48px), env(safe-area-inset-right));
+  }
+  .wrap{max-width:1000px;margin:0 auto;}
+
+  /* ---------- cover ---------- */
+  .cover{
+    text-align:center;
+    padding:clamp(28px,6vw,52px) clamp(16px,4vw,32px) clamp(20px,4vw,32px);
+    position:relative;
+  }
+  .cover .eyebrow{
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+  }
+  .cover h1{
+    font-family:var(--font-display);
+    font-style:italic;
+    font-weight:700;
+    font-size:clamp(34px,6vw,58px);
+    margin:0 0 8px;
+    text-wrap:balance;
+    color:var(--red);
+    letter-spacing:.01em;
+  }
+  .cover .sub{
+    font-size:clamp(15px,2.2vw,19px);
+    color:var(--ink-soft);
+    max-width:44ch;
+    margin:0 auto;
+    text-wrap:balance;
+  }
+  .cover .rule{
+    width:120px;height:3px;margin:20px auto 0;border-radius:3px;
+    background:linear-gradient(90deg,var(--red),var(--gold),var(--blue),var(--leaf));
+    opacity:.75;
+  }
+
+  /* ---------- nav ---------- */
+  nav.tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+    margin:8px 0 28px;
+  }
+  nav.tabs button{
+    font-family:var(--font-body);
+    font-size:15px;
+    font-weight:700;
+    color:var(--ink-soft);
+    background:color-mix(in srgb, var(--card) 70%, transparent);
+    border:1px solid var(--card-edge);
+    border-bottom:3px solid var(--tab-accent, var(--gold));
+    border-radius:10px 10px 4px 4px;
+    padding:12px 18px;
+    min-height:46px;
+    cursor:pointer;
+    transition:transform .15s ease, color .15s ease, background .15s ease;
+  }
+  nav.tabs button:hover{transform:translateY(-2px);}
+  nav.tabs button:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+  nav.tabs button[aria-selected="true"]{
+    color:var(--ink);
+    background:var(--card);
+    box-shadow:0 6px 14px var(--shadow);
+    transform:translateY(-2px);
+  }
+
+  /* ---------- lesson card ---------- */
+  section.lesson{display:none;}
+  section.lesson.active{display:block; animation:settle .35s ease;}
+  @media (prefers-reduced-motion: reduce){ section.lesson.active{animation:none;} }
+  @keyframes settle{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--card-edge);
+    border-radius:18px 18px 26px 22px / 22px 26px 18px 18px;
+    box-shadow:0 10px 26px var(--shadow), inset 0 0 0 1px color-mix(in srgb, var(--card-edge) 60%, transparent);
+    padding:clamp(18px,4vw,34px);
+    margin-bottom:22px;
+  }
+  .card h2{
+    font-family:var(--font-display);
+    font-style:italic;
+    font-size:clamp(24px,3.4vw,32px);
+    margin:0 0 4px;
+    color:var(--card-accent, var(--red));
+    text-wrap:balance;
+  }
+  .card .lead{
+    color:var(--ink-soft);
+    margin:0 0 20px;
+    max-width:62ch;
+    font-size:15px;
+  }
+  .divider{
+    border:none;height:1px;
+    background:linear-gradient(90deg,transparent,var(--card-edge),transparent);
+    margin:22px 0;
+  }
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
+  @media (max-width:700px){ .two-col{grid-template-columns:1fr;} }
+
+  label.field-label{
+    display:block; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:8px; font-weight:700;
+  }
+  .stepper{display:flex; align-items:center; gap:12px;}
+  .stepper button{
+    width:44px;height:44px;border-radius:50%;
+    border:1px solid var(--card-edge);
+    background:color-mix(in srgb, var(--card) 60%, var(--bg));
+    color:var(--ink);
+    font-size:22px; font-weight:700; cursor:pointer; line-height:1;
+  }
+  .stepper button:hover{background:var(--gold); color:var(--card); border-color:var(--gold);}
+  .stepper button:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+  .stepper .val{
+    min-width:2.6ch; text-align:center; font-family:var(--font-display);
+    font-size:24px; font-weight:700; font-variant-numeric:tabular-nums;
+  }
+
+  .pill-row{display:flex; flex-wrap:wrap; gap:9px;}
+  .pill{
+    border:1px solid var(--card-edge);
+    background:transparent;
+    color:var(--ink);
+    border-radius:999px;
+    padding:10px 18px;
+    min-height:44px;
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+    font-variant-numeric:tabular-nums;
+    transition:transform .12s ease;
+  }
+  .pill:hover{transform:translateY(-2px);}
+  .pill:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+  .pill[aria-pressed="true"]{
+    background:var(--pill-color, var(--red));
+    border-color:var(--pill-color, var(--red));
+    color:#fff8ec;
+  }
+
+  /* ---------- star ---------- */
+  .star-wrap{display:flex; flex-direction:column; align-items:center; gap:14px;}
+  canvas#starCanvas{max-width:100%; height:auto; touch-action:manipulation;}
+  table.times{
+    width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums;
+  }
+  table.times caption{
+    text-align:left; font-family:var(--font-display); font-style:italic;
+    font-size:18px; margin-bottom:10px; color:var(--ink);
+  }
+  table.times td{
+    padding:6px 8px; border-bottom:1px dashed var(--card-edge); font-size:16px;
+  }
+  table.times td.eq{color:var(--ink-soft); text-align:center; width:1.4em;}
+  table.times td.res{font-weight:700; text-align:right;}
+
+  /* ---------- bread ---------- */
+  .bread-block{text-align:center;}
+  .bread-block h3{
+    font-family:var(--font-display); font-weight:700; font-style:italic;
+    font-size:19px; margin:0 0 10px; color:var(--ink);
+  }
+  .bread-block svg{touch-action:manipulation;}
+  .bread-readout{
+    margin-top:10px; font-size:15px; color:var(--ink-soft);
+  }
+  .bread-readout b{color:var(--ink); font-variant-numeric:tabular-nums;}
+  .compare-result{
+    margin-top:18px; text-align:center; font-family:var(--font-display); font-style:italic;
+    font-size:19px; color:var(--card-accent, var(--red)); min-height:1.4em;
+  }
+  .btn{
+    font-family:var(--font-body); font-weight:700; font-size:15px;
+    border:1px solid var(--card-edge); background:var(--card-accent, var(--red));
+    color:#fff8ec; border-radius:10px; padding:12px 20px; min-height:44px; cursor:pointer;
+    display:inline-block;
+  }
+  .btn:hover{filter:brightness(1.08);}
+  .btn:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+  .btn.ghost{
+    background:transparent; color:var(--ink); border-color:var(--card-edge);
+  }
+
+  /* ---------- factor garden ---------- */
+  .bed{
+    background:color-mix(in srgb, var(--leaf) 10%, var(--card));
+    border:1px dashed var(--card-edge);
+    border-radius:14px;
+    padding:16px;
+    min-height:70px;
+  }
+  .bed h4{
+    margin:0 0 10px; font-size:13px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .seed-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .seed{
+    width:34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:color-mix(in srgb, var(--leaf) 22%, var(--card));
+    border:1px solid var(--card-edge);
+    font-size:13.5px; font-weight:700; font-variant-numeric:tabular-nums;
+    color:var(--ink);
+  }
+  .seed.common{
+    background:var(--gold); border-color:var(--gold); color:#3a2a1c;
+  }
+  .harvest-row{display:flex; gap:16px; flex-wrap:wrap; margin-top:18px;}
+  .harvest{
+    flex:1 1 200px;
+    border-radius:14px; padding:16px 18px;
+    background:color-mix(in srgb, var(--gold) 16%, var(--card));
+    border:1px solid var(--card-edge);
+  }
+  .harvest .k{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft);}
+  .harvest .v{font-family:var(--font-display); font-size:26px; font-weight:700; margin-top:4px; font-variant-numeric:tabular-nums;}
+
+  /* ---------- geometry plot ---------- */
+  input[type="range"]{
+    width:100%; accent-color:var(--leaf);
+    height:34px; touch-action:manipulation;
+  }
+  .plot-stage{
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+    padding-top:6px;
+  }
+  .plot-fence{
+    border:3px dashed var(--leaf);
+    border-radius:6px;
+    padding:6px;
+    background:color-mix(in srgb, var(--leaf) 8%, transparent);
+    max-width:100%;
+    overflow-x:auto;
+  }
+  .plot-grid{display:grid; gap:2px;}
+  .plot-cell{
+    background:color-mix(in srgb, var(--leaf) 30%, var(--card));
+    border-radius:2px;
+  }
+  .readout-row{display:flex; gap:14px; flex-wrap:wrap; justify-content:center;}
+  .readout{
+    background:color-mix(in srgb, var(--blue) 12%, var(--card));
+    border:1px solid var(--card-edge);
+    border-radius:12px; padding:10px 16px; text-align:center; min-width:150px;
+  }
+  .readout .k{font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft);}
+  .readout .v{font-family:var(--font-display); font-size:20px; font-weight:700; font-variant-numeric:tabular-nums;}
+
+  /* ---------- journal ---------- */
+  .problem{
+    border-left:3px solid var(--card-accent, var(--plum));
+    padding:4px 0 4px 16px;
+    margin-bottom:20px;
+  }
+  .problem p{margin:0 0 10px;}
+  .answer{
+    display:none;
+    background:color-mix(in srgb, var(--leaf) 14%, var(--card));
+    border-radius:10px; padding:12px 14px; margin-top:10px; font-size:14.5px;
+  }
+  .answer.show{display:block;}
+  textarea#journal{
+    width:100%; min-height:160px; resize:vertical;
+    font-family:var(--font-body); font-size:16px; color:var(--ink);
+    background:
+      repeating-linear-gradient(var(--card), var(--card) 27px, var(--card-edge) 28px);
+    border:1px solid var(--card-edge); border-radius:10px; padding:14px;
+    line-height:28px;
+  }
+  textarea#journal:focus-visible{outline:2px solid var(--blue);}
+
+  footer{
+    text-align:center; color:var(--ink-soft); font-size:13px; padding:20px 0 6px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="wrap">
+
+    <div class="cover">
+      <p class="eyebrow">สมุดบทเรียนหลัก · การศึกษาแนววอลดอร์ฟ</p>
+      <h1>คณิตศาสตร์ ป.5</h1>
+      <p class="sub">เรียนรู้ตัวเลขผ่านจังหวะ ลวดลาย และเรื่องราวจากธรรมชาติ — วาด แบ่ง ปลูก และวัด แทนการท่องจำ</p>
+      <div class="rule"></div>
+    </div>
+
+    <nav class="tabs" role="tablist" aria-label="บทเรียน">
+      <button role="tab" data-target="star" style="--tab-accent:var(--red)" aria-selected="true">ดาวแห่งการคูณ</button>
+      <button role="tab" data-target="bread" style="--tab-accent:var(--gold)" aria-selected="false">ขนมปังเศษส่วน</button>
+      <button role="tab" data-target="garden" style="--tab-accent:var(--leaf)" aria-selected="false">สวนตัวประกอบ</button>
+      <button role="tab" data-target="plot" style="--tab-accent:var(--blue)" aria-selected="false">แปลงผักเรขาคณิต</button>
+      <button role="tab" data-target="journal" style="--tab-accent:var(--plum)" aria-selected="false">สมุดบันทึกและโจทย์</button>
+    </nav>
+
+    <!-- ================= STAR ================= -->
+    <section class="lesson active" id="star">
+      <div class="card" style="--card-accent:var(--red)">
+        <h2>ดาวแห่งการคูณ</h2>
+        <p class="lead">วางจุด 0–9 ไว้บนวงกลม แล้วลากเส้นจากจุด i ไปยังจุด (i × แม่สูตร) หารเอาเศษด้วย 10 เมื่อลากครบทั้ง 10 เส้น จะปรากฏลวดลายดาวประจำแม่สูตรนั้น</p>
+
+        <div class="pill-row" id="starPicker" role="group" aria-label="เลือกแม่สูตรคูณ"></div>
+
+        <div class="divider"></div>
+
+        <div class="two-col">
+          <div class="star-wrap">
+            <canvas id="starCanvas" width="340" height="340" role="img" aria-label="ลวดลายดาวของแม่สูตรคูณที่เลือก"></canvas>
+          </div>
+          <div>
+            <table class="times" id="timesTable">
+              <caption>ตารางแม่ 2</caption>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BREAD ================= -->
+    <section class="lesson" id="bread">
+      <div class="card" style="--card-accent:var(--gold)">
+        <h2>ขนมปังเศษส่วน</h2>
+        <p class="lead">แบ่งขนมปังกลมแต่ละก้อนออกเป็นชิ้นเท่า ๆ กัน แตะชิ้นที่ต้องการแรเงาเพื่อสร้างเศษส่วน แล้วลองเปรียบเทียบก้อนทั้งสอง</p>
+
+        <div class="two-col">
+          <div class="bread-block">
+            <h3>ก้อนที่ 1</h3>
+            <label class="field-label">จำนวนชิ้นทั้งหมด (ตัวส่วน)</label>
+            <div class="stepper" style="justify-content:center; margin-bottom:14px;">
+              <button data-bread="0" data-dir="-1" aria-label="ลดจำนวนชิ้นก้อนที่ 1">−</button>
+              <span class="val" id="denVal0">6</span>
+              <button data-bread="0" data-dir="1" aria-label="เพิ่มจำนวนชิ้นก้อนที่ 1">+</button>
+            </div>
+            <svg id="loaf0" width="220" height="220" viewBox="0 0 220 220" style="max-width:100%;"></svg>
+            <p class="bread-readout" id="readout0"></p>
+          </div>
+
+          <div class="bread-block">
+            <h3>ก้อนที่ 2</h3>
+            <label class="field-label">จำนวนชิ้นทั้งหมด (ตัวส่วน)</label>
+            <div class="stepper" style="justify-content:center; margin-bottom:14px;">
+              <button data-bread="1" data-dir="-1" aria-label="ลดจำนวนชิ้นก้อนที่ 2">−</button>
+              <span class="val" id="denVal1">4</span>
+              <button data-bread="1" data-dir="1" aria-label="เพิ่มจำนวนชิ้นก้อนที่ 2">+</button>
+            </div>
+            <svg id="loaf1" width="220" height="220" viewBox="0 0 220 220" style="max-width:100%;"></svg>
+            <p class="bread-readout" id="readout1"></p>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:6px;">
+          <button class="btn" id="compareBtn" style="--card-accent:var(--gold)">เปรียบเทียบขนมปังทั้งสอง</button>
+          <p class="compare-result" id="compareResult" style="--card-accent:var(--gold)"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GARDEN ================= -->
+    <section class="lesson" id="garden">
+      <div class="card" style="--card-accent:var(--leaf)">
+        <h2>สวนตัวประกอบ</h2>
+        <p class="lead">ปลูกตัวเลขสองต้น เมล็ดแต่ละเมล็ดคือตัวประกอบของต้นนั้น เมล็ดสีทองคือตัวประกอบที่ทั้งสองต้นมีร่วมกัน</p>
+
+        <div class="two-col">
+          <div>
+            <label class="field-label">ต้นที่ 1</label>
+            <div class="stepper">
+              <button data-garden="0" data-dir="-1" aria-label="ลดค่าต้นที่ 1">−</button>
+              <span class="val" id="gVal0">12</span>
+              <button data-garden="0" data-dir="1" aria-label="เพิ่มค่าต้นที่ 1">+</button>
+            </div>
+          </div>
+          <div>
+            <label class="field-label">ต้นที่ 2</label>
+            <div class="stepper">
+              <button data-garden="1" data-dir="-1" aria-label="ลดค่าต้นที่ 2">−</button>
+              <span class="val" id="gVal1">18</span>
+              <button data-garden="1" data-dir="1" aria-label="เพิ่มค่าต้นที่ 2">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div class="bed"><h4 id="bedTitle0">ตัวประกอบของ 12</h4><div class="seed-row" id="bedRow0"></div></div>
+          <div class="bed"><h4 id="bedTitle1">ตัวประกอบของ 18</h4><div class="seed-row" id="bedRow1"></div></div>
+          <div class="bed"><h4>ตัวประกอบร่วม</h4><div class="seed-row" id="bedCommon"></div></div>
+        </div>
+
+        <div class="harvest-row">
+          <div class="harvest"><div class="k">ตัวหารร่วมมาก (ห.ร.ม.)</div><div class="v" id="gcfVal">6</div></div>
+          <div class="harvest"><div class="k">ตัวคูณร่วมน้อย (ค.ร.น.)</div><div class="v" id="lcmVal">36</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PLOT ================= -->
+    <section class="lesson" id="plot">
+      <div class="card" style="--card-accent:var(--blue)">
+        <h2>แปลงผักเรขาคณิต</h2>
+        <p class="lead">ปรับความกว้างและความยาวของแปลงผัก สังเกตว่าพื้นที่และรั้วรอบแปลงเปลี่ยนไปอย่างไร</p>
+
+        <div class="two-col">
+          <div>
+            <label class="field-label" for="widthRange">ความกว้าง: <span id="wVal">6</span> เมตร</label>
+            <input type="range" id="widthRange" min="1" max="12" value="6">
+          </div>
+          <div>
+            <label class="field-label" for="heightRange">ความยาว: <span id="hVal">4</span> เมตร</label>
+            <input type="range" id="heightRange" min="1" max="12" value="4">
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="plot-stage">
+          <div class="plot-fence"><div class="plot-grid" id="plotGrid"></div></div>
+          <div class="readout-row">
+            <div class="readout"><div class="k">พื้นที่ = กว้าง × ยาว</div><div class="v" id="areaVal">24 ตร.ม.</div></div>
+            <div class="readout"><div class="k">เส้นรอบรูป = 2 × (กว้าง + ยาว)</div><div class="v" id="periVal">20 ม.</div></div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="problem" style="--card-accent:var(--blue)">
+          <p><b>โจทย์:</b> ถ้าแม่ต้องการล้อมรั้วรอบแปลงผักนี้ให้ครบทุกด้าน ต้องใช้ไม้รั้วยาวกี่เมตร?</p>
+          <button class="btn ghost" id="plotRevealBtn">ดูคำตอบ</button>
+          <div class="answer" id="plotAnswer"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= JOURNAL ================= -->
+    <section class="lesson" id="journal-section">
+      <div class="card" style="--card-accent:var(--plum)">
+        <h2>โจทย์ปัญหาจากสวนและท้องนา</h2>
+        <p class="lead">อ่านโจทย์ ลองคิดหาคำตอบด้วยตัวเองก่อน แล้วค่อยกดดูเฉลย</p>
+
+        <div class="problem" style="--card-accent:var(--plum)">
+          <p><b>1.</b> สวนแอปเปิลมีต้นไม้ 24 ต้น เก็บผลไปขายแล้ว 3/4 ของต้นไม้ทั้งหมด เหลือกี่ต้นที่ยังไม่ได้เก็บผล?</p>
+          <button class="btn ghost" data-reveal="a1">ดูเฉลย</button>
+          <div class="answer" id="a1">24 ต้น × 3/4 = 18 ต้น เก็บไปแล้ว ดังนั้นเหลือ 24 − 18 = <b>6 ต้น</b> ที่ยังไม่ได้เก็บ</div>
+        </div>
+
+        <div class="problem" style="--card-accent:var(--plum)">
+          <p><b>2.</b> ระฆังวัดตีทุก 12 นาที และนกหวีดโรงเรียนดังทุก 18 นาที ถ้าทั้งสองดังพร้อมกันตอน 8:00 น. ครั้งต่อไปที่จะดังพร้อมกันคือกี่โมง?</p>
+          <button class="btn ghost" data-reveal="a2">ดูเฉลย</button>
+          <div class="answer" id="a2">หา ค.ร.น. ของ 12 และ 18 → ตัวคูณร่วมน้อยคือ 36 นาที ดังนั้นครั้งต่อไปคือ 8:00 + 36 นาที = <b>8:36 น.</b></div>
+        </div>
+
+        <div class="problem" style="--card-accent:var(--plum)">
+          <p><b>3.</b> แปลงนากว้าง 4.5 เมตร ยาว 6 เมตร ต้องใช้เมล็ดพันธุ์ 2 กรัมต่อตารางเมตร ต้องใช้เมล็ดพันธุ์ทั้งหมดกี่กรัม?</p>
+          <button class="btn ghost" data-reveal="a3">ดูเฉลย</button>
+          <div class="answer" id="a3">พื้นที่ = 4.5 × 6 = 27 ตารางเมตร ใช้เมล็ดพันธุ์ = 27 × 2 = <b>54 กรัม</b></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <label class="field-label" for="journal">บันทึกของฉัน — สิ่งที่เรียนรู้วันนี้</label>
+        <textarea id="journal" placeholder="เขียนสิ่งที่เรียนรู้วันนี้ หรือบรรยายภาพที่นึกออกในใจ..."></textarea>
+      </div>
+    </section>
+
+    <footer>สมุดบทเรียนหลัก · คณิตศาสตร์ ชั้นประถมศึกษาปีที่ 5 · แนวการศึกษาวอลดอร์ฟ</footer>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------------- shared helpers ---------------- */
+  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ var t=b; b=a%b; a=t; } return a || 1; }
+  function lcm(a,b){ return Math.abs(a*b)/gcd(a,b); }
+  function factorsOf(n){
+    var out=[];
+    for(var i=1;i<=n;i++){ if(n%i===0) out.push(i); }
+    return out;
+  }
+
+  /* ---------------- tabs ---------------- */
+  var tabButtons = document.querySelectorAll("nav.tabs button");
+  var sections = document.querySelectorAll("section.lesson");
+  var sectionMap = { star:"star", bread:"bread", garden:"garden", plot:"plot", journal:"journal-section" };
+  tabButtons.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      tabButtons.forEach(function(b){ b.setAttribute("aria-selected","false"); });
+      sections.forEach(function(s){ s.classList.remove("active"); });
+      btn.setAttribute("aria-selected","true");
+      document.getElementById(sectionMap[btn.dataset.target]).classList.add("active");
+    });
+  });
+
+  /* ================= STAR ================= */
+  var accentColors = ["#b8483a","#b9852a","#3f6f93","#55703f","#7a4a68","#a05a2c","#4a6a7a","#8a5a3a"];
+  var starPicker = document.getElementById("starPicker");
+  var currentN = 2;
+  for(var n=2;n<=9;n++){
+    (function(n){
+      var b = document.createElement("button");
+      b.className = "pill";
+      b.textContent = "แม่ " + n;
+      b.style.setProperty("--pill-color", accentColors[(n-2)%accentColors.length]);
+      b.setAttribute("aria-pressed", n===2 ? "true":"false");
+      b.addEventListener("click", function(){
+        document.querySelectorAll("#starPicker .pill").forEach(function(p){ p.setAttribute("aria-pressed","false"); });
+        b.setAttribute("aria-pressed","true");
+        currentN = n;
+        drawStar(n);
+        fillTimesTable(n);
+      });
+      starPicker.appendChild(b);
+    })(n);
+  }
+
+  var canvas = document.getElementById("starCanvas");
+  var ctx = canvas.getContext("2d");
+  /* render at 2x for crisp lines on retina iPad screens */
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = 340 * DPR;
+  canvas.height = 340 * DPR;
+  canvas.style.width = "340px";
+  canvas.style.height = "340px";
+  ctx.scale(DPR, DPR);
+
+  var inkStroke = "rgba(58,42,28,";
+  if(window.matchMedia("(prefers-color-scheme: dark)").matches){
+    inkStroke = "rgba(241,234,214,";
+  }
+
+  var cx=170, cy=170, R=132;
+  function pointPos(i){
+    var angle = (-90 + i*36) * Math.PI/180;
+    return { x: cx + R*Math.cos(angle), y: cy + R*Math.sin(angle) };
+  }
+  function drawBase(){
+    ctx.clearRect(0,0,340,340);
+    ctx.beginPath();
+    ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.strokeStyle = inkStroke + "0.35)";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    for(var i=0;i<10;i++){
+      var p = pointPos(i);
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,4,0,Math.PI*2);
+      ctx.fillStyle = inkStroke + "0.55)";
+      ctx.fill();
+      var lp = { x: cx + (R+18)*Math.cos((-90+i*36)*Math.PI/180), y: cy + (R+18)*Math.sin((-90+i*36)*Math.PI/180) };
+      ctx.fillStyle = inkStroke + "0.75)";
+      ctx.font = "13px Trebuchet MS, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(String(i), lp.x, lp.y);
+    }
+  }
+  var starTimer = null;
+  function drawStar(n){
+    if(starTimer) clearTimeout(starTimer);
+    var color = accentColors[(n-2)%accentColors.length];
+    var seq = [];
+    for(var i=0;i<10;i++) seq.push([i, (i*n)%10]);
+    var step = 0;
+    function frame(){
+      drawBase();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      for(var k=0;k<step;k++){
+        var a = pointPos(seq[k][0]), b = pointPos(seq[k][1]);
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+      }
+      step++;
+      if(step<=seq.length){
+        starTimer = setTimeout(frame, reduceMotion ? 0 : 130);
+      }
+    }
+    frame();
+  }
+  function fillTimesTable(n){
+    var table = document.getElementById("timesTable");
+    var rows = "";
+    for(var i=1;i<=10;i++){
+      rows += "<tr><td>"+n+" × "+i+"</td><td class='eq'>=</td><td class='res'>"+(n*i)+"</td></tr>";
+    }
+    table.innerHTML = "<caption>ตารางแม่ " + n + "</caption>" + rows;
+  }
+  drawStar(2);
+  fillTimesTable(2);
+
+  /* ================= BREAD ================= */
+  var breadState = [
+    { den: 6, shaded: [true,true,false,false,false,false] },
+    { den: 4, shaded: [true,false,false,false] }
+  ];
+
+  function polar(cx,cy,r,angleDeg){
+    var a = (angleDeg-90) * Math.PI/180;
+    return { x: cx + r*Math.cos(a), y: cy + r*Math.sin(a) };
+  }
+  function renderLoaf(idx){
+    var st = breadState[idx];
+    var svg = document.getElementById("loaf"+idx);
+    var lcx=110, lcy=110, r=95;
+    var slices = "";
+    var per = 360/st.den;
+    for(var i=0;i<st.den;i++){
+      var startA = i*per, endA = (i+1)*per;
+      var p1 = polar(lcx,lcy,r,startA), p2 = polar(lcx,lcy,r,endA);
+      var largeArc = per > 180 ? 1 : 0;
+      var d = "M "+lcx+" "+lcy+" L "+p1.x.toFixed(2)+" "+p1.y.toFixed(2)+" A "+r+" "+r+" 0 "+largeArc+" 1 "+p2.x.toFixed(2)+" "+p2.y.toFixed(2)+" Z";
+      var fill = st.shaded[i] ? "var(--gold)" : "var(--card)";
+      slices += "<path d='"+d+"' fill='"+fill+"' stroke='var(--ink-soft)' stroke-width='1' data-slice='"+i+"' data-loaf='"+idx+"' style='cursor:pointer;'></path>";
+    }
+    svg.innerHTML = slices;
+    svg.querySelectorAll("path").forEach(function(path){
+      path.addEventListener("click", function(){
+        var b = +path.dataset.loaf, s = +path.dataset.slice;
+        breadState[b].shaded[s] = !breadState[b].shaded[s];
+        renderLoaf(b);
+        updateReadout(b);
+      });
+    });
+  }
+  function simplify(num, den){
+    var g = gcd(num, den);
+    return [num/g, den/g];
+  }
+  function updateReadout(idx){
+    var st = breadState[idx];
+    var num = st.shaded.filter(Boolean).length;
+    var den = st.den;
+    var simp = simplify(num||0, den);
+    var decimal = den ? (num/den) : 0;
+    var text = "<b>"+num+"/"+den+"</b>";
+    if(num>0 && (simp[0]!==num || simp[1]!==den)){
+      text += "  =  <b>"+simp[0]+"/"+simp[1]+"</b>";
+    }
+    text += "   ≈ <b>"+decimal.toFixed(2)+"</b>";
+    document.getElementById("readout"+idx).innerHTML = text;
+  }
+  document.querySelectorAll("button[data-bread]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var idx = +btn.dataset.bread, dir = +btn.dataset.dir;
+      var st = breadState[idx];
+      var newDen = Math.min(12, Math.max(2, st.den + dir));
+      if(newDen !== st.den){
+        st.den = newDen;
+        st.shaded = new Array(newDen).fill(false);
+        document.getElementById("denVal"+idx).textContent = newDen;
+        renderLoaf(idx);
+        updateReadout(idx);
+        document.getElementById("compareResult").textContent = "";
+      }
+    });
+  });
+  document.getElementById("compareBtn").addEventListener("click", function(){
+    var a = breadState[0], b = breadState[1];
+    var numA = a.shaded.filter(Boolean).length, numB = b.shaded.filter(Boolean).length;
+    var left = numA * b.den, right = numB * a.den;
+    var msg;
+    if(left === right){
+      msg = numA+"/"+a.den+" เท่ากับ "+numB+"/"+b.den+" — ขนมปังสองก้อนเท่ากันพอดี!";
+    } else if(left > right){
+      msg = numA+"/"+a.den+" มากกว่า "+numB+"/"+b.den+" — ก้อนที่ 1 มีชิ้นที่แรเงามากกว่า";
+    } else {
+      msg = numB+"/"+b.den+" มากกว่า "+numA+"/"+a.den+" — ก้อนที่ 2 มีชิ้นที่แรเงามากกว่า";
+    }
+    document.getElementById("compareResult").textContent = msg;
+  });
+  renderLoaf(0); renderLoaf(1);
+  updateReadout(0); updateReadout(1);
+
+  /* ================= GARDEN ================= */
+  var gardenState = [12, 18];
+  function renderGarden(){
+    var a = gardenState[0], b = gardenState[1];
+    var fa = factorsOf(a), fb = factorsOf(b);
+    var common = fa.filter(function(x){ return fb.indexOf(x) !== -1; });
+
+    document.getElementById("bedTitle0").textContent = "ตัวประกอบของ " + a;
+    document.getElementById("bedTitle1").textContent = "ตัวประกอบของ " + b;
+    document.getElementById("bedRow0").innerHTML = fa.map(function(x){
+      return "<span class='seed"+(common.indexOf(x)!==-1?" common":"")+"'>"+x+"</span>";
+    }).join("");
+    document.getElementById("bedRow1").innerHTML = fb.map(function(x){
+      return "<span class='seed"+(common.indexOf(x)!==-1?" common":"")+"'>"+x+"</span>";
+    }).join("");
+    document.getElementById("bedCommon").innerHTML = common.map(function(x){
+      return "<span class='seed common'>"+x+"</span>";
+    }).join("");
+
+    document.getElementById("gcfVal").textContent = gcd(a,b);
+    document.getElementById("lcmVal").textContent = lcm(a,b);
+  }
+  document.querySelectorAll("button[data-garden]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var idx = +btn.dataset.garden, dir = +btn.dataset.dir;
+      var v = Math.min(100, Math.max(1, gardenState[idx] + dir));
+      gardenState[idx] = v;
+      document.getElementById("gVal"+idx).textContent = v;
+      renderGarden();
+    });
+  });
+  renderGarden();
+
+  /* ================= PLOT ================= */
+  var widthRange = document.getElementById("widthRange");
+  var heightRange = document.getElementById("heightRange");
+  function renderPlot(){
+    var w = +widthRange.value, h = +heightRange.value;
+    document.getElementById("wVal").textContent = w;
+    document.getElementById("hVal").textContent = h;
+    var avail = Math.min(document.querySelector(".card").clientWidth - 80, 340);
+    var cell = Math.max(12, Math.min(30, Math.floor(avail/Math.max(w,h))));
+    var grid = document.getElementById("plotGrid");
+    grid.style.gridTemplateColumns = "repeat("+w+", "+cell+"px)";
+    grid.style.gridTemplateRows = "repeat("+h+", "+cell+"px)";
+    var cells = "";
+    for(var i=0;i<w*h;i++){ cells += "<div class='plot-cell'></div>"; }
+    grid.innerHTML = cells;
+    document.getElementById("areaVal").textContent = (w*h) + " ตร.ม.";
+    var peri = 2*(w+h);
+    document.getElementById("periVal").textContent = peri + " ม.";
+    document.getElementById("plotAnswer").innerHTML = "เส้นรอบรูป = 2 × ("+w+" + "+h+") = <b>"+peri+" เมตร</b> ต้องใช้ไม้รั้วยาว "+peri+" เมตร";
+  }
+  widthRange.addEventListener("input", renderPlot);
+  heightRange.addEventListener("input", renderPlot);
+  renderPlot();
+  window.addEventListener("resize", renderPlot);
+  document.getElementById("plotRevealBtn").addEventListener("click", function(){
+    var ans = document.getElementById("plotAnswer");
+    ans.classList.toggle("show");
+    this.textContent = ans.classList.contains("show") ? "ซ่อนคำตอบ" : "ดูคำตอบ";
+  });
+
+  /* ================= JOURNAL / PROBLEMS ================= */
+  document.querySelectorAll("[data-reveal]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle("show");
+      btn.textContent = ans.classList.contains("show") ? "ซ่อนเฉลย" : "ดูเฉลย";
+    });
+  });
+
+  var journalEl = document.getElementById("journal");
+  try{
+    var saved = localStorage.getItem("waldorf-math-journal-p5");
+    if(saved) journalEl.value = saved;
+  }catch(e){}
+  journalEl.addEventListener("input", function(){
+    try{ localStorage.setItem("waldorf-math-journal-p5", journalEl.value); }catch(e){}
+  });
+
+})();
+</script>
+</body>
+</html>
