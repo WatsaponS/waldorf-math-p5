@@ -108,7 +108,8 @@
   .session .s-body{flex:1; min-width:0;}
   .session .s-body{padding:12px 4px;}
   .session-art{
-    width:118px; align-self:stretch; min-height:108px; flex:none;
+    width:104px; flex:none; align-self:center;
+    aspect-ratio:72 / 100;
     border-radius:9px 4px 4px 9px;
     box-shadow:inset -1px 0 0 var(--card-edge);
   }
@@ -136,7 +137,7 @@
   }
   @media (max-width:560px){
     .session .s-go{display:none;}
-    .session-art{width:88px; min-height:112px;}
+    .session-art{width:78px;}
   }
 
   .plan-note{
@@ -299,9 +300,10 @@
       link.className = "s-link";
       link.href = s.page + "?s=" + key;
       link.setAttribute("aria-label", "เข้าเรียน " + s.name + " session " + (i+1) + ": " + ses.t);
-      var artPos = (i % 5) * 25 + "% " + (Math.floor(i / 5) % 2 ? "100%" : "0%");
+      var cell = (typeof ses.art === "number") ? ses.art : i;
+      var artPos = (cell % 5) * 25 + "% " + (Math.floor(cell / 5) % 2 ? "100%" : "0%");
       link.innerHTML =
-        "<span class='session-art' aria-hidden='true' style=\"--session-sheet:url('assets/session-sheet-" + s.id + ".jpg');background-position:" + artPos + "\"></span>" +
+        "<span class='session-art' aria-hidden='true' style=\"background-image:url('assets/session-sheet-" + s.id + ".jpg');background-position:" + artPos + "\"></span>" +
         "<div class='s-body'>" +
           "<div class='s-title'><span class='s-no'>Session " + (i+1) + "</span> " + ses.t + "</div>" +
           "<div class='s-desc'>" + ses.d + "</div>" +

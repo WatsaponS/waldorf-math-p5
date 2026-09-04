@@ -43,12 +43,15 @@
   banner.className = "card session-banner";
   banner.style.setProperty("--card-accent", subject.color);
 
+  var artCell = (typeof ses.art === "number") ? ses.art : idx;
+  var artPos = (artCell % 5) * 25 + "% " + (Math.floor(artCell / 5) % 2 ? "100%" : "0%");
+
   var hasNext = idx + 1 < subject.sessions.length;
   var nextUrl = subject.page + "?s=" + subject.id + "-" + (idx+2);
   var planUrl = "plan.html#subj-" + subject.id;
 
   banner.innerHTML =
-    "<div class='session-banner-art' aria-hidden='true' style=\"--session-sheet:url('assets/session-sheet-" + subject.id + ".jpg');background-position:" + ((idx % 5) * 25) + "% " + (Math.floor(idx / 5) % 2 ? "100%" : "0%") + "\"></div>" +
+    "<div class='session-banner-art' aria-hidden='true' style=\"background-image:url('assets/session-sheet-" + subject.id + ".jpg');background-position:" + artPos + "\"></div>" +
     "<div class='session-banner-copy'>" +
     "<div class='sb-eyebrow'>แผนการเรียน Home School · " + subject.name +
       " · Session " + (idx+1) + "/" + subject.sessions.length +

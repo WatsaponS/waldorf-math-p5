@@ -442,18 +442,21 @@ footer{
 .session-banner{
   border-left:6px solid var(--card-accent, var(--gold));
   margin-bottom:24px;
-  display:grid; grid-template-columns:minmax(190px, 30%) 1fr;
-  gap:clamp(16px,3vw,30px); align-items:stretch;
+  display:grid; grid-template-columns:minmax(150px, 24%) 1fr;
+  gap:clamp(16px,3vw,30px); align-items:center;
   padding:clamp(12px,2vw,18px);
 }
+/* The sheet URL is set inline on the element (not via a custom property):
+   a relative url() inside a custom property resolves against the stylesheet
+   that declares it, which put these one directory too deep. */
 .session-banner-art,
 .session-art{
-  background-image:var(--session-sheet);
   background-size:500% 200%; background-repeat:no-repeat;
   background-color:color-mix(in srgb, var(--card) 78%, var(--bg));
 }
 .session-banner-art{
-  min-height:220px; border-radius:14px 20px 16px 22px / 20px 14px 22px 16px;
+  aspect-ratio:72 / 100;
+  border-radius:14px 20px 16px 22px / 20px 14px 22px 16px;
   box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--card-edge) 75%, transparent);
 }
 .session-banner-copy{padding:clamp(8px,2vw,16px) clamp(6px,1vw,12px); align-self:center;}
@@ -480,5 +483,5 @@ footer{
 }
 @media (max-width:650px){
   .session-banner{grid-template-columns:1fr;}
-  .session-banner-art{min-height:260px;}
+  .session-banner-art{width:min(58%, 210px); margin:0 auto;}
 }
