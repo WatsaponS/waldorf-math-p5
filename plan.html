@@ -300,10 +300,15 @@
       link.className = "s-link";
       link.href = s.page + "?s=" + key;
       link.setAttribute("aria-label", "เข้าเรียน " + s.name + " session " + (i+1) + ": " + ses.t);
-      var cell = (typeof ses.art === "number") ? ses.art : i;
-      var artPos = (cell % 5) * 25 + "% " + (Math.floor(cell / 5) % 2 ? "100%" : "0%");
+      /* Artwork follows the real session number so every session stays unique. */
+      var cell = i;
+      var extraArt = cell >= 10;
+      var artIndex = extraArt ? cell - 10 : cell;
+      var artPos = (artIndex % 5) * 25 + "% " + (extraArt ? "50%" : (Math.floor(artIndex / 5) ? "100%" : "0%"));
+      var artFile = "assets/session-sheet-" + s.id + (extraArt ? "-extra" : "") + ".jpg";
+      var artSize = extraArt ? "500% 100%" : "500% 200%";
       link.innerHTML =
-        "<span class='session-art' aria-hidden='true' style=\"background-image:url('assets/session-sheet-" + s.id + ".jpg');background-position:" + artPos + "\"></span>" +
+        "<span class='session-art' aria-hidden='true' style=\"background-image:url('" + artFile + "');background-size:" + artSize + ";background-position:" + artPos + "\"></span>" +
         "<div class='s-body'>" +
           "<div class='s-title'><span class='s-no'>Session " + (i+1) + "</span> " + ses.t + "</div>" +
           "<div class='s-desc'>" + ses.d + "</div>" +

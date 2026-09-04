@@ -43,15 +43,20 @@
   banner.className = "card session-banner";
   banner.style.setProperty("--card-accent", subject.color);
 
-  var artCell = (typeof ses.art === "number") ? ses.art : idx;
-  var artPos = (artCell % 5) * 25 + "% " + (Math.floor(artCell / 5) % 2 ? "100%" : "0%");
+  /* Artwork follows the real session number so added sessions never reuse old cells. */
+  var artCell = idx;
+  var extraArt = artCell >= 10;
+  var artIndex = extraArt ? artCell - 10 : artCell;
+  var artPos = (artIndex % 5) * 25 + "% " + (extraArt ? "50%" : (Math.floor(artIndex / 5) ? "100%" : "0%"));
+  var artFile = "assets/session-sheet-" + subject.id + (extraArt ? "-extra" : "") + ".jpg";
+  var artSize = extraArt ? "500% 100%" : "500% 200%";
 
   var hasNext = idx + 1 < subject.sessions.length;
   var nextUrl = subject.page + "?s=" + subject.id + "-" + (idx+2);
   var planUrl = "plan.html#subj-" + subject.id;
 
   banner.innerHTML =
-    "<div class='session-banner-art' aria-hidden='true' style=\"background-image:url('assets/session-sheet-" + subject.id + ".jpg');background-position:" + artPos + "\"></div>" +
+    "<div class='session-banner-art' aria-hidden='true' style=\"background-image:url('" + artFile + "');background-size:" + artSize + ";background-position:" + artPos + "\"></div>" +
     "<div class='session-banner-copy'>" +
     "<div class='sb-eyebrow'>แผนการเรียน Home School · " + subject.name +
       " · Session " + (idx+1) + "/" + subject.sessions.length +
