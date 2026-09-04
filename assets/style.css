@@ -56,6 +56,97 @@ body{margin:0; -webkit-text-size-adjust:100%;}
 }
 .wrap{max-width:1000px;margin:0 auto;}
 
+/* ---------- illustrated hero ---------- */
+.hero-art{
+  position:relative;
+  margin:0 0 28px;
+  padding:7px;
+  overflow:hidden;
+  background:var(--card);
+  border:1px solid var(--card-edge);
+  border-radius:32px 18px 34px 20px / 20px 34px 18px 32px;
+  box-shadow:0 14px 34px var(--shadow);
+  isolation:isolate;
+}
+.hero-art::after{
+  content:"";
+  position:absolute; inset:7px;
+  border:1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  border-radius:26px 14px 28px 16px / 16px 28px 14px 26px;
+  pointer-events:none;
+}
+.hero-art img{
+  display:block;
+  width:100%;
+  height:clamp(260px,52vw,560px);
+  object-fit:cover;
+  border-radius:26px 14px 28px 16px / 16px 28px 14px 26px;
+  filter:saturate(.9) contrast(.96);
+}
+.hero-art figcaption{
+  position:absolute;
+  left:clamp(18px,4vw,42px); right:clamp(18px,4vw,42px); bottom:clamp(18px,4vw,36px);
+  width:fit-content; max-width:min(520px, calc(100% - 36px));
+  padding:10px 16px;
+  color:#402d1d;
+  background:color-mix(in srgb, #f7efdc 88%, transparent);
+  border:1px solid rgba(93,65,37,.22);
+  border-radius:12px 16px 10px 15px;
+  box-shadow:0 5px 18px rgba(58,42,28,.18);
+  font-family:var(--font-display);
+  font-style:italic;
+  font-size:clamp(14px,2vw,18px);
+  line-height:1.45;
+  backdrop-filter:blur(5px);
+}
+@media (max-width:520px){
+  .hero-art img{height:310px; object-position:center;}
+  .hero-art figcaption{position:relative; left:auto; right:auto; bottom:auto; max-width:none; margin:7px 4px 3px; box-shadow:none; background:transparent;}
+}
+
+/* ---------- subject illustration ---------- */
+.subject-art{
+  display:grid;
+  grid-template-columns:minmax(0, 1.45fr) minmax(230px, .55fr);
+  align-items:stretch;
+  margin:0 0 26px;
+  padding:7px;
+  overflow:hidden;
+  background:var(--card);
+  border:1px solid var(--card-edge);
+  border-top:4px solid var(--art-accent, var(--gold));
+  border-radius:18px 30px 20px 28px / 28px 18px 30px 20px;
+  box-shadow:0 10px 26px var(--shadow);
+}
+.subject-art img{
+  display:block; width:100%; height:300px; object-fit:cover;
+  border-radius:13px 22px 14px 20px / 20px 13px 22px 14px;
+}
+.subject-art figcaption{
+  position:relative;
+  display:flex; flex-direction:column; justify-content:center;
+  gap:8px; padding:clamp(18px,3vw,34px);
+  color:var(--ink-soft);
+  background:
+    radial-gradient(circle at 78% 20%, color-mix(in srgb, var(--art-accent) 14%, transparent) 0 5px, transparent 6px),
+    radial-gradient(circle at 85% 28%, color-mix(in srgb, var(--art-accent) 9%, transparent) 0 12px, transparent 13px);
+}
+.subject-art figcaption::before{
+  content:"✦"; color:var(--art-accent); font-size:24px; line-height:1;
+}
+.subject-art figcaption b{
+  color:var(--art-accent); font-family:var(--font-display); font-style:italic;
+  font-size:clamp(21px,3vw,29px); line-height:1.2;
+}
+.subject-art figcaption span{font-size:14px; line-height:1.65;}
+.subject-art--botany img{object-position:center 54%;}
+@media (max-width:720px){
+  .subject-art{grid-template-columns:1fr;}
+  .subject-art img{height:clamp(250px,66vw,420px);}
+  .subject-art figcaption{padding:18px 16px 20px;}
+  .subject-art figcaption::before{position:absolute; right:18px; top:18px;}
+}
+
 /* ---------- cover ---------- */
 .cover{
   text-align:center;
@@ -298,6 +389,7 @@ textarea.journal:focus-visible{outline:2px solid var(--blue);}
   gap:18px; margin-bottom:26px;
 }
 a.subject-card{
+  position:relative; overflow:hidden;
   display:block; text-decoration:none; color:var(--ink);
   background:var(--card);
   border:1px solid var(--card-edge);
@@ -307,6 +399,16 @@ a.subject-card{
   padding:20px 22px;
   transition:transform .15s ease, box-shadow .15s ease;
 }
+a.subject-card::after{
+  content:"";
+  position:absolute;
+  width:110px; height:110px; right:-46px; bottom:-54px;
+  border:18px double color-mix(in srgb, var(--s, var(--gold)) 22%, transparent);
+  border-radius:48% 52% 44% 56%;
+  transform:rotate(18deg);
+  pointer-events:none;
+}
+a.subject-card > *{position:relative; z-index:1;}
 a.subject-card:hover{transform:translateY(-4px); box-shadow:0 14px 28px var(--shadow);}
 a.subject-card:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
 a.subject-card h3{

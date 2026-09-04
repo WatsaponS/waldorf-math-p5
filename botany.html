@@ -8,22 +8,57 @@
 <title>พฤกษศาสตร์ · สมุดบทเรียนหลัก ป.5 แนววอลดอร์ฟ</title>
 <link rel="stylesheet" href="assets/style.css">
 <style>
-  .plant-stage{display:flex; flex-direction:column; align-items:center; gap:14px;}
-  svg.plant{max-width:100%; touch-action:manipulation;}
-  svg.plant .part{cursor:pointer; transition:opacity .15s ease;}
-  svg.plant .part:hover{opacity:.8;}
-  svg.plant .part.selected{stroke:var(--gold); stroke-width:3;}
+  .plant-stage{
+    display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(260px, .65fr);
+    align-items:center; gap:24px;
+    padding:18px;
+    background:linear-gradient(145deg, color-mix(in srgb, var(--leaf) 7%, var(--card)), var(--card));
+    border:1px solid var(--card-edge); border-radius:20px;
+  }
+  svg.plant{display:none;}
+  svg.plant .part{cursor:pointer; transition:filter .18s ease, opacity .18s ease; outline:none;}
+  svg.plant .part:hover{filter:brightness(1.08) drop-shadow(0 3px 3px rgba(58,42,28,.18));}
+  svg.plant .part:focus-visible,
+  svg.plant .part.selected{filter:drop-shadow(0 0 7px #e2b64f) drop-shadow(0 4px 4px rgba(58,42,28,.22));}
+  .plant-figure{
+    position:relative; width:min(100%, 520px); margin:auto; overflow:hidden;
+    border:1px solid color-mix(in srgb, var(--leaf) 30%, var(--card-edge));
+    border-radius:26px 18px 30px 20px / 20px 30px 18px 26px;
+    box-shadow:0 14px 28px rgba(58,42,28,.22); background:#f6ecd4;
+  }
+  .plant-figure img{display:block; width:100%; height:auto;}
+  .part-hotspot{
+    position:absolute; left:var(--x); top:var(--y); transform:translate(-50%,-50%);
+    border:2px solid rgba(255,251,235,.95); border-radius:999px;
+    background:color-mix(in srgb, var(--leaf) 88%, transparent); color:#fffbed;
+    padding:8px 13px; min-width:50px; min-height:42px; cursor:pointer;
+    font-size:13px; font-weight:800; line-height:1;
+    box-shadow:0 4px 14px rgba(47,65,35,.34); backdrop-filter:blur(3px);
+    transition:transform .16s ease, background .16s ease, box-shadow .16s ease;
+  }
+  .part-hotspot:hover{transform:translate(-50%,-50%) scale(1.08); background:var(--gold);}
+  .part-hotspot:focus-visible{outline:3px solid #fff; outline-offset:3px;}
+  .part-hotspot.selected{
+    background:var(--gold); color:#362619;
+    box-shadow:0 0 0 6px color-mix(in srgb, var(--gold) 25%, transparent), 0 5px 16px rgba(58,42,28,.4);
+  }
   .part-info{
     background:color-mix(in srgb, var(--leaf) 12%, var(--card));
     border:1px solid var(--card-edge);
     border-radius:12px; padding:14px 18px;
-    max-width:420px; width:100%; min-height:92px;
+    max-width:420px; width:100%; min-height:150px;
+    box-shadow:inset 4px 0 0 color-mix(in srgb, var(--leaf) 70%, transparent);
   }
   .part-info h4{
     font-family:var(--font-display); font-style:italic; font-size:18px;
     color:var(--leaf); margin:0 0 6px;
   }
   .part-info p{font-size:14.5px; margin:0;}
+  @media (max-width:760px){
+    .plant-stage{grid-template-columns:1fr; padding:12px;}
+    svg.plant{max-height:none;}
+    .part-info{max-width:none; min-height:0;}
+  }
 
   /* photosynthesis equation */
   .photo-eq{
@@ -76,6 +111,11 @@
       <a href="geography.html" style="--s:var(--blue)"><span class="dot"></span>ภูมิศาสตร์</a>
     </nav>
 
+    <figure class="subject-art subject-art--botany" style="--art-accent:var(--leaf)">
+      <img src="assets/botany-hero.png" alt="ภาพสีน้ำพฤกษศาสตร์ของพืชดอก ตั้งแต่ราก ลำต้น ใบ ตาดอก ดอก ผล และเมล็ด" width="1536" height="1024">
+      <figcaption><b>ชีวิตทั้งต้นในภาพเดียว</b><span>รากรับน้ำ ใบรับแสง ดอกให้กำเนิดผลและเมล็ดรุ่นใหม่</span></figcaption>
+    </figure>
+
     <nav class="tabs" role="tablist" aria-label="บทเรียน">
       <button role="tab" data-target="parts" style="--tab-accent:var(--leaf)" aria-selected="true">ส่วนต่าง ๆ ของพืช</button>
       <button role="tab" data-target="photo" style="--tab-accent:var(--gold)" aria-selected="false">ครัวของพืช</button>
@@ -91,35 +131,87 @@
         <p class="lead">แตะแต่ละส่วนของต้นไม้เพื่อดูหน้าที่ของมัน — ราก ลำต้น ใบ และดอก ทำงานร่วมกันเหมือนครอบครัวเดียว</p>
 
         <div class="plant-stage">
-          <svg class="plant" width="300" height="360" viewBox="0 0 300 360" role="img" aria-label="แผนภาพต้นไม้ แตะแต่ละส่วนเพื่อดูหน้าที่">
-            <rect x="0" y="270" width="300" height="90" fill="#a9814f" opacity="0.45"></rect>
-            <line x1="0" y1="270" x2="300" y2="270" stroke="#8a6a42" stroke-width="2" opacity="0.6"></line>
-            <!-- roots -->
-            <g class="part" data-part="root" tabindex="0" role="button" aria-label="ราก">
-              <path d="M150 272 C 130 300, 100 310, 80 335" stroke="#8a6a42" stroke-width="7" fill="none" stroke-linecap="round"></path>
-              <path d="M150 272 C 150 305, 145 320, 150 345" stroke="#8a6a42" stroke-width="8" fill="none" stroke-linecap="round"></path>
-              <path d="M150 272 C 170 300, 200 310, 220 335" stroke="#8a6a42" stroke-width="7" fill="none" stroke-linecap="round"></path>
-              <path d="M150 285 C 135 300, 120 302, 110 318" stroke="#8a6a42" stroke-width="4" fill="none" stroke-linecap="round"></path>
-              <path d="M150 285 C 165 300, 180 302, 190 318" stroke="#8a6a42" stroke-width="4" fill="none" stroke-linecap="round"></path>
+          <div class="plant-figure">
+            <img src="assets/botany-plant-interactive.png" alt="ภาพสีน้ำพืชดอกทั้งต้น เห็นดอก ใบ ลำต้น ผิวดิน และระบบราก" width="1024" height="1536">
+            <button class="part-hotspot" data-part="flower" style="--x:50%;--y:15%;" aria-label="ดูหน้าที่ของดอก">ดอก</button>
+            <button class="part-hotspot" data-part="leaf" style="--x:25%;--y:42%;" aria-label="ดูหน้าที่ของใบ">ใบ</button>
+            <button class="part-hotspot" data-part="stem" style="--x:52%;--y:57%;" aria-label="ดูหน้าที่ของลำต้น">ลำต้น</button>
+            <button class="part-hotspot" data-part="root" style="--x:51%;--y:82%;" aria-label="ดูหน้าที่ของราก">ราก</button>
+          </div>
+          <svg class="plant" width="620" height="540" viewBox="0 0 620 540" role="img" aria-label="แผนภาพพืชดอก แตะราก ลำต้น ใบ หรือดอกเพื่อดูหน้าที่">
+            <defs>
+              <linearGradient id="skyWash" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8efd6"/><stop offset="1" stop-color="#e9dfbd"/></linearGradient>
+              <linearGradient id="soilWash" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b98b58"/><stop offset="1" stop-color="#795735"/></linearGradient>
+              <linearGradient id="stemPaint" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#405a2e"/><stop offset=".48" stop-color="#78994d"/><stop offset="1" stop-color="#a8bb70"/></linearGradient>
+              <radialGradient id="petalPaint" cx="45%" cy="34%" r="70%"><stop offset="0" stop-color="#ffe1d3"/><stop offset=".55" stop-color="#dd8c89"/><stop offset="1" stop-color="#a94e5d"/></radialGradient>
+              <radialGradient id="flowerHeart"><stop offset="0" stop-color="#f8dc72"/><stop offset=".72" stop-color="#c58a29"/><stop offset="1" stop-color="#805326"/></radialGradient>
+              <filter id="paperShadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#49351f" flood-opacity=".2"/></filter>
+              <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="13"/></filter>
+            </defs>
+
+            <rect x="8" y="8" width="604" height="524" rx="30" fill="url(#skyWash)"/>
+            <circle cx="94" cy="90" r="42" fill="#edc85e" opacity=".16" filter="url(#softGlow)"/>
+            <circle cx="94" cy="90" r="25" fill="#e7b83e" opacity=".72"/>
+            <g stroke="#d49c36" stroke-width="3" stroke-linecap="round" opacity=".5">
+              <path d="M94 45v-18M94 153v-18M49 90H31M157 90h-18M62 58 49 45M139 135l-13-13M126 58l13-13M49 135l13-13"/>
             </g>
-            <!-- stem -->
-            <g class="part" data-part="stem" tabindex="0" role="button" aria-label="ลำต้น">
-              <path d="M150 272 C 148 220, 152 160, 150 110" stroke="#6f8f4f" stroke-width="12" fill="none" stroke-linecap="round"></path>
+            <path d="M8 390 Q95 365 175 386 T330 382 T470 389 T612 374 V532 H8Z" fill="url(#soilWash)" opacity=".82"/>
+            <path d="M8 390 Q120 363 225 387 T420 382 T612 374" fill="none" stroke="#6f4f32" stroke-width="4" opacity=".52"/>
+            <g fill="none" stroke="#d6b47b" stroke-width="2" opacity=".3"><path d="M30 438q70-28 140 2t145 0 150-5 120 5"/><path d="M20 487q90-25 180 0t180-2 210 0"/></g>
+
+            <g class="part" data-part="root" tabindex="0" role="button" aria-label="ราก" filter="url(#paperShadow)">
+              <g fill="none" stroke="#745032" stroke-linecap="round">
+                <path d="M318 383 C306 417 274 438 228 472" stroke-width="13"/>
+                <path d="M318 383 C326 425 315 460 320 512" stroke-width="14"/>
+                <path d="M320 387 C347 420 391 444 431 481" stroke-width="12"/>
+                <path d="M293 414 C264 420 250 439 240 455" stroke-width="6"/>
+                <path d="M270 438 C246 447 211 447 185 470" stroke-width="4"/>
+                <path d="M331 424 C362 428 376 453 389 474" stroke-width="6"/>
+                <path d="M355 438 C389 440 420 451 454 469" stroke-width="4"/>
+                <path d="M319 449 C297 468 292 487 288 510" stroke-width="5"/>
+                <path d="M320 463 C343 480 349 497 354 515" stroke-width="5"/>
+              </g>
+              <g fill="#d7b27b" opacity=".75"><circle cx="221" cy="475" r="4"/><circle cx="184" cy="471" r="3"/><circle cx="454" cy="470" r="4"/><circle cx="288" cy="511" r="3"/></g>
             </g>
-            <!-- leaves -->
-            <g class="part" data-part="leaf" tabindex="0" role="button" aria-label="ใบ">
-              <ellipse cx="105" cy="195" rx="42" ry="18" fill="#7fa05a" transform="rotate(-25 105 195)"></ellipse>
-              <ellipse cx="196" cy="160" rx="42" ry="18" fill="#7fa05a" transform="rotate(22 196 160)"></ellipse>
-              <ellipse cx="103" cy="132" rx="34" ry="15" fill="#8fae68" transform="rotate(-30 103 132)"></ellipse>
+
+            <g class="part" data-part="stem" tabindex="0" role="button" aria-label="ลำต้น" filter="url(#paperShadow)">
+              <path d="M319 388 C310 333 327 278 315 224 C307 187 320 150 311 119" fill="none" stroke="#354826" stroke-width="18" stroke-linecap="round"/>
+              <path d="M315 388 C309 331 325 278 314 223 C308 184 320 150 311 119" fill="none" stroke="url(#stemPaint)" stroke-width="13" stroke-linecap="round"/>
+              <path d="M316 312 C276 286 247 271 219 247" fill="none" stroke="url(#stemPaint)" stroke-width="9" stroke-linecap="round"/>
+              <path d="M317 263 C353 236 383 217 410 186" fill="none" stroke="url(#stemPaint)" stroke-width="9" stroke-linecap="round"/>
+              <path d="M314 205 C280 184 257 166 241 142" fill="none" stroke="url(#stemPaint)" stroke-width="8" stroke-linecap="round"/>
             </g>
-            <!-- flower -->
-            <g class="part" data-part="flower" tabindex="0" role="button" aria-label="ดอก">
-              <ellipse cx="150" cy="78" rx="14" ry="26" fill="#d98a7e"></ellipse>
-              <ellipse cx="150" cy="78" rx="26" ry="14" fill="#d98a7e"></ellipse>
-              <ellipse cx="138" cy="66" rx="14" ry="22" fill="#e2a49a" transform="rotate(-45 138 66)"></ellipse>
-              <ellipse cx="162" cy="66" rx="14" ry="22" fill="#e2a49a" transform="rotate(45 162 66)"></ellipse>
-              <circle cx="150" cy="72" r="11" fill="#e8c25a"></circle>
+
+            <g class="part" data-part="leaf" tabindex="0" role="button" aria-label="ใบ" filter="url(#paperShadow)">
+              <g stroke="#405b32" stroke-width="3" stroke-linejoin="round">
+                <path d="M219 247 C166 226 124 243 112 286 C156 301 197 287 219 247Z" fill="#78985a"/>
+                <path d="M410 186 C461 154 503 166 521 207 C484 230 442 218 410 186Z" fill="#66864e"/>
+                <path d="M241 142 C200 111 161 120 143 158 C176 182 214 173 241 142Z" fill="#89a564"/>
+                <path d="M319 310 C365 283 405 294 420 333 C383 354 347 342 319 310Z" fill="#6e8e50"/>
+              </g>
+              <g fill="none" stroke="#d8e1ae" stroke-width="2" opacity=".75">
+                <path d="M117 284Q166 269 214 250M145 278l-15-19M166 270l-10-24M190 260l-4-23"/>
+                <path d="M516 205Q467 197 416 188M489 200l13-18M465 195l8-21M441 191l4-18"/>
+                <path d="M148 157Q190 151 236 143M173 153l-11-18M197 149l-5-20M219 146l2-17"/>
+                <path d="M416 330Q371 320 324 311M392 325l10-17M369 321l5-18M346 316l1-16"/>
+              </g>
             </g>
+
+            <g class="part" data-part="flower" tabindex="0" role="button" aria-label="ดอก" filter="url(#paperShadow)">
+              <g transform="translate(311 104)">
+                <ellipse rx="39" ry="76" fill="url(#petalPaint)" transform="rotate(0) translate(0 -46)"/>
+                <ellipse rx="39" ry="76" fill="url(#petalPaint)" transform="rotate(72) translate(0 -46)"/>
+                <ellipse rx="39" ry="76" fill="url(#petalPaint)" transform="rotate(144) translate(0 -46)"/>
+                <ellipse rx="39" ry="76" fill="url(#petalPaint)" transform="rotate(216) translate(0 -46)"/>
+                <ellipse rx="39" ry="76" fill="url(#petalPaint)" transform="rotate(288) translate(0 -46)"/>
+                <circle r="34" fill="url(#flowerHeart)" stroke="#805326" stroke-width="3"/>
+                <g fill="#624525"><circle cx="-15" cy="-8" r="3"/><circle cx="0" cy="-15" r="3"/><circle cx="15" cy="-8" r="3"/><circle cx="-14" cy="9" r="3"/><circle cx="2" cy="13" r="3"/><circle cx="16" cy="7" r="3"/></g>
+              </g>
+              <path d="M409 185 C425 139 459 126 484 145 C467 166 443 174 409 185Z" fill="#b86676" stroke="#405b32" stroke-width="3"/>
+              <path d="M478 146 C470 129 461 121 449 115" fill="none" stroke="#55703f" stroke-width="5" stroke-linecap="round"/>
+            </g>
+
+            <g fill="#f5e5b3" stroke="#8a6a42" stroke-width="2" opacity=".8"><circle cx="82" cy="434" r="7"/><circle cx="112" cy="470" r="5"/><circle cx="510" cy="426" r="7"/><circle cx="548" cy="477" r="5"/></g>
           </svg>
 
           <div class="part-info" id="partInfo" aria-live="polite">
@@ -246,9 +338,9 @@
     flower: {name:"ดอก", text:"ทำหน้าที่สืบพันธุ์ — กลีบดอกสีสวยเชิญชวนแมลง เกสรเพศผู้สร้างละอองเรณู เกสรเพศเมียรับละอองเรณูเพื่อสร้างเมล็ด"}
   };
   var partInfo = document.getElementById("partInfo");
-  document.querySelectorAll("svg.plant .part").forEach(function(g){
+  document.querySelectorAll(".part-hotspot").forEach(function(g){
     function select(){
-      document.querySelectorAll("svg.plant .part").forEach(function(x){ x.classList.remove("selected"); });
+      document.querySelectorAll(".part-hotspot").forEach(function(x){ x.classList.remove("selected"); });
       g.classList.add("selected");
       var d = partData[g.dataset.part];
       partInfo.innerHTML = "<h4>" + d.name + "</h4><p>" + d.text + "</p>";
