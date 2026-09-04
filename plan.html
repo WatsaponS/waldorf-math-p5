@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e6d9bd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c2a22" media="(prefers-color-scheme: dark)">
+<title>แผนการเรียน Home School · สมุดบทเรียนหลัก ป.5 แนววอลดอร์ฟ</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  /* overall progress */
+  .progress-hero{
+    display:flex; flex-direction:column; gap:10px; align-items:center;
+    text-align:center;
+  }
+  .progress-hero .big-num{
+    font-family:var(--font-display); font-style:italic; font-weight:700;
+    font-size:clamp(30px,5vw,44px); color:var(--gold);
+    font-variant-numeric:tabular-nums;
+  }
+  .bar{
+    width:100%; height:14px; border-radius:999px;
+    background:color-mix(in srgb, var(--card-edge) 55%, var(--card));
+    overflow:hidden;
+  }
+  .bar > span{
+    display:block; height:100%; border-radius:999px;
+    background:linear-gradient(90deg, var(--red), var(--gold), var(--leaf), var(--blue));
+    transition:width .35s ease;
+    min-width:0;
+  }
+  @media (prefers-reduced-motion: reduce){ .bar > span{transition:none;} }
+
+  /* hour rhythm */
+  .hour-row{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:12px;
+  }
+  .hour{
+    border:1px solid var(--card-edge); border-radius:12px;
+    padding:14px 16px; text-align:center;
+    background:color-mix(in srgb, var(--h, var(--gold)) 9%, var(--card));
+  }
+  .hour .h-time{
+    font-family:var(--font-display); font-style:italic; font-size:18px;
+    color:var(--h, var(--gold)); margin-bottom:4px;
+  }
+  .hour p{font-size:13.5px; color:var(--ink-soft);}
+
+  /* subject blocks */
+  .subj-head{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px;
+    margin-bottom:6px;
+  }
+  .subj-head h2{margin:0;}
+  .subj-head .count{
+    margin-left:auto;
+    font-size:14px; font-weight:700; color:var(--ink-soft);
+    font-variant-numeric:tabular-nums;
+  }
+  .subj-bar{height:9px; margin:10px 0 18px;}
+  .subj-bar > span{background:var(--card-accent, var(--gold));}
+  .open-book{
+    font-size:13.5px; font-weight:700; text-decoration:none;
+    color:var(--card-accent, var(--gold));
+  }
+
+  .session{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:13px 6px;
+    border-bottom:1px dashed var(--card-edge);
+  }
+  .session:last-child{border-bottom:none;}
+  .session input[type="checkbox"]{
+    appearance:none; -webkit-appearance:none;
+    flex:none;
+    width:30px; height:30px; margin-top:2px;
+    border:2px solid var(--card-edge); border-radius:50%;
+    background:var(--card);
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    touch-action:manipulation;
+  }
+  .session input[type="checkbox"]:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+  .session input[type="checkbox"]:checked{
+    background:var(--card-accent, var(--gold));
+    border-color:var(--card-accent, var(--gold));
+  }
+  .session input[type="checkbox"]:checked::after{
+    content:"✓"; color:#fff8ec; font-size:17px; font-weight:700;
+  }
+  .session .s-body{flex:1; min-width:0;}
+  .session .s-title{
+    font-weight:700; font-size:15.5px; margin-bottom:2px;
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:8px;
+  }
+  .session .s-no{
+    font-family:var(--font-display); font-style:italic;
+    color:var(--card-accent, var(--gold));
+    font-variant-numeric:tabular-nums;
+  }
+  .session .s-desc{font-size:14px; color:var(--ink-soft);}
+  .session.done .s-title{text-decoration:line-through; text-decoration-thickness:1.5px; opacity:.65;}
+  .session.done .s-desc{opacity:.6;}
+
+  .plan-note{
+    font-size:13.5px; color:var(--ink-soft);
+    background:color-mix(in srgb, var(--gold) 10%, var(--card));
+    border-radius:10px; padding:12px 14px; margin-top:14px;
+  }
+  .schedule-visual{
+    display:flex; flex-wrap:wrap; gap:6px; justify-content:center;
+    margin-top:14px;
+  }
+  .week-chip{
+    font-size:12.5px; font-weight:700;
+    border-radius:8px; padding:7px 11px;
+    background:color-mix(in srgb, var(--w, var(--gold)) 20%, var(--card));
+    border:1px solid var(--card-edge);
+    font-variant-numeric:tabular-nums;
+  }
+</style>
+</head>
+<body>
+<div class="page" style="--page-accent:var(--gold)">
+  <div class="wrap">
+
+    <div class="cover">
+      <p class="eyebrow">สมุดบทเรียนหลัก · การศึกษาแนววอลดอร์ฟ · ป.5</p>
+      <h1>แผนการเรียน Home School</h1>
+      <p class="sub">วันละ 1 ชั่วโมงต่อวิชา — 50 ชั่วโมงแห่งการเรียนรู้ที่ค่อย ๆ เติบโตไปตามจังหวะของเด็ก</p>
+      <div class="rule"></div>
+    </div>
+
+    <nav class="site-nav" aria-label="วิชา">
+      <a href="index.html" style="--s:var(--ink-soft)"><span class="dot"></span>หน้าหลัก</a>
+      <a href="plan.html" style="--s:linear-gradient(135deg,var(--red),var(--gold),var(--leaf),var(--blue))" aria-current="page"><span class="dot"></span>แผนการเรียน</a>
+      <a href="math.html" style="--s:var(--red)"><span class="dot"></span>คณิตศาสตร์</a>
+      <a href="thai.html" style="--s:var(--plum)"><span class="dot"></span>ภาษาไทย</a>
+      <a href="botany.html" style="--s:var(--leaf)"><span class="dot"></span>พฤกษศาสตร์</a>
+      <a href="history.html" style="--s:var(--gold)"><span class="dot"></span>อารยธรรมโบราณ</a>
+      <a href="geography.html" style="--s:var(--blue)"><span class="dot"></span>ภูมิศาสตร์</a>
+    </nav>
+
+    <!-- overall progress -->
+    <div class="card" style="--card-accent:var(--gold)">
+      <div class="progress-hero">
+        <h2>ความคืบหน้าทั้งหมด</h2>
+        <div class="big-num"><span id="doneCount">0</span> / 50 session</div>
+        <div class="bar"><span id="totalBar" style="width:0%"></span></div>
+        <p class="lead" style="margin:6px 0 0;">ติ๊กเครื่องหมายถูกเมื่อเรียนจบแต่ละ session — ระบบจะจำความคืบหน้าไว้ในเครื่องนี้โดยอัตโนมัติ</p>
+      </div>
+    </div>
+
+    <!-- how to use -->
+    <div class="card" style="--card-accent:var(--leaf)">
+      <h2>วิธีจัดตารางที่แนะนำ</h2>
+      <p class="lead">แนววอลดอร์ฟแนะนำให้เรียนแบบ <b>Main Lesson Block</b> — จดจ่อกับวิชาเดียวต่อเนื่องจนจบ แล้วค่อยเปลี่ยนวิชา เด็กจะดำดิ่งได้ลึกกว่าการสลับวิชาไปมาทุกวัน</p>
+
+      <div class="know-grid">
+        <div class="know" style="--card-accent:var(--leaf)">
+          <h4>แบบที่แนะนำ: เรียนเป็นบล็อก</h4>
+          <p>เรียนวิชาเดียว <b>วันละ 1 ชั่วโมง จันทร์–ศุกร์ เป็นเวลา 2 สัปดาห์</b> (= 10 session) แล้วเปลี่ยนวิชาใหม่ ครบ 5 วิชาใน <b>10 สัปดาห์</b> — พอดีหนึ่งภาคเรียน</p>
+        </div>
+        <div class="know" style="--card-accent:var(--leaf)">
+          <h4>แบบทางเลือก: หมุนเวียนรายวัน</h4>
+          <p>ถ้าเด็กชอบความหลากหลาย จัด <b>จันทร์=คณิต อังคาร=ไทย พุธ=พฤกษศาสตร์ พฤหัส=อารยธรรม ศุกร์=ภูมิศาสตร์</b> สัปดาห์ละ 5 ชั่วโมง ครบทุกวิชาใน 10 สัปดาห์เช่นกัน</p>
+        </div>
+      </div>
+
+      <div class="schedule-visual" aria-label="ลำดับบล็อกการเรียน 10 สัปดาห์">
+        <span class="week-chip" style="--w:var(--red)">สัปดาห์ 1–2 · คณิตศาสตร์</span>
+        <span class="week-chip" style="--w:var(--plum)">สัปดาห์ 3–4 · ภาษาไทย</span>
+        <span class="week-chip" style="--w:var(--leaf)">สัปดาห์ 5–6 · พฤกษศาสตร์</span>
+        <span class="week-chip" style="--w:var(--gold)">สัปดาห์ 7–8 · อารยธรรมโบราณ</span>
+        <span class="week-chip" style="--w:var(--blue)">สัปดาห์ 9–10 · ภูมิศาสตร์</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 style="text-align:center;">จังหวะของ 1 ชั่วโมง</h3>
+      <div class="hour-row">
+        <div class="hour" style="--h:var(--red)">
+          <div class="h-time">10 นาทีแรก · จังหวะ</div>
+          <p>ท่องบทกลอน ร้องเพลง หรือทบทวนของเมื่อวานด้วยปากเปล่า — ปลุกใจให้พร้อม</p>
+        </div>
+        <div class="hour" style="--h:var(--gold)">
+          <div class="h-time">30 นาที · เรียนรู้</div>
+          <p>เปิดบทเรียนในเว็บ อ่านเนื้อหา เล่นกิจกรรม ผู้ปกครองเล่าเสริมเป็นเรื่องราว</p>
+        </div>
+        <div class="hour" style="--h:var(--leaf)">
+          <div class="h-time">20 นาทีท้าย · ลงมือทำ</div>
+          <p>วาดภาพ เขียนสรุปลงสมุดบทเรียนหลักของตัวเอง หรือทำแบบฝึกหัดในเว็บ</p>
+        </div>
+      </div>
+
+      <p class="plan-note"><b>เคล็ดลับสำหรับผู้ปกครอง:</b> หัวใจของวอลดอร์ฟคือ "สมุดบทเรียนหลัก" ที่เด็กสร้างเอง — เตรียมสมุดวาดเขียนเปล่า 1 เล่มต่อวิชา ให้เด็กวาดและเขียนสิ่งที่เรียนทุกวัน เมื่อจบบล็อกเด็กจะมีหนังสือเรียนที่ตัวเองเป็นผู้แต่ง</p>
+    </div>
+
+    <!-- subject session lists (rendered by JS) -->
+    <div id="planRoot"></div>
+
+    <div style="text-align:center; margin:6px 0 20px;">
+      <button class="btn ghost" id="resetPlan">ล้างความคืบหน้าทั้งหมด</button>
+    </div>
+
+    <footer>สมุดบทเรียนหลัก · แผนการเรียน Home School ป.5 · แนวการศึกษาวอลดอร์ฟ</footer>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var subjects = [
+    {
+      id:"math", name:"คณิตศาสตร์", color:"var(--red)", page:"math.html",
+      note:"สัปดาห์ 1–2 · เตรียมสมุดวาดเขียน วงเวียน และดินสอสี",
+      sessions:[
+        {t:"ดาวแห่งการคูณ แม่ 2 และ 3", d:"เล่น 'ดาวแห่งการคูณ' ในเว็บ แล้ววาดดาวแม่ 2 กับแม่ 3 ลงสมุดด้วยวงเวียน พร้อมท่องสูตรคูณเป็นจังหวะ"},
+        {t:"ดาวแห่งการคูณ แม่ 4, 6, 8", d:"สังเกตว่าแม่คู่สร้างลวดลายคล้ายกันอย่างไร เลือกดาวที่ชอบที่สุดวาดและระบายสี"},
+        {t:"ดาวแห่งการคูณ แม่ 5, 7, 9", d:"ค้นหาดาวที่สวยที่สุด (ลองแม่ 7 ดู!) แล้วทายว่าทำไมแม่ 5 จึงได้รูปดาวแฉกเดียว"},
+        {t:"เศษส่วนจากขนมปัง", d:"เล่น 'ขนมปังเศษส่วน' — แบ่งขนมปังจริงหรือผลไม้ที่บ้านเป็นเศษส่วน อ่านค่าเศษส่วนที่สร้าง"},
+        {t:"เปรียบเทียบเศษส่วนและเศษส่วนอย่างต่ำ", d:"ใช้เกมเปรียบเทียบก้อนขนมปังสองก้อน สังเกตว่า 2/6 กับ 1/3 เท่ากันเพราะอะไร"},
+        {t:"ตัวประกอบและ ห.ร.ม.", d:"เล่น 'สวนตัวประกอบ' — ปลูกเลขคู่ต่าง ๆ หาเมล็ดสีทอง แล้วจดตัวประกอบของ 12, 18, 24 ลงสมุด"},
+        {t:"ค.ร.น. และโจทย์จังหวะเวลา", d:"ทำโจทย์ระฆังวัดกับนกหวีดโรงเรียน แล้วลองแต่งโจทย์ ค.ร.น. ของตัวเอง 1 ข้อให้ผู้ปกครองตอบ"},
+        {t:"พื้นที่และเส้นรอบรูป", d:"เล่น 'แปลงผักเรขาคณิต' แล้ววัดพื้นที่จริงของโต๊ะหรือห้องนอนด้วยตลับเมตร คำนวณพื้นที่และเส้นรอบรูป"},
+        {t:"โจทย์ปัญหาจากชีวิตจริง", d:"ทำโจทย์ปัญหาทั้ง 3 ข้อในแท็บสมุดบันทึก โดยลองคิดเองก่อนเปิดเฉลยทุกข้อ"},
+        {t:"ทบทวนและสรุปบล็อก", d:"กลับไปเล่นทุกกิจกรรมที่ชอบอีกครั้ง เขียนสรุป 'สิ่งที่ฉันค้นพบ' ลงสมุดบทเรียนหลัก 1 หน้าเต็ม"}
+      ]
+    },
+    {
+      id:"thai", name:"ภาษาไทย", color:"var(--plum)", page:"thai.html",
+      note:"สัปดาห์ 3–4 · เตรียมสมุดคัดลายมือและดินสอสี",
+      sessions:[
+        {t:"ชนิดของคำ: นาม สรรพนาม กริยา", d:"อ่านการ์ดชนิดของคำ 3 ชนิดแรก แล้วเดินรอบบ้านชี้สิ่งของพร้อมบอกว่าเป็นคำนามอะไร แต่งประโยคปากเปล่า"},
+        {t:"ชนิดของคำ: วิเศษณ์ บุพบท สันธาน อุทาน", d:"เรียน 4 ชนิดที่เหลือ เล่นเกมผู้ปกครองพูดคำ–เด็กทายชนิด สลับกัน"},
+        {t:"เกมจำแนกคำ", d:"เล่น 'เกมจำแนกคำ' ในเว็บจนได้คะแนนเต็ม แล้วเขียนประโยค 3 ประโยคพร้อมระบุชนิดของทุกคำ"},
+        {t:"สำนวนสุภาษิตชุดแรก", d:"เรียนความต่างของสุภาษิต คำพังเพย สำนวน เล่นเกมทายความหมาย แล้ววาดภาพประกอบสำนวนที่ชอบ 1 สำนวน"},
+        {t:"สำนวนในชีวิตประจำวัน", d:"เล่นเกมทายความหมายอีกรอบ ให้เด็กลองใช้สำนวน 2 สำนวนในบทสนทนาจริงวันนี้"},
+        {t:"อ่านสังข์ทอง", d:"อ่านเรื่องย่อสังข์ทองด้วยกัน แล้วให้เด็กเล่าเรื่องย้อนกลับด้วยคำพูดของตัวเอง"},
+        {t:"คำถามและข้อคิดจากสังข์ทอง", d:"ตอบคำถามชวนคิดในเว็บ คุยกันเรื่อง 'อย่าตัดสินคนจากภายนอก' — เด็กเคยเจอเหตุการณ์แบบนี้ไหม"},
+        {t:"โครงสร้างเรียงความ", d:"เรียนเรียงความ 3 ส่วน (ราก–ลำต้น–ยอด) เลือกหัวข้อจากเว็บหรือคิดเอง แล้ววางโครงเรื่องแบบแผนผัง"},
+        {t:"เขียนเรียงความฉบับร่าง", d:"เขียนเรียงความในช่องเขียนของเว็บ (บันทึกอัตโนมัติ) เน้นเขียนให้จบก่อน ยังไม่ต้องแก้"},
+        {t:"ขัดเกลาและคัดลายมือ", d:"อ่านทวนฉบับร่าง แก้คำและเพิ่มรายละเอียด แล้วคัดลายมือฉบับสมบูรณ์ลงสมุดพร้อมวาดภาพประกอบ"}
+      ]
+    },
+    {
+      id:"botany", name:"พฤกษศาสตร์", color:"var(--leaf)", page:"botany.html",
+      note:"สัปดาห์ 5–6 · เตรียมเมล็ดถั่วเขียว สำลี และแก้วใส 2 ใบ",
+      sessions:[
+        {t:"ส่วนต่าง ๆ ของพืช", d:"แตะภาพต้นไม้ในเว็บเรียนหน้าที่ของราก ลำต้น ใบ ดอก แล้วออกไปวาดต้นไม้จริงต้นหนึ่งใกล้บ้านให้ครบทุกส่วน"},
+        {t:"รากและลำต้นเจาะลึก", d:"เริ่มทดลอง: แช่ก้านขึ้นฉ่ายในน้ำผสมสีผสมอาหาร ทิ้งไว้ข้ามคืน พรุ่งนี้ดูท่อลำเลียงที่ย้อมสี"},
+        {t:"ใบและการสังเคราะห์ด้วยแสง", d:"เรียน 'ครัวของพืช' ดูผลขึ้นฉ่ายจากเมื่อวาน แล้ววาดสมการสังเคราะห์ด้วยแสงเป็นภาพลงสมุด"},
+        {t:"เริ่มทดลองถั่วงอกมืด–สว่าง", d:"เพาะถั่วเขียว 2 แก้ว วางที่มืด 1 สว่าง 1 รดน้ำทุกวัน ตั้งสมมุติฐานว่าแก้วไหนจะเป็นอย่างไร"},
+        {t:"ดอกและการผสมเกสร", d:"เรียนหน้าที่ของดอก แล้วหาดอกไม้จริงมาสังเกตกลีบ เกสร ลองหาผึ้งหรือผีเสื้อในสวน จดบันทึกถั่วงอกวันที่ 2"},
+        {t:"วัฏจักรชีวิตของพืชดอก", d:"เล่นเกมเรียงลำดับวัฏจักรจนถูกทุกขั้น แล้ววาดวงจรชีวิตพืชเป็นวงกลมลงสมุด จดบันทึกถั่วงอก"},
+        {t:"ครอบครัวพืช: มอสและเฟิร์น", d:"เรียนพืชไม่มีดอก 2 กลุ่ม เดินสำรวจหามอสตามที่ชื้นหรือเฟิร์นในบริเวณบ้าน จดบันทึกถั่วงอก"},
+        {t:"ครอบครัวพืช: เมล็ดเปลือยและพืชดอก", d:"เรียน 2 กลุ่มที่เหลือ เล่นเกมจัดพืชเข้าครอบครัวจนคะแนนเต็ม จดบันทึกถั่วงอก"},
+        {t:"สรุปผลการทดลองถั่วงอก", d:"เปรียบเทียบถั่วงอก 2 แก้ว วาดภาพเทียบกัน เขียนสรุปว่าทำไมต้นในที่มืดจึงซีดเหลือง"},
+        {t:"แบบฝึกหัดรวมและสมุดพฤกษศาสตร์", d:"ทำแบบฝึกหัดทบทวน 8 ข้อในเว็บ แล้วรวบรวมภาพวาดทั้งหมดจัดเป็นสมุดพฤกษศาสตร์ของตัวเอง"}
+      ]
+    },
+    {
+      id:"history", name:"อารยธรรมโบราณ", color:"var(--gold)", page:"history.html",
+      note:"สัปดาห์ 7–8 · เตรียมดินน้ำมันหรือแป้งโดว์ และกระดาษวาดเขียน",
+      sessions:[
+        {t:"เมโสโปเตเมีย: ดินแดนระหว่างแม่น้ำ", d:"อ่านเรื่องเมโสโปเตเมียในเว็บ แล้วกดดินน้ำมันเป็นแผ่น เขียนชื่อตัวเองด้วย 'อักษรลิ่ม' ที่ประดิษฐ์เอง"},
+        {t:"เมโสโปเตเมีย: กฎหมายและเลขฐาน 60", d:"เรียนเรื่องกฎหมายฮัมมูราบี ชวนกันตั้ง 'กฎบ้าน 3 ข้อ' ที่ยุติธรรม แล้วดูนาฬิกา — ทำไม 1 นาทีมี 60 วินาที?"},
+        {t:"อียิปต์: ของขวัญจากแม่น้ำไนล์", d:"อ่านเรื่องอียิปต์ คุยกันว่าทำไมน้ำท่วมกลับเป็นเรื่องดี เทียบกับน้ำท่วมนาข้าวของไทย"},
+        {t:"อียิปต์: ไฮโรกลิฟิกและพีระมิด", d:"วาดชื่อตัวเองเป็นอักษรภาพแบบไฮโรกลิฟิก แล้วลองต่อพีระมิดจากบล็อกหรือวาดพีระมิดแบบมีมิติ"},
+        {t:"อินเดีย: เมืองวางแผนแห่งแรกของโลก", d:"อ่านเรื่องโมเฮนโจ-ดาโร แล้ววาดผังเมืองในฝันของตัวเองแบบตารางพร้อมท่อระบายน้ำ"},
+        {t:"อินเดีย: เลขศูนย์อันยิ่งใหญ่", d:"คุยกันว่าถ้าโลกไม่มีเลข 0 จะเขียนเลข 10, 100 อย่างไร ลองเขียนเลขโรมันเทียบเลขอารบิกดู"},
+        {t:"เปอร์เซีย: จักรวรรดิแห่งถนน", d:"อ่านเรื่องเปอร์เซีย วาดแผนที่ถนนหลวงพร้อมม้าเร็วส่งสาร แล้วออกแบบ 'สวนสวรรค์' ของตัวเอง"},
+        {t:"กรีซ: ประชาธิปไตยและโอลิมปิก", d:"อ่านเรื่องกรีซ ทดลอง 'ลงคะแนนแบบเอเธนส์' เลือกเมนูเย็นนี้ทั้งบ้าน แล้วจัดมินิโอลิมปิกหน้าบ้าน"},
+        {t:"กรีซ: นักปรัชญาผู้ตั้งคำถาม", d:"เล่นเป็นโสกราตีส — ผลัดกันถาม 'ทำไม' 5 ชั้นให้ลึกที่สุด แล้วจดคำถามที่ดีที่สุดของวันไว้"},
+        {t:"เกมจับคู่และเส้นเวลาสรุป", d:"เล่นเกมจับคู่ผลงานจนคะแนนเต็ม แล้ววาดเส้นเวลา 5 อารยธรรมฉบับตัวเองลงกระดาษแผ่นยาว"}
+      ]
+    },
+    {
+      id:"geo", name:"ภูมิศาสตร์", color:"var(--blue)", page:"geography.html",
+      note:"สัปดาห์ 9–10 · เตรียมกระดาษแผ่นใหญ่และสีสำหรับวาดแผนที่",
+      sessions:[
+        {t:"หกภูมิภาคของไทย", d:"อ่านการ์ดทั้ง 6 ภาคในเว็บ หาว่าบ้านเราอยู่ภาคไหน แล้วเล่าให้กันฟังว่าเคยไปภาคไหนมาแล้วบ้าง"},
+        {t:"ภาคเหนือและอีสาน", d:"เจาะลึก 2 ภาค เปิดดูรูปดอยอินทนนท์และแม่น้ำโขง ลองชิมหรือทำอาหารเหนือ/อีสานสักเมนู"},
+        {t:"ภาคกลางและกำเนิดเจ้าพระยา", d:"เรียนแผนผังปิง วัง ยม น่าน รวมเป็นเจ้าพระยา วาดแผนผังสายน้ำนี้ลงสมุดด้วยสีฟ้า"},
+        {t:"ภาคตะวันออก ตะวันตก และใต้", d:"เรียน 3 ภาคที่เหลือ เทียบผลไม้ตะวันออกกับยางพาราภาคใต้ — ทำไมพืชแต่ละภาคไม่เหมือนกัน?"},
+        {t:"สายน้ำสำคัญของไทย", d:"อ่านแท็บสายน้ำและขุนเขา แล้ววาดแผนที่ประเทศไทยเฉพาะแม่น้ำสายหลัก 5 สาย"},
+        {t:"ขุนเขาและแผนที่นูน", d:"เรียนเทือกเขาสำคัญ แล้วปั้นแผนที่นูนต่ำประเทศไทยจากแป้งโดว์ — ปั้นดอยอินทนนท์ให้สูงที่สุด"},
+        {t:"เกมจังหวัดรอบแรก", d:"เล่น 'จังหวัดนี้อยู่ภาคไหน' รอบแรก ข้อไหนผิดให้เปิดการ์ดภาคนั้นอ่านทวน"},
+        {t:"จังหวัดของเรา", d:"สำรวจจังหวัดตัวเองให้ลึก: แม่น้ำอะไรไหลผ่าน ของขึ้นชื่อคืออะไร แล้ววาดโปสการ์ดประจำจังหวัด"},
+        {t:"เกมจังหวัดพิชิตคะแนนเต็ม", d:"เล่นเกมจังหวัดจนได้คะแนนเต็ม แล้วต่อด้วยคำถามสายน้ำและขุนเขาให้ครบ"},
+        {t:"แผนที่ประเทศไทยฉบับของฉัน", d:"วาดแผนที่ไทยแผ่นใหญ่ ลงสี 6 ภาค ติดสัญลักษณ์ของเด่นแต่ละภาค — ผลงานชิ้นเอกปิดบล็อก!"}
+      ]
+    }
+  ];
+
+  var STORE_KEY = "waldorf-plan-p5";
+  var state = {};
+  try{ state = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); }catch(e){ state = {}; }
+  function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+
+  var root = document.getElementById("planRoot");
+
+  subjects.forEach(function(s){
+    var card = document.createElement("div");
+    card.className = "card";
+    card.style.setProperty("--card-accent", s.color);
+    var head =
+      "<div class='subj-head'>" +
+        "<h2>" + s.name + "</h2>" +
+        "<a class='open-book' href='" + s.page + "'>เปิดสมุดบทเรียน →</a>" +
+        "<span class='count'><span id='cnt-" + s.id + "'>0</span>/10</span>" +
+      "</div>" +
+      "<p class='lead' style='margin-bottom:8px;'>" + s.note + "</p>" +
+      "<div class='bar subj-bar'><span id='bar-" + s.id + "' style='width:0%'></span></div>";
+    card.innerHTML = head;
+
+    s.sessions.forEach(function(ses, i){
+      var key = s.id + "-" + (i+1);
+      var row = document.createElement("div");
+      row.className = "session" + (state[key] ? " done" : "");
+      var cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = !!state[key];
+      cb.setAttribute("aria-label", s.name + " session " + (i+1) + ": " + ses.t);
+      cb.addEventListener("change", function(){
+        state[key] = cb.checked;
+        if(!cb.checked) delete state[key];
+        row.classList.toggle("done", cb.checked);
+        save();
+        refresh();
+      });
+      var body = document.createElement("div");
+      body.className = "s-body";
+      body.innerHTML =
+        "<div class='s-title'><span class='s-no'>Session " + (i+1) + "</span> " + ses.t + "</div>" +
+        "<div class='s-desc'>" + ses.d + "</div>";
+      row.appendChild(cb);
+      row.appendChild(body);
+      card.appendChild(row);
+    });
+    root.appendChild(card);
+  });
+
+  function refresh(){
+    var total = 0;
+    subjects.forEach(function(s){
+      var done = 0;
+      s.sessions.forEach(function(_, i){
+        if(state[s.id + "-" + (i+1)]) done++;
+      });
+      total += done;
+      document.getElementById("cnt-" + s.id).textContent = done;
+      document.getElementById("bar-" + s.id).style.width = (done*10) + "%";
+    });
+    document.getElementById("doneCount").textContent = total;
+    document.getElementById("totalBar").style.width = (total*2) + "%";
+  }
+  refresh();
+
+  document.getElementById("resetPlan").addEventListener("click", function(){
+    if(confirm("ล้างความคืบหน้าทั้งหมดและเริ่มใหม่?")){
+      state = {};
+      save();
+      document.querySelectorAll(".session input[type=checkbox]").forEach(function(cb){ cb.checked = false; });
+      document.querySelectorAll(".session").forEach(function(r){ r.classList.remove("done"); });
+      refresh();
+    }
+  });
+})();
+</script>
+</body>
+</html>
