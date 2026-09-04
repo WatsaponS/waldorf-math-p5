@@ -305,7 +305,8 @@
       var extraArt = cell >= 10;
       var artIndex = extraArt ? cell - 10 : cell;
       var artPos = (artIndex % 5) * 25 + "% " + (extraArt ? "50%" : (Math.floor(artIndex / 5) ? "100%" : "0%"));
-      var artFile = "assets/session-sheet-" + s.id + (extraArt ? "-extra" : "") + ".jpg";
+      /* thumbnails here; the lesson banner loads the full-resolution sheet */
+      var artFile = "assets/session-sheet-" + s.id + (extraArt ? "-extra" : "") + "-thumb.jpg";
       var artSize = extraArt ? "500% 100%" : "500% 200%";
       link.innerHTML =
         "<span class='session-art' aria-hidden='true' style=\"background-image:url('" + artFile + "');background-size:" + artSize + ";background-position:" + artPos + "\"></span>" +
